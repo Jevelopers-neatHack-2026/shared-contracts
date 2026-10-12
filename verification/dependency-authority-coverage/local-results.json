@@ -1,0 +1,60 @@
+{
+  "scope": "NEW-2 dependency metadata coverage hardening; synthetic unit evidence only",
+  "recorded_at_utc": "2026-10-12T16:01:45.198637+00:00",
+  "runtime": {
+    "local_node": "v22.16.0",
+    "supported_sdk_toolchain": false,
+    "required_ci_node": [
+      "22.23.3",
+      "24.21.0"
+    ]
+  },
+  "baseline": {
+    "producer_revision": "d432ad5c895a67155affeaa05cd8423c758d95c3",
+    "source_blob": "2d4413b8ffd1418b090a49936fb1e72b6cf051fb",
+    "command": "node --test tests/dependency-map-coverage.test.mjs",
+    "exit_code": 1,
+    "tests": 20,
+    "passed": 9,
+    "failed": 11,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "fixed": {
+    "source_blob": "e8912d880daa64722fb5e155bbe2f8a17afecf67",
+    "test_blob": "e5e952cf7777638682602753f86c23e8b8a5475b",
+    "workflow_blob": "4af620321c41888682c82efd4bc133d85edc48d2",
+    "command": "node --test tests/dependency-map-coverage.test.mjs",
+    "exit_code": 0,
+    "tests": 20,
+    "passed": 20,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "syntax_checks": [
+    {
+      "command": "node --check scripts/dependency-map.mjs",
+      "exit_code": 0
+    },
+    {
+      "command": "node --check tests/dependency-map-coverage.test.mjs",
+      "exit_code": 0
+    }
+  ],
+  "raw_logs": {
+    "location": "retained in the task evidence attachment; not included in the package",
+    "normalization": "replace the local source workspace prefix with $WORKTREE only",
+    "baseline_tap_sha256": "2c8c687b16b8ecb35d65b77a221e30c5697499a60caefd33cc519eee18484618",
+    "fixed_tap_sha256": "06fdd0d98da7d4e77380620f9b3d7d8798c2d62f49a859c17f7b60d195e6de2d"
+  },
+  "limitations": [
+    "The local workspace is a Git-blob-verified focused source copy, not a full repository clone.",
+    "Direct git ls-remote failed with exit 128 (GitHub DNS resolution); Entire graph search failed with exit 127 (CLI unavailable).",
+    "Full build, typecheck, generation, catalog fixtures, installed consumers and supported-runtime checks were not executed locally. Existing CI is retained; the Node 24 job additionally runs the new guard tests.",
+    "This does not authenticate issue contents or detect coordinated removal from both input collections; independent inventory and actual owner acceptance remain required.",
+    "The separately tracked requirements.followups scope is unchanged.",
+    "No consumer adoption, review approval, main merge, release acceptance or provider operation is established."
+  ],
+  "provider_mode": "none; dependency-free synthetic metadata tests only"
+}

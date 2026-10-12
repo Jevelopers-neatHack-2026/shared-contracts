@@ -43,6 +43,8 @@ jobs:
           cache: npm
       - name: Provision locked compiler and package-test tools
         run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Verify authoritative dependency coverage
+        run: node --test tests/dependency-map-coverage.test.mjs
       - name: Verify actual installed ESM, types and all supported fixture versions
         env:
           npm_config_offline: 'true'

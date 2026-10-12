@@ -6,7 +6,17 @@ export function dependencyNumbers(source) {
 }
 export function dependencyErrors(requirements, authority) {
   const failures = [];
+  // Both collections must cover the same issues exactly once. Iterating only the
+  // authority rows would let a missing source row silently disable its checks.
+  const requiredIssues = new Set(), authorityIssues = new Set(authority.issues.map(row => row.issue));
+  for (const { issue } of requirements.issues) {
+    if (requiredIssues.has(issue) || !authorityIssues.has(issue)) failures.push({ code: 'AUTHORITATIVE_DEPENDENCY_MISMATCH', issue });
+    requiredIssues.add(issue);
+  }
+  const seenAuthority = new Set();
   for (const source of authority.issues) {
+    if (seenAuthority.has(source.issue)) failures.push({ code: 'AUTHORITATIVE_DEPENDENCY_MISMATCH', issue: source.issue });
+    seenAuthority.add(source.issue);
     const row = requirements.issues.find(row => row.issue === source.issue);
     const expected = dependencyNumbers(source.blocked_by_source);
     if (!row || row.body_sha256 !== source.body_sha256 || JSON.stringify([...row.dependencies].sort((a, b) => a - b)) !== JSON.stringify(expected)) failures.push({ code: 'AUTHORITATIVE_DEPENDENCY_MISMATCH', issue: source.issue });
