@@ -148,10 +148,16 @@ test('intended evidence roles stay separate from current per-version pins and ro
   const manifest = await readJson('compatibility/consumers.json');
   for (const repository of ['cost-intelligence', 'integration-evals']) {
     const current = requiredConsumerCoverage(entries, repository);
-    const existingEntries = entries.filter(entry => entry.name !== 'ProviderReportedCostEvidence' && (entry.producers.includes(repository) || entry.consumers.includes(repository)));
-    assert.ok(!current.requiredNames.includes('ProviderReportedCostEvidence'));
-    assert.ok(!current.requiredFixtures.some(row => row.contract === 'ProviderReportedCostEvidence'));
-    assert.ok(!current.requiredRoles.some(row => row.contract === 'ProviderReportedCostEvidence'));
+    const intendedOnlyEntries = entries.filter(entry => entry.role_status === 'intended_role_only');
+    const existingEntries = entries.filter(entry => entry.role_status !== 'intended_role_only' && (entry.producers.includes(repository) || entry.consumers.includes(repository)));
+    for (const intended of intendedOnlyEntries) {
+      assert.ok(!current.requiredNames.includes(intended.name));
+      assert.ok(!current.requiredFixtures.some(row => row.contract === intended.name));
+      assert.ok(!current.requiredRoles.some(row => row.contract === intended.name));
+      const declared = manifest.repositories.find(row => row.repository === repository);
+      assert.ok(!declared.roles.some(row => row.contract === intended.name));
+      assert.ok(!declared.schema_pins.some(row => row.contract === intended.name));
+    }
     assert.ok(current.requiredNames.includes('UsageEvent'));
     assert.deepEqual(current.requiredNames, existingEntries.map(entry => entry.name));
     assert.deepEqual(
@@ -170,8 +176,6 @@ test('intended evidence roles stay separate from current per-version pins and ro
       }))
     );
     const declared = manifest.repositories.find(row => row.repository === repository);
-    assert.ok(!declared.roles.some(row => row.contract === 'ProviderReportedCostEvidence'));
-    assert.ok(!declared.schema_pins.some(row => row.contract === 'ProviderReportedCostEvidence'));
     assert.ok(!declared.schema_pins.some(row => row.contract === 'UsageEvent' && row.version === '2.0.0'));
   }
 

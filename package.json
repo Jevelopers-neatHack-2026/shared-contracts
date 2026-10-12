@@ -1,6 +1,6 @@
 {
   "name": "@jevelopers/shared-contracts",
-  "version": "0.10.1",
+  "version": "0.11.1",
   "private": true,
   "type": "module",
   "engines": {
@@ -29,6 +29,11 @@
     "tooling/production-bundle.mjs",
     "tooling/production-zip.mjs",
     "tooling/production-preflight.mjs",
+    "tooling/production-field-boundaries.mjs",
+    "tooling/production-field-boundaries-core.mjs",
+    "tooling/production-field-boundaries-csv.mjs",
+    "tooling/production-field-boundaries-results.mjs",
+    "tooling/production-field-boundaries-derivation.mjs",
     "tooling/production-error-adapter.mjs",
     "tooling/production-fixture-check.mjs",
     "schemas",
@@ -43,6 +48,10 @@
     "./production-operations": {
       "types": "./generated/production-operations.d.ts",
       "import": "./tooling/production-operations.mjs"
+    },
+    "./production-field-boundaries": {
+      "types": "./generated/production-field-boundaries.d.ts",
+      "import": "./tooling/production-field-boundaries.mjs"
     },
     "./capability": {
       "types": "./generated/capability.d.ts",

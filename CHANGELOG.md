@@ -1,5 +1,13 @@
 # Candidate changes
 
+## 0.11.1 (unreleased private candidate)
+
+Repackages the opt-in production-field proposal as package version 0.11.1 and includes the three unchanged current-main readiness and receipt documents in the package content manifest. The added ReportingQuery/ReportingExportManifest work remains isolated proposal material and does not add canonical exports, Finance semantics, query services, persistence, metrics, browser validation, adoption, or GAP-001 acceptance. The proposal remains unaccepted; no owner authority, consumer pin, historical acceptance, or prior archive approval transfers to these bytes.
+
+## 0.11.0 (unreleased private candidate)
+
+Adds an opt-in, unaccepted production-field proposal for CSV input policy/reference/checkpoint/request, restricted draft row/batch results and read bindings, and explicit derivation/replay bindings. Existing request/result schemas, legacy reference unions, callback pins, consumer assignments, and acceptance records remain unchanged. All new per-version role assignments are empty pending owner agreement.
+
 ## 0.10.1 (unreleased private candidate)
 
 Addresses the fresh independent review of the unaccepted UsageEvent/2.0.0 candidate: pairwise comparison refuses directly mutually superseding observations in either direction, including when either event is checked against the other as prior; ordinary one-way correction and late-observation handling remain. The existing ProductionMeteringPort.observe callback is pinned to UsageEvent/1.0.0 while the generic root version union and the opt-in v2 helper remain available. The earlier 0.10.0 candidate archive is rejected and its approval does not transfer; this private 0.10.1 candidate still requires fresh review and owner/consumer acceptance.

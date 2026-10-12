@@ -15,6 +15,7 @@ jobs:
         run: npm ci --ignore-scripts --no-audit --no-fund
       - name: Verify offline implemented candidates
         env:
+          SC_AJV_ROOT: "${{ github.workspace }}/node_modules"
           npm_config_offline: 'true'
           npm_config_audit: 'false'
           npm_config_fund: 'false'

@@ -151,14 +151,38 @@ const records = {
   "ProductionBundleRef": {
     "1.0.0": "ProductionBundleRef_1_0_0"
   },
+  "ProductionCsvBatchRequest": {
+    "1.0.0": "ProductionCsvBatchRequest_1_0_0"
+  },
+  "ProductionCsvCheckpoint": {
+    "1.0.0": "ProductionCsvCheckpoint_1_0_0"
+  },
+  "ProductionCsvInputPolicy": {
+    "1.0.0": "ProductionCsvInputPolicy_1_0_0"
+  },
+  "ProductionCsvInputReference": {
+    "1.0.0": "ProductionCsvInputReference_1_0_0"
+  },
+  "ProductionDerivationBinding": {
+    "1.0.0": "ProductionDerivationBinding_1_0_0"
+  },
   "ProductionDiagnostic": {
     "1.0.0": "ProductionDiagnostic_1_0_0"
+  },
+  "ProductionDraftBatchResult": {
+    "1.0.0": "ProductionDraftBatchResult_1_0_0"
+  },
+  "ProductionDraftRowResult": {
+    "1.0.0": "ProductionDraftRowResult_1_0_0"
   },
   "ProductionError": {
     "1.0.0": "ProductionError_1_0_0"
   },
   "ProductionExecutionPins": {
     "1.0.0": "ProductionExecutionPins_1_0_0"
+  },
+  "ProductionFieldReadBinding": {
+    "1.0.0": "ProductionFieldReadBinding_1_0_0"
   },
   "ProductionPolicy": {
     "1.0.0": "ProductionPolicy_1_0_0"

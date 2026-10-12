@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.jevelopers.org/ProductionFieldReadBinding/1.0.0",
+  "title": "ProductionFieldReadBinding",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "RowAssociation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": { "const": "standalone", "x-classification": "public" },
+            "job_ref": { "type": "null", "x-classification": "restricted" },
+            "row_id": { "type": "null", "x-classification": "restricted" },
+            "ordinal": { "type": "null", "x-classification": "restricted" },
+            "input_hash": { "type": "null", "x-classification": "restricted" }
+          },
+          "required": ["kind", "job_ref", "row_id", "ordinal", "input_hash"],
+          "x-classification": "restricted"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "kind": { "const": "row", "x-classification": "public" },
+            "job_ref": { "$ref": "https://schemas.jevelopers.org/JobRef/1.0.0", "x-classification": "restricted" },
+            "row_id": { "type": "string", "minLength": 1, "maxLength": 100, "pattern": "^[A-Za-z0-9_.:-]{1,100}(?![\\s\\S])", "x-classification": "restricted" },
+            "ordinal": { "type": "integer", "minimum": 0, "maximum": 9999, "x-classification": "restricted" },
+            "input_hash": { "$ref": "https://schemas.jevelopers.org/CommonEnvelope/1.0.0#/$defs/Sha256", "x-classification": "restricted", "type": "string", "minLength": 71, "maxLength": 71 }
+          },
+          "required": ["kind", "job_ref", "row_id", "ordinal", "input_hash"],
+          "x-classification": "restricted"
+        }
+      ],
+      "x-classification": "restricted"
+    },
+    "CompositionReference": {
+      "allOf": [
+        { "$ref": "https://schemas.jevelopers.org/ProductionReference/1.0.0#/$defs/Reference", "x-classification": "restricted" },
+        { "type": "object", "properties": { "contract": { "const": "Composition", "x-classification": "public" }, "schema_version": { "const": "1.0.0", "x-classification": "public" } }, "required": ["contract", "schema_version"] }
+      ],
+      "x-classification": "restricted"
+    }
+  },
+  "properties": {
+    "contract": { "const": "ProductionFieldReadBinding", "x-classification": "public" },
+    "schema_version": { "const": "1.0.0", "x-classification": "public" },
+    "policy_version": { "const": "1.0.0", "x-classification": "public" },
+    "permission_key": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9_.:-]{1,128}(?![\\s\\S])", "x-classification": "restricted" },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tenant_id": { "$ref": "https://schemas.jevelopers.org/CommonEnvelope/1.0.0#/$defs/TenantId", "x-classification": "restricted" },
+        "project_id": { "$ref": "https://schemas.jevelopers.org/CommonEnvelope/1.0.0#/$defs/ProjectId", "x-classification": "restricted" }
+      },
+      "required": ["tenant_id", "project_id"],
+      "x-classification": "restricted"
+    },
+    "actor_id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9_-]{1,128}(?![\\s\\S])", "x-classification": "restricted" },
+    "audience": { "type": "string", "enum": ["creative-engine", "print-production", "getticketstub.com", "agent-harness", "event-intelligence"], "x-classification": "restricted" },
+    "purpose": { "type": "string", "enum": ["csv_input_read", "draft_row_read", "derived_output_read"], "x-classification": "restricted" },
+    "state": { "type": "string", "enum": ["current", "revoked", "denied", "unavailable"], "x-classification": "restricted" },
+    "association": { "$ref": "https://schemas.jevelopers.org/ProductionFieldReadBinding/1.0.0#/$defs/RowAssociation", "x-classification": "restricted" },
+    "parent_ref": { "anyOf": [{ "$ref": "https://schemas.jevelopers.org/ProductionFieldReadBinding/1.0.0#/$defs/CompositionReference", "x-classification": "restricted" }, { "type": "null" }], "x-classification": "restricted" },
+    "derived_ref": { "anyOf": [{ "$ref": "https://schemas.jevelopers.org/ProductionFieldReadBinding/1.0.0#/$defs/CompositionReference", "x-classification": "restricted" }, { "type": "null" }], "x-classification": "restricted" },
+    "csv_input_ref": { "anyOf": [{ "$ref": "https://schemas.jevelopers.org/ProductionCsvInputReference/1.0.0", "x-classification": "restricted" }, { "type": "null" }], "x-classification": "restricted" },
+    "input_policy_hash": { "anyOf": [{ "$ref": "https://schemas.jevelopers.org/CommonEnvelope/1.0.0#/$defs/Sha256", "x-classification": "restricted", "type": "string", "minLength": 71, "maxLength": 71 }, { "type": "null" }], "x-classification": "restricted" },
+    "composition_ref": { "anyOf": [{ "$ref": "https://schemas.jevelopers.org/ProductionFieldReadBinding/1.0.0#/$defs/CompositionReference", "x-classification": "restricted" }, { "type": "null" }], "x-classification": "restricted" },
+    "artifact_ref": { "anyOf": [{ "$ref": "https://schemas.jevelopers.org/ArtifactRef/1.0.0", "x-classification": "restricted" }, { "type": "null" }], "x-classification": "restricted" },
+    "bundle_ref": { "anyOf": [{ "$ref": "https://schemas.jevelopers.org/ProductionBundleRef/1.0.0", "x-classification": "restricted" }, { "type": "null" }], "x-classification": "restricted" },
+    "file_commitments": { "type": "array", "items": { "$ref": "https://schemas.jevelopers.org/ArtifactFile/2.0.0", "x-classification": "restricted" }, "minItems": 0, "maxItems": 100, "x-classification": "restricted" },
+    "derivation_hash": { "anyOf": [{ "$ref": "https://schemas.jevelopers.org/CommonEnvelope/1.0.0#/$defs/Sha256", "x-classification": "restricted", "type": "string", "minLength": 71, "maxLength": 71 }, { "type": "null" }], "x-classification": "restricted" },
+    "binding_hash": { "$ref": "https://schemas.jevelopers.org/CommonEnvelope/1.0.0#/$defs/Sha256", "x-classification": "restricted", "type": "string", "minLength": 71, "maxLength": 71 },
+    "observed_at": { "$ref": "https://schemas.jevelopers.org/CommonEnvelope/1.0.0#/$defs/UtcTime", "x-classification": "restricted" },
+    "expires_at": { "$ref": "https://schemas.jevelopers.org/CommonEnvelope/1.0.0#/$defs/UtcTime", "x-classification": "restricted" }
+  },
+  "required": ["contract", "schema_version", "policy_version", "permission_key", "scope", "actor_id", "audience", "purpose", "state", "association", "parent_ref", "derived_ref", "csv_input_ref", "input_policy_hash", "composition_ref", "artifact_ref", "bundle_ref", "file_commitments", "derivation_hash", "binding_hash", "observed_at", "expires_at"],
+  "allOf": [
+    {
+      "if": { "properties": { "purpose": { "const": "csv_input_read", "x-classification": "restricted" } }, "required": ["purpose"] },
+      "then": { "properties": { "parent_ref": { "type": "null", "x-classification": "restricted" }, "derived_ref": { "type": "null", "x-classification": "restricted" }, "derivation_hash": { "type": "null", "x-classification": "restricted" }, "csv_input_ref": { "$ref": "https://schemas.jevelopers.org/ProductionCsvInputReference/1.0.0", "x-classification": "restricted" }, "input_policy_hash": { "$ref": "https://schemas.jevelopers.org/CommonEnvelope/1.0.0#/$defs/Sha256", "type": "string", "minLength": 71, "maxLength": 71, "x-classification": "restricted" }, "composition_ref": { "type": "null", "x-classification": "restricted" }, "artifact_ref": { "type": "null", "x-classification": "restricted" }, "bundle_ref": { "type": "null", "x-classification": "restricted" }, "file_commitments": { "type": "array", "maxItems": 0, "x-classification": "restricted" } } }
+    },
+    {
+      "if": { "properties": { "purpose": { "const": "draft_row_read", "x-classification": "restricted" } }, "required": ["purpose"] },
+      "then": { "properties": { "parent_ref": { "type": "null", "x-classification": "restricted" }, "derived_ref": { "type": "null", "x-classification": "restricted" }, "derivation_hash": { "type": "null", "x-classification": "restricted" }, "csv_input_ref": { "type": "null", "x-classification": "restricted" }, "input_policy_hash": { "type": "null", "x-classification": "restricted" } } }
+    },
+    {
+      "if": { "properties": { "purpose": { "const": "derived_output_read", "x-classification": "restricted" } }, "required": ["purpose"] },
+      "then": { "properties": { "parent_ref": { "$ref": "https://schemas.jevelopers.org/ProductionFieldReadBinding/1.0.0#/$defs/CompositionReference", "x-classification": "restricted" }, "derived_ref": { "$ref": "https://schemas.jevelopers.org/ProductionFieldReadBinding/1.0.0#/$defs/CompositionReference", "x-classification": "restricted" }, "derivation_hash": { "$ref": "https://schemas.jevelopers.org/CommonEnvelope/1.0.0#/$defs/Sha256", "type": "string", "minLength": 71, "maxLength": 71, "x-classification": "restricted" }, "csv_input_ref": { "type": "null", "x-classification": "restricted" }, "input_policy_hash": { "type": "null", "x-classification": "restricted" } } }
+    }
+  ],
+  "x-classification": "restricted"
+}

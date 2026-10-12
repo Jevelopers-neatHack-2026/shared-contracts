@@ -1,0 +1,33 @@
+{
+  "status": "synthetic_calibration_only",
+  "producer_authority": "not supplied by this fixture",
+  "real_attendee_cells_included": false,
+  "private_producer_ids_included": false,
+  "csv": {
+    "text": "id,attendee,seat\r\n0001,Synthetic Person A,0008\r\n0002,Persona 2,0007\r\n",
+    "byte_size": 69,
+    "complete_record_offsets": [48, 69],
+    "logical_records": [1, 2],
+    "physical_lines": [2, 3],
+    "headers": ["id", "attendee", "seat"],
+    "row_id_header": "id",
+    "field_mapping": { "attendee": "name", "seat": "detail" },
+    "policy_sample_limits": { "maximum_bytes": 10000, "maximum_rows": 100, "maximum_columns": 3, "maximum_cell_bytes": 1000 },
+    "limits_are_fixture_values_only": true
+  },
+  "clock": {
+    "now": "2026-10-12T12:00:00Z",
+    "expiry": "2026-10-12T12:15:00Z",
+    "synthetic_observation_only": true
+  },
+  "canonical_ids": {
+    "tenant": "123e4567-e89b-42d3-a456-000000000001",
+    "project": "123e4567-e89b-42d3-a456-000000000002",
+    "job": "123e4567-e89b-42d3-a456-000000000050",
+    "csv_input": "123e4567-e89b-42d3-a456-000000000201",
+    "csv_policy": "123e4567-e89b-42d3-a456-000000000202",
+    "checkpoint": "123e4567-e89b-42d3-a456-000000000203",
+    "parent_composition": "123e4567-e89b-42d3-a456-000000000301",
+    "derived_composition": "123e4567-e89b-42d3-a456-000000000302"
+  }
+}

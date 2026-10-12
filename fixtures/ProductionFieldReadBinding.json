@@ -1,0 +1,51 @@
+{
+  "contract": "ProductionFieldReadBinding",
+  "schema_version": "1.0.0",
+  "policy_version": "1.0.0",
+  "evidence_mode": "synthetic_candidate_values_only",
+  "accepted": false,
+  "live_integration": false,
+  "valid": {
+    "contract": "ProductionFieldReadBinding",
+    "schema_version": "1.0.0",
+    "policy_version": "1.0.0",
+    "permission_key": "synthetic-read-observation-001",
+    "scope": { "tenant_id": "123e4567-e89b-42d3-a456-000000000001", "project_id": "123e4567-e89b-42d3-a456-000000000002" },
+    "actor_id": "synthetic_actor",
+    "audience": "print-production",
+    "purpose": "draft_row_read",
+    "state": "current",
+    "association": {
+      "kind": "row",
+      "job_ref": { "contract": "JobRef", "schema_version": "1.0.0", "policy_version": "1.0.0", "job_ref": { "contract": "JobStatus", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000050", "revision": 1, "content_hash": "sha256:a008c47e03ee867c226b362c5873ece6d2c59e78413af06c4a69f985d9ca314b" }, "batch_input_hash": "sha256:b7fff1de91b13f93dba050dcbd36c53bc8f30a4f48754c30978fe236c95e40df" },
+      "row_id": "row_1",
+      "ordinal": 0,
+      "input_hash": "sha256:e6ed3657a8392d15d37a5198ba656f35da91a2ccd006633a5ecec774204e8346"
+    },
+    "parent_ref": null,
+    "derived_ref": null,
+    "csv_input_ref": null,
+    "input_policy_hash": null,
+    "composition_ref": null,
+    "artifact_ref": null,
+    "bundle_ref": null,
+    "file_commitments": [],
+    "derivation_hash": null,
+    "binding_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "observed_at": "2026-10-12T12:00:00Z",
+    "expires_at": "2026-10-12T12:15:00Z"
+  },
+  "cases": [
+    { "id": "minimal", "category": "minimal", "policy_version": "1.0.0", "expected": { "ok": true } },
+    { "id": "full", "category": "full", "policy_version": "1.0.0", "expected": { "ok": true } },
+    { "id": "missing", "category": "missing", "policy_version": "1.0.0", "remove": ["contract"], "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "/contract" } },
+    { "id": "type", "category": "type", "policy_version": "1.0.0", "set": { "contract": 0 }, "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "/contract" } },
+    { "id": "enum", "category": "enum", "policy_version": "1.0.0", "set": { "contract": "OtherContract" }, "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "/contract" } },
+    { "id": "malformed", "category": "malformed_json", "policy_version": "1.0.0", "mode": "parse", "json": "{", "expected": { "ok": false, "code": "MALFORMED_JSON", "path": "" } },
+    { "id": "version", "category": "unsupported_version", "policy_version": "1.0.0", "set": { "schema_version": "9.0.0" }, "expected": { "ok": false, "code": "UNSUPPORTED_VERSION", "path": "/schema_version" } },
+    { "id": "unknown_field", "category": "unknown_field", "policy_version": "1.0.0", "set": { "unexpected": true }, "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "" } },
+    { "id": "unknown_critical", "category": "unknown_critical", "policy_version": "1.0.0", "set": { "unexpected": true }, "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "" } },
+    { "id": "additive_field", "category": "additive_field", "policy_version": "1.0.0", "set": { "unexpected": true }, "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "" } },
+    { "id": "retained_encoding", "category": "retained_encoding", "policy_version": "1.0.0", "expected": { "ok": true } }
+  ]
+}
