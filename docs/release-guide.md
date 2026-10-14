@@ -1,8 +1,8 @@
 # Package and release evidence
 
-Package 0.6.0 is private and unreleased. Schema versions are independent exact semver (1.0.0 retained candidates plus nine 2.0.0 finance proposals); generated/schema-manifest.json maps schema identities/hashes to the package version with source_revision=null until an actual release mapping is accepted. No project license, visibility change, tag, GitHub release or registry publication is implied.
+The [package manifest](../package.json) and [schema manifest](../generated/schema-manifest.json) identify the current development version. The npm package is private (`private: true`) and unreleased; this does not describe GitHub repository visibility. Schema versions are independent exact versions. The schema manifest maps their identities and hashes to the package version, with `source_revision: null` until an actual release mapping is accepted. No project license, visibility change, tag, GitHub release or registry publication is implied.
 
-The [package manifest](../package.json) exports the ESM/type root, operations, research-creative, commerce-evidence and fixture-harness subpaths plus exact schema/fixture/compatibility files. It includes generated bindings/standalone validators/manifests/notices, pure runtime helpers, schemas, fixtures, compatibility records, docs, nonvisual examples and README. Build tooling, tests and npm dev dependencies are not distributed. `generated/package-content-manifest.json` hashes this exact content excluding only itself; its digest binds helper code and export-map bytes as well as data schemas. Installed tests verify file bytes and the two generated archives are identical.
+The [package manifest](../package.json) exports the ESM/type root and the operations, usage-reported-unsettled, research-creative, commerce-evidence, fixture-harness, finance-v2, capability and production-operations subpaths, plus exact schema/fixture/compatibility files. Read the export map rather than inferring installed entry points from source filenames. It includes generated bindings/standalone validators/manifests/notices, pure runtime helpers, schemas, fixtures, compatibility records, docs, nonvisual examples and README. Build tooling, tests and npm dev dependencies are not distributed. `generated/package-content-manifest.json` hashes this exact content excluding only itself; its digest binds helper code and export-map bytes as well as data schemas. Installed tests verify file bytes and the two generated archives are identical.
 
 ```sh
 npm run build
@@ -40,3 +40,7 @@ npm run docs:check
 ```
 
 Owner acceptance, genuine consumer integration and unresolved producer findings keep release gate #3 and epic #1 open. Each leaf needs all its own reviewed merged evidence; local fixture coverage is not global CON/ART/FIN/EVAL/ARC verification. The [requirements map](requirements.json) and master integration-evals tracker preserve those identifiers. Registry publication and tag/release creation require a separate repository-owner release decision.
+
+## Documentation changes affect package bytes
+
+README and maintained documentation are distributed content. Even a documentation-only change requires `npm run generate` to refresh the package-content manifest, followed by `npm run generate -- --check`, `npm run docs:check`, and the applicable installed-package checks under the documented toolchain. Do not edit generated digests by hand or transfer an earlier archive acknowledgement to changed bytes. The ordinary `npm test` suite includes `tests/documentation-navigation.test.mjs`, which checks README Markdown paths and heading fragments without external network requests; it is a bounded navigation regression, not a full Markdown parser or release qualification.

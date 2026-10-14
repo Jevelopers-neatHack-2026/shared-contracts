@@ -21,7 +21,7 @@ Versioned schemas, validation and compatibility fixtures for the interfaces betw
 
 **Private implementation candidate; canonical release remains unaccepted.** [PR #31](https://github.com/Jevelopers-neatHack-2026/shared-contracts/pull/31) integrates the schemas, generated SDK and executable development package with the maintained receipt checker, reporting proposal and graph workflow. Merging this candidate permits development from an immutable source pin; it does not grant owner acknowledgement, consumer adoption or release acceptance.
 
-Candidate package **0.10.2** contains 77 wire names across 88 supported schema versions, standalone Node ESM validators, deep readonly TypeScript bindings, pure semantic helpers, compatibility fixtures and offline consumer tooling. The package remains private and unpublished. Finance state, authentication, approval issuance, rendering and supplier operations remain with their domain owners. No project license has been selected.
+Candidate package **0.10.2** contains 77 wire names across 88 supported schema versions, standalone Node ESM validators, deep readonly TypeScript bindings, pure semantic helpers, compatibility fixtures and offline consumer tooling. The npm package remains private (`private: true`) and unpublished; the GitHub repository is public. Finance state, authentication, approval issuance, rendering and supplier operations remain with their domain owners. No project license has been selected.
 
 The usage-cost candidate from [PR #42](https://github.com/Jevelopers-neatHack-2026/shared-contracts/pull/42) is included. The [reporting/query/export proposal](proposals/reporting-v1/README.md) remains isolated from canonical FinancialSummary contracts. [Receipt metadata validation](docs/receipt-checker.md) checks structure and records; a complete receipt does not verify its claims or grant release authority.
 
@@ -38,12 +38,12 @@ The [contract catalog](docs/contract-catalog.md) describes the implemented candi
 
 | Section | Covers |
 | --- | --- |
-| [Common envelope](docs/contract-catalog.md#common-envelope) | Required scope, correlation, provenance and `billing_mode` fields |
-| [Domain contracts](docs/contract-catalog.md#domain-contracts) | Project request through research, creative, production, quote, authorization, usage and summary |
-| [Ownership of state](docs/contract-catalog.md#ownership-of-state) | The authoritative owner of each record |
-| [Financial identities and lifecycles](docs/contract-catalog.md#financial-identities-and-lifecycles) | Operation, billable attempt and transport retry; valuation and reservation states |
-| [Compatibility acceptance](docs/contract-catalog.md#compatibility-acceptance) | Minimum checks before a contract is accepted |
-| [Error model](docs/contract-catalog.md#error-model) | Typed, retry-safe error fields |
+| [Identity and provenance](docs/identity-policy.md) | Assigning authorities, identifier scope, correlation and retry rules |
+| [Domain contracts](#contracts) | Project request through research, creative, production, quote, authorization, usage and summary |
+| [Contract roles](docs/contract-catalog.md) | Candidate producers, consumers, leaf issues and unresolved acknowledgements |
+| [Finance protocol](docs/finance-v2-contracts.md) | Versioned reservation, consumption, exposure and settlement boundaries |
+| [Compatibility evidence](docs/consumer-acceptance-receipt.md) | Candidate-specific evidence stages; a receipt does not grant acceptance |
+| [Operations and errors](docs/operations-contracts.md) | Typed errors, partial failures, jobs and operational helper boundaries |
 
 ## Development
 
@@ -178,7 +178,7 @@ Related producers, consumers and coordination repositories:
 
 ## Contributing
 
-Follow the [organization contribution guidance](https://github.com/Jevelopers-neatHack-2026/.github/blob/main/CONTRIBUTING.md). Schema changes need review by at least one affected producer and consumer ([compatibility acceptance](docs/contract-catalog.md#compatibility-acceptance)). Run the development checks above and retain schema, fixture and package provenance for review. No license file is present in this repository.
+Follow the [organization contribution guidance](https://github.com/Jevelopers-neatHack-2026/.github/blob/main/CONTRIBUTING.md). Schema changes need review by at least one affected producer and consumer ([consumer handoff](docs/consumer-handoff.md)). Run the development checks above and retain schema, fixture and package provenance for review. No license file is present in this repository.
 
 ### Production contract development candidate
 
