@@ -1,0 +1,148 @@
+name: Temporary exact-source documentation preparation
+on:
+  push:
+    branches: [docs/navigation-source-refresh-20261013]
+    paths: [.github/workflows/docs-prepare-20261013.yml]
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    outputs:
+      payload: ${{ steps.payload.outputs.payload }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: cd961246234f8666303f306ac349c69b8b3236cd
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22.23.3'
+      - name: Provision the existing locked dependency set
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Apply exact documentation patch and regression
+        run: |
+          python3 - <<'PYTHON'
+          """Apply bounded documentation corrections; preserve the full schema tables."""
+          from pathlib import Path
+
+          def replace(path, old, new):
+              text = path.read_text()
+              if text.count(old) != 1:
+                  raise ValueError(f'{path}: expected exactly one matching source block')
+              path.write_text(text.replace(old, new))
+
+          p = Path('README.md')
+          replacements = [
+           ('| [Common envelope](docs/contract-catalog.md#common-envelope) | Required scope, correlation, provenance and `billing_mode` fields |', '| [Identity and provenance](docs/identity-policy.md) | Assigning authorities, identifier scope, correlation and retry rules |'),
+           ('| [Domain contracts](docs/contract-catalog.md#domain-contracts) |', '| [Domain contracts](#contracts) |'),
+           ('| [Ownership of state](docs/contract-catalog.md#ownership-of-state) | The authoritative owner of each record |', '| [Contract roles](docs/contract-catalog.md) | Candidate producers, consumers, leaf issues and unresolved acknowledgements |'),
+           ('| [Financial identities and lifecycles](docs/contract-catalog.md#financial-identities-and-lifecycles) | Operation, billable attempt and transport retry; valuation and reservation states |', '| [Finance protocol](docs/finance-v2-contracts.md) | Versioned reservation, consumption, exposure and settlement boundaries |'),
+           ('| [Compatibility acceptance](docs/contract-catalog.md#compatibility-acceptance) | Minimum checks before a contract is accepted |', '| [Compatibility evidence](docs/consumer-acceptance-receipt.md) | Candidate-specific evidence stages; a receipt does not grant acceptance |'),
+           ('| [Error model](docs/contract-catalog.md#error-model) | Typed, retry-safe error fields |', '| [Operations and errors](docs/operations-contracts.md) | Typed errors, partial failures, jobs and operational helper boundaries |'),
+           ('([compatibility acceptance](docs/contract-catalog.md#compatibility-acceptance))', '([consumer handoff](docs/consumer-handoff.md))'),
+           ('The package remains private and unpublished.', 'The npm package remains private (`private: true`) and unpublished; the GitHub repository is public.'),
+          ]
+          for old, new in replacements:
+              replace(p, old, new)
+          p = Path('docs/release-guide.md')
+          replace(p, 'Package 0.6.0 is private and unreleased. Schema versions are independent exact semver (1.0.0 retained candidates plus nine 2.0.0 finance proposals); generated/schema-manifest.json maps schema identities/hashes to the package version with source_revision=null until an actual release mapping is accepted.', 'The [package manifest](../package.json) and [schema manifest](../generated/schema-manifest.json) identify the current development version. The npm package is private (`private: true`) and unreleased; this does not describe GitHub repository visibility. Schema versions are independent exact versions. The schema manifest maps their identities and hashes to the package version, with `source_revision: null` until an actual release mapping is accepted.')
+          replace(p, 'exports the ESM/type root, operations, research-creative, commerce-evidence and fixture-harness subpaths plus exact schema/fixture/compatibility files.', 'exports the ESM/type root and the operations, usage-reported-unsettled, research-creative, commerce-evidence, fixture-harness, finance-v2, capability and production-operations subpaths, plus exact schema/fixture/compatibility files. Read the export map rather than inferring installed entry points from source filenames.')
+          with p.open('a') as handle:
+              handle.write('\n## Documentation changes affect package bytes\n\nREADME and maintained documentation are distributed content. Even a documentation-only change requires `npm run generate` to refresh the package-content manifest, followed by `npm run generate -- --check`, `npm run docs:check`, and the applicable installed-package checks under the documented toolchain. Do not edit generated digests by hand or transfer an earlier archive acknowledgement to changed bytes. The ordinary `npm test` suite includes `tests/documentation-navigation.test.mjs`, which checks README Markdown paths and heading fragments without external network requests; it is a bounded navigation regression, not a full Markdown parser or release qualification.\n')
+          p = Path('docs/mvp-readiness.md')
+          for old,new in [
+           ('## Readiness\n','## Readiness at the historical snapshot\n'),
+           ('## What is available on main\n','## Main at the historical snapshot\n'),
+           ('## Release blockers\n','## Release blockers recorded in the historical snapshot\n'),
+          ]:
+              replace(p,old,new)
+
+          Path("tests/documentation-navigation.test.mjs").write_text('import assert from \'node:assert/strict\';\nimport { readFileSync, existsSync } from \'node:fs\';\nimport { dirname, resolve, relative, isAbsolute } from \'node:path\';\nimport { fileURLToPath } from \'node:url\';\nimport test from \'node:test\';\n\nconst root = resolve(dirname(fileURLToPath(import.meta.url)), \'..\');\nconst withoutFences = text => text.replace(/^(```|~~~)[\\s\\S]*?^\\1[^\\n]*$/gm, \'\');\nconst slug = text => text.toLowerCase().replace(/[`*_]/g, \'\').replace(/[^\\p{L}\\p{N}\\s_-]/gu, \'\').replace(/ /g, \'-\');\nfunction anchors(text) {\n  const counts = new Map();\n  return new Set([...withoutFences(text).matchAll(/^#{1,6}\\s+(.+?)\\s*#*$/gm)].map(match => {\n    const base = slug(match[1]);\n    const index = counts.get(base) ?? 0;\n    counts.set(base, index + 1);\n    return index ? `${base}-${index}` : base;\n  }));\n}\nfunction findings(text, file, read = path => readFileSync(path, \'utf8\'), exists = existsSync) {\n  const errors = [];\n  for (const match of withoutFences(text).matchAll(/\\]\\(([^\\s)]+)(?:\\s+"[^"]*")?\\)/g)) {\n    const target = match[1];\n    if (/^(?:[a-z][a-z0-9+.-]*:|\\/\\/)/i.test(target)) continue;\n    const hash = target.indexOf(\'#\');\n    const pathname = decodeURIComponent(hash < 0 ? target : target.slice(0, hash));\n    const fragment = hash < 0 ? \'\' : decodeURIComponent(target.slice(hash + 1));\n    const resolved = pathname ? resolve(dirname(file), pathname) : file;\n    const local = relative(root, resolved);\n    if (local.startsWith(\'..\') || isAbsolute(local) || !exists(resolved)) {\n      errors.push(`missing or outside repository: ${target}`);\n    } else if (fragment && /\\.md$/i.test(resolved) && !anchors(read(resolved)).has(fragment)) {\n      errors.push(`missing heading: ${target}`);\n    }\n  }\n  return errors;\n}\n\ntest(\'README local Markdown paths and heading fragments resolve without network access\', () => {\n  const file = resolve(root, \'README.md\');\n  assert.deepEqual(findings(readFileSync(file, \'utf8\'), file), []);\n});\n\ntest(\'navigation regression catches a missing file and a removed catalog heading\', () => {\n  const file = resolve(root, \'README.md\');\n  const value = \'[missing](missing.md) [old section](docs/contract-catalog.md#common-envelope)\';\n  const errors = findings(value, file, () => \'# Contract Catalog\\n\', path => !path.endsWith(\'/missing.md\'));\n  assert.equal(errors.length, 2);\n  assert.ok(errors.some(x => x.includes(\'missing heading\')));\n  assert.ok(errors.some(x => x.includes(\'missing or outside repository\')));\n});\n\ntest(\'heading matching retains duplicate suffixes and ignores fenced examples\', () => {\n  const value = "# What\'s here\\n## Repeat\\n## Repeat\\n```md\\n# Hidden example\\n```\\n";\n  assert.deepEqual([...anchors(value)], [\'whats-here\', \'repeat\', \'repeat-1\']);\n  assert.deepEqual(findings(\'```md\\n[example](absent.md)\\n```\\n\', resolve(root, \'README.md\')), []);\n});\n', encoding="utf-8")
+
+          PYTHON
+      - name: Verify documentation and generated package custody
+        env:
+          npm_config_offline: 'true'
+          npm_config_audit: 'false'
+          npm_config_fund: 'false'
+          SC_AJV_ROOT: ${{ github.workspace }}/node_modules
+        run: |
+          node --version
+          node --test tests/documentation-navigation.test.mjs
+          npm run generate
+          npm run docs:check
+          npm run generate -- --check
+          git diff --check
+      - id: payload
+        name: Export only the five permitted documentation-related files
+        run: |
+          python3 - <<'PYTHON'
+          import base64, hashlib, json, os, subprocess, zlib
+          from pathlib import Path
+          files = ['README.md', 'docs/release-guide.md', 'docs/mvp-readiness.md', 'tests/documentation-navigation.test.mjs', 'generated/package-content-manifest.json']
+          expected = {'README.md': '317aa260eeba783fd74e8c95fc63073e3254612ddac95f1ef20e19020f9f3dda', 'docs/mvp-readiness.md': '8b74deebb2c34b36d4f357f74eba9ffc4e0f5b91fe37b34701da1014202a4acf', 'docs/release-guide.md': 'd8f6a71bc3c940cd50100019c5bf787ac05c68e22ecd47ad293af59df4f851c0', 'tests/documentation-navigation.test.mjs': '7554272aeb7d35bbeab4918d5691c9cbf90bd29b36c609948b7df50e3d9cbf35'}
+          changed = subprocess.check_output(['git', 'diff', '--name-only'], text=True).splitlines()
+          untracked = subprocess.check_output(['git', 'ls-files', '--others', '--exclude-standard'], text=True).splitlines()
+          assert set(changed + untracked) == set(files), (changed, untracked)
+          for name, digest in expected.items():
+              assert hashlib.sha256(Path(name).read_bytes()).hexdigest() == digest, name
+          payload = {name: Path(name).read_text(encoding='utf-8') for name in files}
+          encoded = base64.b64encode(zlib.compress(json.dumps(payload).encode(), 9)).decode()
+          assert len(encoded) < 300000
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('payload=' + encoded + '\n')
+          print(json.dumps({'changed_files': files, 'digests': {p: hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in files}}, indent=2))
+
+          PYTHON
+  publish_feature_only:
+    needs: prepare
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Publish validated bytes to this task branch only
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PAYLOAD: ${{ needs.prepare.outputs.payload }}
+        run: |
+          python3 - <<'PYTHON'
+          import base64, hashlib, json, os, urllib.request, zlib
+          REPO = 'Jevelopers-neatHack-2026/shared-contracts'
+          BRANCH = 'docs/navigation-source-refresh-20261013'
+          BASE = 'cd961246234f8666303f306ac349c69b8b3236cd'
+          TREE = '94f72132b98cc18a17f28903bcc82f5fb1646a5d'
+          EXPECTED = {'README.md': '317aa260eeba783fd74e8c95fc63073e3254612ddac95f1ef20e19020f9f3dda', 'docs/mvp-readiness.md': '8b74deebb2c34b36d4f357f74eba9ffc4e0f5b91fe37b34701da1014202a4acf', 'docs/release-guide.md': 'd8f6a71bc3c940cd50100019c5bf787ac05c68e22ecd47ad293af59df4f851c0', 'tests/documentation-navigation.test.mjs': '7554272aeb7d35bbeab4918d5691c9cbf90bd29b36c609948b7df50e3d9cbf35'}
+          assert os.environ['GITHUB_REPOSITORY'] == REPO
+          assert os.environ['GITHUB_REF'] == 'refs/heads/' + BRANCH
+          encoded = os.environ['PAYLOAD']
+          assert len(encoded) < 300000
+          raw = zlib.decompress(base64.b64decode(encoded, validate=True))
+          assert len(raw) < 1000000
+          payload = json.loads(raw)
+          assert set(payload) == set(EXPECTED) | {'generated/package-content-manifest.json'}
+          for name, digest in EXPECTED.items():
+              assert hashlib.sha256(payload[name].encode()).hexdigest() == digest, name
+          json.loads(payload['generated/package-content-manifest.json'])
+          def api(method, path, data=None):
+              url = 'https://api.github.com/repos/' + REPO + path
+              headers = {'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json', 'User-Agent': 'ticketstub-docs-branch-preparation'}
+              request = urllib.request.Request(url, data=None if data is None else json.dumps(data).encode(), headers=headers, method=method)
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  return json.load(response)
+          current = api('GET', '/git/ref/heads/' + BRANCH)['object']['sha']
+          assert current == os.environ['GITHUB_SHA'], 'feature branch changed; refuse to overwrite'
+          assert api('GET', '/git/ref/heads/main')['object']['sha'] == BASE, 'base changed; revalidate first'
+          assert api('GET', '/git/commits/' + BASE)['tree']['sha'] == TREE
+          entries = [{'path': name, 'mode': '100644', 'type': 'blob', 'content': value} for name, value in payload.items()]
+          tree = api('POST', '/git/trees', {'base_tree': TREE, 'tree': entries})['sha']
+          commit = api('POST', '/git/commits', {'message': 'docs: repair catalog navigation and current package guidance', 'tree': tree, 'parents': [current]})['sha']
+          assert api('GET', '/git/ref/heads/' + BRANCH)['object']['sha'] == current
+          api('PATCH', '/git/refs/heads/' + BRANCH, {'sha': commit, 'force': False})
+          print(json.dumps({'commit': commit, 'tree': tree, 'branch': BRANCH, 'base': BASE, 'files': sorted(payload)}, indent=2))
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+              summary.write('Prepared documentation commit `' + commit + '` on `' + BRANCH + '`. No default branch, PR, settings, acceptance state or release was changed.\n')
+
+          PYTHON
