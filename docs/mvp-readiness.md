@@ -12,7 +12,7 @@ The records below retain their original checked revisions and historical PR stat
 
 Related: [contract catalog](contract-catalog.md) · [consumer acceptance receipt](consumer-acceptance-receipt.md) · [receipt metadata checker](receipt-checker.md) · [ownership](architecture/OWNERSHIP.md) · [acceptance view](architecture/ACCEPTANCE.md)
 
-## Readiness
+## Readiness at the historical snapshot
 
 **The shared-contracts MVP is not ready for release or general consumer adoption.** Main now includes an offline consumer-receipt metadata checker and isolated Finance reporting proposal schemas and fixtures. Those are useful review tools, but they are not a published canonical schema package. No accepted shared-contracts package or release has been published from this repository.
 
@@ -28,7 +28,7 @@ Related: [contract catalog](contract-catalog.md) · [consumer acceptance receipt
 | Consumer progress | Three scoped private-development receipts are recorded for integration-evals, print-production, and team-dashboard in the latest [SC-10 handoff reconciliation](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/30#issuecomment-6122028537). | This is not full adoption: 3 of 9 listed consumers have scoped receipts. The other six have no current consumption receipt in that reconciliation; discovery and handoff requests do not count as adoption. |
 | Acceptance and ownership | The [SC-EPIC #1](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/1), [SC-12 release gate #3](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/3), and SC-01 ownership issue #4 remain open in the reviewed records. The exact catalog owner/reviewer request is [recorded on #4](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/4#issuecomment-6116351864). | No model review, role-level acknowledgement, package test, or consumer receipt substitutes for the named canonical owner and reviewer acknowledgements required by the gate. |
 
-## What is available on main
+## Main at the historical snapshot
 
 The [contract catalog](contract-catalog.md) remains the descriptive interface source. It is not a generated package manifest and does not mean that every proposed contract has an accepted schema version. Main also contains two separately scoped tools:
 
@@ -37,7 +37,7 @@ The [contract catalog](contract-catalog.md) remains the descriptive interface so
 
 The documented 0.9.7, 0.10.1, and 0.11.1 candidates are all distinct from main. Each candidate has its own source, archive, fixture, and review evidence. Never reuse a receipt across package versions or changed archive bytes. The 0.9.8 Finance caller receipt is also tied to its own exact private artifact and does not transfer to another candidate.
 
-## Release blockers
+## Release blockers recorded in the historical snapshot
 
 The live gate and the linked immutable receipts retain these material gaps:
 

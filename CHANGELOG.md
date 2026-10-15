@@ -12,6 +12,10 @@ Repackages the opt-in production-field proposal as package version 0.11.1 and in
 
 Adds an opt-in, unaccepted production-field proposal for CSV input policy/reference/checkpoint/request, restricted draft row/batch results and read bindings, and explicit derivation/replay bindings. Existing request/result schemas, legacy reference unions, callback pins, consumer assignments, and acceptance records remain unchanged. All new per-version role assignments are empty pending owner agreement.
 
+## 0.10.3 (unreleased private candidate)
+
+Repairs SC-PFB-PARENT-LEGACY009: canonical production JSON, outer file commitments and stored ZIP verification read branded typed-array view slots instead of caller-owned byteLength/buffer/byteOffset properties. Shadowed data properties and returning/throwing getters cannot change bounds or select different bytes. Nonzero-offset views retain their exact extent; malformed and detached views fail with typed results. Existing schema/fixture versions and consumer pins are unchanged. This new artifact requires independent review and affected producer/consumer ACKs; old archive receipts do not transfer.
+
 ## 0.10.2 (unreleased private candidate)
 
 Integrates current-main receipt metadata, reporting proposal and graph policy changes without promoting their domain acceptance. Public evaluation projection rejects identifiers already present anywhere in the source record. Dependency validation requires equal, unique authority and requirement issue sets. Consumer hooks deny alternate builtin, WebSocket and inspector entry points while retaining the documented non-sandbox boundary. Research batch receipt validation returns a typed trust-context failure for throwing Proxy inputs. The writable-audit forgery regression emits actual JSONL separators. Package manifests and documentation are regenerated for these new bytes; historical archive receipts retain their original scope.
