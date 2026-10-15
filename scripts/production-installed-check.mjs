@@ -1,9 +1,17 @@
-import { cp, writeFile } from 'node:fs/promises';
+import { cp, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { root } from './generate.mjs';
 
 export async function productionInstalledChecks(directory, run) {
+  const regression = (await readFile(root+'tests/production-byte-view.test.mjs', 'utf8'))
+    .replace("import { observedFiles, byteContext, calibration } from './production-seeds.mjs';", `import { readFile } from 'node:fs/promises';
+const calibration = JSON.parse(await readFile(new URL('./node_modules/@jevelopers/shared-contracts/fixtures/ProductionCalibration.json', import.meta.url), 'utf8'));
+const observedFiles = () => Object.entries(calibration.byte_files).map(([filename, bytes]) => ({filename, bytes: Buffer.from(bytes, 'base64')}));
+const byteContext = () => ({scope: structuredClone(calibration.scope), trusted_commitment: structuredClone(calibration.trusted_commitment)});`)
+    .replace('../tooling/production-operations.mjs', '@jevelopers/shared-contracts/production-operations');
+  await writeFile(join(directory, 'production-byte-view.test.mjs'), regression);
+  console.log(run(process.execPath, ['--test', 'production-byte-view.test.mjs'], directory).trim());
   await cp(root+'examples/production-consumer.mjs',join(directory,'production-consumer.mjs'));
   console.log(run(process.execPath,['production-consumer.mjs'],directory).trim());
   await cp(root+'tests/production-operations-types.ts',join(directory,'production-types.mts'));
