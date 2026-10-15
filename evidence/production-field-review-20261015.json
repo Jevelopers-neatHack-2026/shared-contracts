@@ -1,0 +1,438 @@
+{
+  "repository": "Jevelopers-neatHack-2026/shared-contracts",
+  "worktree": "/tmp/shared-contracts-production-review-20261015",
+  "branch": "fix/production-field-review-20261015",
+  "base_sha": "9d4dae867c55b09d0227c835272a326fc47529a9",
+  "stack_base_branch": "proposal/production-field-boundaries",
+  "reviewer": "root collaboration agent orchestration_constraints",
+  "review_state": "pending independent review of exact final base/head",
+  "related_issue": 36,
+  "related_pr": 46,
+  "historical_review": {
+    "url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/pull/46#issuecomment-6120560886",
+    "reviewed_head": "075b35f6b17ec78168d97cd32595fda05eb4bdd8",
+    "not_transferred_to_current_head": true
+  },
+  "runtime": {
+    "agent": "Codex GPT-6 per session; exact provider model ID, effort, priority and billable usage not exposed",
+    "node22": {
+      "path": "/Users/completetech/.cache/acv1-toolchains/node-v22.23.3-npm11.16.0/bin/node",
+      "version": "22.23.3"
+    },
+    "node24": {
+      "path": "/Users/completetech/.cache/acv1-toolchains/node-v24.21.0-darwin-arm64/bin/node",
+      "version": "24.21.0"
+    },
+    "provider_operations": 0,
+    "mode": "offline npm configuration, package-owned synthetic fixtures; no OS network trace or product acceptance claim",
+    "dependency_provisioning": "Initially copied pre-provisioned node_modules into isolated worktree, verified npm ls; subsequently npm ci offline added 23 locked packages successfully, then canonical build and drift check passed."
+  },
+  "preserved_refs": {
+    "PR46": "9d4dae867c55b09d0227c835272a326fc47529a9",
+    "PR53": "ed03ae09a5068cc87cb96d083884df6973f0be5a"
+  },
+  "findings": [
+    {
+      "id": "SC-PFB-ASTRA-001",
+      "base_path": "tooling/production-field-boundaries-derivation.mjs",
+      "base_lines": "12-17,34-36,56-57",
+      "repair": "Derivation and replay now join expected read scope, parent, derived reference and full association to the operation binding, in addition to binding_hash.",
+      "test_prefix": "001",
+      "status": "reproduced_at_published_base_locally_repaired_review_pending"
+    },
+    {
+      "id": "SC-PFB-ASTRA-002",
+      "base_path": "tooling/production-field-boundaries-results.mjs",
+      "base_lines": "92-96",
+      "repair": "Expected draft read scope must equal the operation scope.",
+      "test_prefix": "002",
+      "status": "reproduced_at_published_base_locally_repaired_review_pending"
+    },
+    {
+      "id": "SC-PFB-ASTRA-003",
+      "base_path": "tooling/production-field-boundaries-results.mjs",
+      "base_lines": "83-85,140,146-152",
+      "repair": "Incomplete/failed atomic output cannot expose embedded public RowResult refs or eligible draft refs even when labeled unpublished. Blocked restricted draft refs remain separate from eligible publication.",
+      "test_prefix": "003",
+      "status": "reproduced_at_published_base_locally_repaired_review_pending"
+    },
+    {
+      "id": "SC-PFB-ASTRA-004",
+      "base_path": "tooling/production-field-boundaries-results.mjs",
+      "base_lines": "91-96",
+      "repair": "Published RowResult artifact/bundle refs must equal draft output refs, which already must match the exact current read observation.",
+      "test_prefix": "004",
+      "status": "reproduced_at_published_base_locally_repaired_review_pending"
+    },
+    {
+      "id": "SC-PFB-ASTRA-005",
+      "base_path": "tooling/production-field-boundaries-csv.mjs;tooling/production-field-boundaries-results.mjs",
+      "base_lines": "52-55;174-178",
+      "repair": "CSV and observed stored-file budgets/hash/decoding use normalized branded TypedArray views. Reuses exact PR53 production-zip and production-bundle files. Backing ArrayBuffer getters may still execute; short/throwing values fail closed; no broad getter exclusion is claimed.",
+      "test_prefix": "005",
+      "status": "reproduced_at_published_base_locally_repaired_review_pending"
+    },
+    {
+      "id": "SC-PFB-ASTRA-006",
+      "base_path": "tooling/production-field-boundaries-csv.mjs",
+      "base_lines": "87-112",
+      "repair": "CSV request descriptor known byte_size must not exceed the already bound input policy maximum_bytes, without requesting input bytes.",
+      "test_prefix": "006",
+      "status": "reproduced_at_published_base_locally_repaired_review_pending"
+    },
+    {
+      "id": "SC-PFB-ASTRA-007",
+      "base_path": "tooling/production-field-boundaries-csv.mjs",
+      "base_lines": "120-129",
+      "repair": "Resumed checkpoint tenant/project must equal the request trusted scope.",
+      "test_prefix": "007",
+      "status": "reproduced_at_published_base_locally_repaired_review_pending"
+    },
+    {
+      "id": "SC-PFB-ASTRA-008",
+      "base_path": "tooling/production-field-boundaries-results.mjs",
+      "base_lines": "118-125",
+      "repair": "Original row IDs must be unique before iterating complete batch results, retaining existing structured-plan invariant.",
+      "test_prefix": "008",
+      "status": "reproduced_at_published_base_locally_repaired_review_pending"
+    }
+  ],
+  "regressions": {
+    "file": "tests/production-field-review.test.mjs",
+    "base22": {
+      "tests": 20,
+      "pass": 0,
+      "fail": 20,
+      "exit": 1
+    },
+    "base24": {
+      "tests": 20,
+      "pass": 0,
+      "fail": 20,
+      "exit": 1
+    },
+    "candidate22": {
+      "tests": 20,
+      "pass": 20,
+      "fail": 0
+    },
+    "candidate24": "included in 127 affected checks and 29 installed checks",
+    "base_reproduction": "git archive exact base into /tmp/sc-production-review-evidence/baseline; add only current regression file; unmodified published implementation; passing controls precede counterexample assertions. Historical review is not substituted for reproduction."
+  },
+  "pr53_reuse": {
+    "source": "ed03ae09a5068cc87cb96d083884df6973f0be5a",
+    "byte_identical_paths": [
+      "tooling/production-bundle.mjs",
+      "tooling/production-zip.mjs",
+      "tests/production-byte-view.test.mjs"
+    ],
+    "scope": "Intrinsic TypedArray property reads and finite bounds; backing ArrayBuffer getter caveat retained by 9 original PR53 regressions."
+  },
+  "preserved_contracts": {
+    "schemas": "byte-identical to base",
+    "canonical_fixtures": "byte-identical to base",
+    "package_version": "0.11.1, unpublished private candidate; exact source/archive identifies changed bytes",
+    "consumer_sdk_pins": "unchanged",
+    "version_policy": "unchanged",
+    "new_contract_or_policy_election": false
+  },
+  "sample_correction": {
+    "path": "examples/production-field-boundaries-consumer.mjs",
+    "reason": "Old INST-DERIVATION-EXACT paired a standalone derivation with a row-associated read observation; explicitly copy derivation.association. No fixture/schema relaxation.",
+    "initial_installed_runs": "New 29 regressions passed, then old example failed NEEDS_EXTERNAL_REVIEW on both supported runtimes; logs retained.",
+    "final_installed_runs": "passed on both supported runtimes"
+  },
+  "validation": {
+    "affected22": {
+      "tests": 127,
+      "pass": 127,
+      "fail": 0,
+      "skipped": 0
+    },
+    "affected24": {
+      "tests": 127,
+      "pass": 127,
+      "fail": 0,
+      "skipped": 0
+    },
+    "installed": {
+      "node22": "passed",
+      "node24": "passed",
+      "review_and_pr53_tests": 29,
+      "existing_installed_field_cases": 23,
+      "schema_versions": 96,
+      "fixture_cases": 1761,
+      "negative_assertions": 1255,
+      "archive_sha256": "352c968a0e9a2bdbfd49e850c0feabaffe3e7a4b24ff1ffab0ba4843e6aba5d5",
+      "archive_integrity": "sha512-Gmiwq9Hgr+XVE0XN91N5bwzLv0dI9KtU75wTz/z6eU20GdkHIlPm7eCiHLQAJpgP4OARtXD9s8GyNsMmPe5LOw==",
+      "reproducible_across_runtimes": true,
+      "real_consumer_adoption": "pending"
+    },
+    "checks": [
+      {
+        "command": "npm run typecheck",
+        "exit": 0,
+        "log": "/tmp/sc-production-review-evidence/check-0.log"
+      },
+      {
+        "command": "npm run contracts:check",
+        "exit": 0,
+        "log": "/tmp/sc-production-review-evidence/check-1.log"
+      },
+      {
+        "command": "npm run contracts:fixtures",
+        "exit": 0,
+        "log": "/tmp/sc-production-review-evidence/check-2.log"
+      },
+      {
+        "command": "npm run contracts:compat",
+        "exit": 0,
+        "log": "/tmp/sc-production-review-evidence/check-3.log"
+      },
+      {
+        "command": "npm run docs:check",
+        "exit": 0,
+        "log": "/tmp/sc-production-review-evidence/check-4.log"
+      },
+      {
+        "command": "npm run generate -- --check",
+        "exit": 0,
+        "log": "/tmp/sc-production-review-evidence/check-5.log"
+      },
+      {
+        "command": "npm run contracts:inventory -- --require-owner --require-consumer --require-leaf --require-fixtures --require-docs --require-consumer-pins --require-field-classification",
+        "exit": 1,
+        "log": "/tmp/sc-production-review-evidence/check-6.log"
+      },
+      {
+        "command": "npm run contracts:consumers",
+        "exit": 1,
+        "log": "/tmp/sc-production-review-evidence/check-7.log"
+      },
+      {
+        "command": "npm pack --dry-run",
+        "exit": 0,
+        "log": "/tmp/sc-production-review-evidence/check-8.log"
+      }
+    ],
+    "full22": {
+      "command": "npm test",
+      "node": "22.23.3",
+      "tests": 5487,
+      "pass": 5487,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "exit": 0,
+      "duration_ms": 75455.734166,
+      "log": "/tmp/sc-production-review-evidence/full22-final.log",
+      "log_sha256": "434ac8942643369cb0482277bfbe5ac38f681667f160b13fc22f5e552616af14"
+    },
+    "full24": {
+      "command": "npm test",
+      "node": "24.21.0",
+      "tests": 5487,
+      "pass": 5487,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "exit": 0,
+      "duration_ms": 69974.77725,
+      "log": "/tmp/sc-production-review-evidence/full24-final.log",
+      "log_sha256": "abfab25f4a43e701832a77c4e0a7f0a0e984476d08adb191fa367eafd34b6060"
+    },
+    "initial_full22": {
+      "tests": 5487,
+      "pass": 5485,
+      "fail": 2,
+      "skipped": 0,
+      "limitation": "Run overlapped the example/package-manifest correction; two trusted-probe harness assertions returned undefined instead of expected code. Preserved as failed intermediate run, not final-candidate success; final frozen-file reruns required."
+    },
+    "locked_install_and_build": {
+      "npm ci": 0,
+      "npm run build": 0,
+      "npm run generate -- --check": {
+        "exit": 0,
+        "files": 118,
+        "drift": "none"
+      },
+      "note": "Canonical Node22.23.3, cached locked dependencies, npm offline/audit false/fund false/update_notifier false. Build changed no candidate bytes."
+    },
+    "pr53_source_comparison": "All three listed reused files byte-identical to ed03ae09a5068cc87cb96d083884df6973f0be5a, including the backing-buffer caveat regressions.",
+    "unchanged_files_check": "git diff base --exit-code -- schemas fixtures package.json package-lock.json compatibility passed."
+  },
+  "remaining_external_inputs": [
+    "Real CSV descriptor/version/roster/dialect/privacy/retention election and accountable producer/consumer ACKs.",
+    "Private draft access, expiry/retention and trusted issuer/host evidence.",
+    "Canonical repair material-change and approval/preview mappings; genuine producer/consumer binding evidence.",
+    "Accepted immutable consumer pins, independent candidate review, any authorized merge and required post-merge evidence."
+  ],
+  "acceptance": "No whole issue acceptance, proposed-contract authorization, closure, merge, deployment or registry publication. Master acceptance remains integration-evals owned.",
+  "changed_file_sha256": {
+    "CHANGELOG.md": "4b6967d255801e4d0df8b24f80c213e3bdf319407b08f45ff23d54e79a6b7cac",
+    "examples/production-field-boundaries-consumer.mjs": "d4001e230d21e4e6361802917b80fc2d5a88ea73142c6045c68386d3088e8842",
+    "generated/package-content-manifest.json": "5d265b07965377315dcc99ce00e8356373d11e16c6a4cfb7c074dc904a96d980",
+    "scripts/production-installed-check.mjs": "bd3fe20fd4c53b3f1c273fe0e5019dbfd5abb6a4cdf24e4c40a086376cbea42a",
+    "scripts/production-review-installed-check.mjs": "042cb1cbbef969f19ca51c80f24ed0eb06f46d08d9f4531c9703f0af8b11be0f",
+    "tests/production-byte-view.test.mjs": "7f8d8b785c95385d2168daa8f1af6c117850b20408775761f8ed7e24a973e542",
+    "tests/production-field-review.test.mjs": "7a4081c7e0321c7c7e0ea0e5bb577f652a359d128e98fecdad79a648f502f008",
+    "tooling/production-bundle.mjs": "83f547e37ce09bbd325c1c624669f9d0862d3e61f99e2ebca4c10da5c2ebb82f",
+    "tooling/production-field-boundaries-csv.mjs": "0d22145674fb20830b23b109bb85b8ad182a3cb59cf6af233e87a0d08c78cadf",
+    "tooling/production-field-boundaries-derivation.mjs": "f48b293b6926a641313a14b6aefefe2a6b83fc26ad1ef56c93f5b996162dab21",
+    "tooling/production-field-boundaries-results.mjs": "ad0e9858003f630fb7118259f6a0297096c3875a39a82f3c29f45ffa0bdeefcf",
+    "tooling/production-zip.mjs": "4e9ffe62d33e0d264719279c76c8872f86f91d54b771ee82499d233300591d83"
+  },
+  "logs": {
+    "dependencies.log": {
+      "path": "/tmp/sc-production-review-evidence/dependencies.log",
+      "sha256": "d59cb701ee9cec46ef2184d707bfe2167a69e55069cb1896b36cc044338621ce"
+    },
+    "after22-expanded.log": {
+      "path": "/tmp/sc-production-review-evidence/after22-expanded.log",
+      "sha256": "aceff33c5ae44ab0fd604c13a24efca65c3544e7975be4559139d085dcf15090"
+    },
+    "check-8.log": {
+      "path": "/tmp/sc-production-review-evidence/check-8.log",
+      "sha256": "3ddca4641ffd873fb0a8528bca416934913dfff9f60946819dd703c641c77691"
+    },
+    "affected22-final.log": {
+      "path": "/tmp/sc-production-review-evidence/affected22-final.log",
+      "sha256": "de52cab9f7a74f7295b910de9513638fde099cde5fc7e4ffed907f0760de74e3"
+    },
+    "full22.log": {
+      "path": "/tmp/sc-production-review-evidence/full22.log",
+      "sha256": "2f2f8dfeaa50ca8ae96fb340da194a8af45e867b7891902e8e54f450d6d66d8c"
+    },
+    "before22-expanded.log": {
+      "path": "/tmp/sc-production-review-evidence/before22-expanded.log",
+      "sha256": "b2a6f4f0a3debca41dc9211dbac72ec42ac728587cc7b787126dc08b5745857d"
+    },
+    "npm-ci.log": {
+      "path": "/tmp/sc-production-review-evidence/npm-ci.log",
+      "sha256": "6c9710b37c2be4fbcf6f7405897c8954b90d3f7465e1acedc5134c4457e53f19"
+    },
+    "runtime24.log": {
+      "path": "/tmp/sc-production-review-evidence/runtime24.log",
+      "sha256": "f2ec568164f99546161909b0189b57bb5be3e80f8e2ccd8a51a4aed8c4055a04"
+    },
+    "runtime22.log": {
+      "path": "/tmp/sc-production-review-evidence/runtime22.log",
+      "sha256": "33e26f35db6e57ce0c486ddc815fe966867e4f649e418eaf323f75f4720eb8e9"
+    },
+    "after22-initial.log": {
+      "path": "/tmp/sc-production-review-evidence/after22-initial.log",
+      "sha256": "ef2ce0d4d03f5b70288319e80fd1217ee6ddaaba13eb95ef5830f3764845fa9f"
+    },
+    "before22.log": {
+      "path": "/tmp/sc-production-review-evidence/before22.log",
+      "sha256": "65703a4bcecca8c3d84c8ec9048e813f23f12a371a223f457537ddb32e275817"
+    },
+    "generate-final.log": {
+      "path": "/tmp/sc-production-review-evidence/generate-final.log",
+      "sha256": "6da2183724e6fbd7a3b7734925d292218c5f071f1ff77eca63c50393f30d5544"
+    },
+    "full24-final.log": {
+      "path": "/tmp/sc-production-review-evidence/full24-final.log",
+      "sha256": "abfab25f4a43e701832a77c4e0a7f0a0e984476d08adb191fa367eafd34b6060"
+    },
+    "installed22-final.log": {
+      "path": "/tmp/sc-production-review-evidence/installed22-final.log",
+      "sha256": "8e01da64e1657a6ae051a6e87988e26726c2dbed1f478d4c5f7b36f0027def1c"
+    },
+    "before24.log": {
+      "path": "/tmp/sc-production-review-evidence/before24.log",
+      "sha256": "5ddb058347922be45c0596fb5fb1fbba1fad4bcf845d755f830e268653075e4a"
+    },
+    "full22-final.log": {
+      "path": "/tmp/sc-production-review-evidence/full22-final.log",
+      "sha256": "434ac8942643369cb0482277bfbe5ac38f681667f160b13fc22f5e552616af14"
+    },
+    "installed24-final.log": {
+      "path": "/tmp/sc-production-review-evidence/installed24-final.log",
+      "sha256": "c600ac2e672e5fc43a058c04d5c1ff58a97a3dd80ecbed44b8952535ef98f3f0"
+    },
+    "generation-final-check.log": {
+      "path": "/tmp/sc-production-review-evidence/generation-final-check.log",
+      "sha256": "45099b58d98d114d59602f996e736a89548bbbb8a41d6a636f58562278e3ebd4"
+    },
+    "check-7.log": {
+      "path": "/tmp/sc-production-review-evidence/check-7.log",
+      "sha256": "e8de49486a04dda9408a7afb280487983e4f4fdd38125063546cdf085f94949f"
+    },
+    "installed22.log": {
+      "path": "/tmp/sc-production-review-evidence/installed22.log",
+      "sha256": "9f368486420443f89610d00f2130f6ebf941f49ed08525e54b03ebd96d52f5f0"
+    },
+    "check-6.log": {
+      "path": "/tmp/sc-production-review-evidence/check-6.log",
+      "sha256": "bd40a3f8aa1d995a0c2d94c9f4dcb6a9d55addace2646da313807fb5e52eea0d"
+    },
+    "check-4.log": {
+      "path": "/tmp/sc-production-review-evidence/check-4.log",
+      "sha256": "ca4f71abfeabf7428f77a8aadc92b842a1dda6b20d77ecb0123314ed563d86ba"
+    },
+    "baseline-final24.log": {
+      "path": "/tmp/sc-production-review-evidence/baseline-final24.log",
+      "sha256": "29b5e9d52f1f660293cd51f63491deb62ca0fd74055c2efeb03fd4d444d2bf54"
+    },
+    "check-5.log": {
+      "path": "/tmp/sc-production-review-evidence/check-5.log",
+      "sha256": "45099b58d98d114d59602f996e736a89548bbbb8a41d6a636f58562278e3ebd4"
+    },
+    "affected24.log": {
+      "path": "/tmp/sc-production-review-evidence/affected24.log",
+      "sha256": "7f8023d99dff16aef1c157efec37b5c211f4a157e441e6fb5192e4e0508ce0e5"
+    },
+    "check-1.log": {
+      "path": "/tmp/sc-production-review-evidence/check-1.log",
+      "sha256": "ddbbcea041f7f522bcba502f207b993eb558290165ba5da18c7d4b4cdbb2914d"
+    },
+    "installed24.log": {
+      "path": "/tmp/sc-production-review-evidence/installed24.log",
+      "sha256": "08f822bd544075f9b600a5cf6e756fe38270ab1aee0ee861bfe40d3346b8d198"
+    },
+    "generate.log": {
+      "path": "/tmp/sc-production-review-evidence/generate.log",
+      "sha256": "6da2183724e6fbd7a3b7734925d292218c5f071f1ff77eca63c50393f30d5544"
+    },
+    "check-0.log": {
+      "path": "/tmp/sc-production-review-evidence/check-0.log",
+      "sha256": "14dc2c1fa29f8d35be071db9a065f1708032e8b0f3e70cceb6862e33f4a7d79a"
+    },
+    "check-2.log": {
+      "path": "/tmp/sc-production-review-evidence/check-2.log",
+      "sha256": "a59314c52ff9a2f505b89d7ba3232b24f83aaa5cbd86c8c8b63097885e923659"
+    },
+    "baseline-final22.log": {
+      "path": "/tmp/sc-production-review-evidence/baseline-final22.log",
+      "sha256": "bc95f07d8cbbb52192a43d3569bd227773e603b90427a491e3606a0de6d65b05"
+    },
+    "check-3.log": {
+      "path": "/tmp/sc-production-review-evidence/check-3.log",
+      "sha256": "e3014e10ad3ff04211aa967c0e30df765cc67c7e49a7e62e11c738d83d77bfc6"
+    },
+    "affected22.log": {
+      "path": "/tmp/sc-production-review-evidence/affected22.log",
+      "sha256": "2ea13738bc3b4912bdb2607b7a2cc9898f83c6b72ef61ea9a4b598257daecd7d"
+    },
+    "build.log": {
+      "path": "/tmp/sc-production-review-evidence/build.log",
+      "sha256": "a13e4ab0392accf83704c54b32da08e883ab9f006a64817406da40af00c373c9"
+    }
+  },
+  "implementation_commit": "4576d94e74ea4ac0905c84bfbf4c2b8d78178f6f",
+  "candidate_artifacts": {
+    "generated/package-content-manifest.json": {
+      "file_sha256": "5d265b07965377315dcc99ce00e8356373d11e16c6a4cfb7c074dc904a96d980",
+      "digest": "sha256:d91dde7a68b344c80975393ffd277f6e481f8dd04373ae2ff52fa1aa2cafaba7"
+    },
+    "generated/fixture-manifest.json": {
+      "file_sha256": "77c26ba5b9be555aa8bab373ae08b1df396281b69ff4d777e20faebf37f25285",
+      "digest": "sha256:890a05e8d9a6444e782613d0fb247d8a59c3a3da0349e54085310ff722d59b18"
+    },
+    "generated/schema-manifest.json": {
+      "file_sha256": "b7080e9055bddb624809965025c1797f22d0c2190e3f38695f490fdad2ae2d7e",
+      "digest": null
+    }
+  }
+}

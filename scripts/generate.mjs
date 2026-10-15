@@ -129,6 +129,7 @@ export async function outputs() {
   result.set('finance-v2.d.ts', (await readFile(root + 'tooling/finance-v2-api.d.ts', 'utf8')).replaceAll('../generated/index.js', './index.js'));
   result.set('capability.d.ts', (await readFile(root + 'tooling/capability-api.d.ts', 'utf8')).replaceAll('../generated/index.js', './index.js'));
   result.set('production-operations.d.ts', (await readFile(root + 'tooling/production-operations-api.d.ts', 'utf8')).replaceAll('../generated/index.js', './index.js'));
+  result.set('production-field-boundaries.d.ts', (await readFile(root + 'tooling/production-field-boundaries-api.d.ts', 'utf8')).replaceAll('../generated/index.js', './index.js'));
   const details = localSchemas.get('https://schemas.jevelopers.org/ErrorEnvelope/1.0.0').$defs.ErrorDetail.oneOf;
   const errorRegistry = Object.fromEntries(details.map(detail => [detail.properties.code.const, { category: detail.properties.category.const, safe_message: detail.properties.safe_message.const }]));
   result.set('error-registry.mjs', 'const records = ' + JSON.stringify(errorRegistry, null, 2) + ';\nfor (const record of Object.values(records)) Object.freeze(record);\nexport const errorRegistry = Object.freeze(records);\n');

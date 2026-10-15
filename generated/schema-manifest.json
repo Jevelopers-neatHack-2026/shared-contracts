@@ -1,5 +1,5 @@
 {
-  "package_version": "0.10.3",
+  "package_version": "0.11.1",
   "source_revision": null,
   "status": "unreleased_candidates",
   "toolchain": {
@@ -375,11 +375,60 @@
       "sha256": "117d3166df06dd3606781f577b9cde2f4aa94fb648dc00732a8a2d6e0b396462"
     },
     {
+      "contract": "ProductionCsvBatchRequest",
+      "version": "1.0.0",
+      "schema_id": "https://schemas.jevelopers.org/ProductionCsvBatchRequest/1.0.0",
+      "path": "schemas/ProductionCsvBatchRequest/1.0.0.json",
+      "sha256": "550bb4af0c0050c3fb7643f058f851971a5b0adf557d0704a4f06f02ac149eb9"
+    },
+    {
+      "contract": "ProductionCsvCheckpoint",
+      "version": "1.0.0",
+      "schema_id": "https://schemas.jevelopers.org/ProductionCsvCheckpoint/1.0.0",
+      "path": "schemas/ProductionCsvCheckpoint/1.0.0.json",
+      "sha256": "633c5b6bf5f7409936527b4b8683eaf27737aebcc00d1cc7a46f5b6314fb315c"
+    },
+    {
+      "contract": "ProductionCsvInputPolicy",
+      "version": "1.0.0",
+      "schema_id": "https://schemas.jevelopers.org/ProductionCsvInputPolicy/1.0.0",
+      "path": "schemas/ProductionCsvInputPolicy/1.0.0.json",
+      "sha256": "de5eac141a09ab8917ce2a58defff211bbe7fb1b7b386a8b94b062fc5e41f94c"
+    },
+    {
+      "contract": "ProductionCsvInputReference",
+      "version": "1.0.0",
+      "schema_id": "https://schemas.jevelopers.org/ProductionCsvInputReference/1.0.0",
+      "path": "schemas/ProductionCsvInputReference/1.0.0.json",
+      "sha256": "e3de592be5a5a26f20a3e63e2ee23860edf398ad8e3e6f0265854262795d67f0"
+    },
+    {
+      "contract": "ProductionDerivationBinding",
+      "version": "1.0.0",
+      "schema_id": "https://schemas.jevelopers.org/ProductionDerivationBinding/1.0.0",
+      "path": "schemas/ProductionDerivationBinding/1.0.0.json",
+      "sha256": "675ed2df348538ce869b031f2ac86b780c1dbb0fac050fa973b97517abdd8d8d"
+    },
+    {
       "contract": "ProductionDiagnostic",
       "version": "1.0.0",
       "schema_id": "https://schemas.jevelopers.org/ProductionDiagnostic/1.0.0",
       "path": "schemas/ProductionDiagnostic/1.0.0.json",
       "sha256": "d070725981c5c28b43dfe8bd80f2fa5bfa9dcb500316acfe9a78ab35bc77d652"
+    },
+    {
+      "contract": "ProductionDraftBatchResult",
+      "version": "1.0.0",
+      "schema_id": "https://schemas.jevelopers.org/ProductionDraftBatchResult/1.0.0",
+      "path": "schemas/ProductionDraftBatchResult/1.0.0.json",
+      "sha256": "bd78105744f80b07f8402c13c5bcb6b513f23dc714e8a2d43a23fd572b83bc56"
+    },
+    {
+      "contract": "ProductionDraftRowResult",
+      "version": "1.0.0",
+      "schema_id": "https://schemas.jevelopers.org/ProductionDraftRowResult/1.0.0",
+      "path": "schemas/ProductionDraftRowResult/1.0.0.json",
+      "sha256": "d4d283dcc72aebf1496704a71b136e99f90f749c8269e7023e8b50657924af7b"
     },
     {
       "contract": "ProductionError",
@@ -394,6 +443,13 @@
       "schema_id": "https://schemas.jevelopers.org/ProductionExecutionPins/1.0.0",
       "path": "schemas/ProductionExecutionPins/1.0.0.json",
       "sha256": "4d1d8b18150f3b25171b524f24c8d51288b2b987a88948106529f8976ad40079"
+    },
+    {
+      "contract": "ProductionFieldReadBinding",
+      "version": "1.0.0",
+      "schema_id": "https://schemas.jevelopers.org/ProductionFieldReadBinding/1.0.0",
+      "path": "schemas/ProductionFieldReadBinding/1.0.0.json",
+      "sha256": "3933adc1c5c803d564f25a0f8cee349b8fe3869d56eed7333701ba73c67e7f62"
     },
     {
       "contract": "ProductionPolicy",

@@ -15,13 +15,20 @@ Versioned schemas, validation and compatibility fixtures for the interfaces betw
   <a href="docs/contract-catalog.md"><img alt="Contract catalog: implemented candidates" src="https://img.shields.io/badge/catalog-candidate-26302A?style=flat-square&labelColor=17140F"></a>
 </p>
 
-[Status](#status) · [What's here](#whats-here) · [Development](#development) · [Contracts](#contracts) · [Docs](#docs) · [Related](#related-repositories)
+[Status](#status) · [What's here](#whats-here) · [Quickstart](#quickstart) · [Validation](#testing-and-validation) · [Development](#development) · [Contracts](#contracts) · [Docs](#docs) · [Related](#related-repositories)
 
 ## Status
 
-**Private implementation candidate; canonical release remains unaccepted.** [PR #31](https://github.com/Jevelopers-neatHack-2026/shared-contracts/pull/31) integrates the schemas, generated SDK and executable development package with the maintained receipt checker, reporting proposal and graph workflow. Merging this candidate permits development from an immutable source pin; it does not grant owner acknowledgement, consumer adoption or release acceptance.
+**Unreleased implementation candidate.** [PR #46](https://github.com/Jevelopers-neatHack-2026/shared-contracts/pull/46) integrates the canonical SDK candidate, proposed usage-cost fields from [PR #42](https://github.com/Jevelopers-neatHack-2026/shared-contracts/pull/42), and opt-in production field boundaries. This checkout contains private package **0.11.1**, with 85 wire names across 96 supported schema versions, generated Node ESM validators and readonly TypeScript bindings, pure context helpers, fixtures and offline tooling. Owner acknowledgements, consumer adoption and release acceptance remain separate, pending records.
 
-Candidate package **0.10.2** contains 77 wire names across 88 supported schema versions, standalone Node ESM validators, deep readonly TypeScript bindings, pure semantic helpers, compatibility fixtures and offline consumer tooling. The npm package remains private (`private: true`) and unpublished; the GitHub repository is public. Finance state, authentication, approval issuance, rendering and supplier operations remain with their domain owners. No project license has been selected.
+- **Available locally:** [receipt metadata validation](docs/receipt-checker.md), the [reporting/query/export proposal](proposals/reporting-v1/README.md), and the commands below. A structurally complete receipt does not verify its claims or grant release authority.
+- **Merged foundation:** [PR #31](https://github.com/Jevelopers-neatHack-2026/shared-contracts/pull/31) and [PR #42](https://github.com/Jevelopers-neatHack-2026/shared-contracts/pull/42) are now on `main`. PR #46 adds the opt-in production field boundaries; private development permission, compatibility review, consumer pins and release acceptance remain separate records.
+- **Consumer pins:** consumers record their exact candidate revision, archive digest and adoption limitations in local manifests, such as [cost-intelligence's contract lock](https://github.com/Jevelopers-neatHack-2026/cost-intelligence/blob/main/contracts.lock.json). A vendored proposal archive is not a registry release or evidence of acceptance by every consumer. Recheck the current manifest rather than copying a moving candidate version into this README.
+- Remaining work is tracked in [SC-EPIC #1](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/1) and its linked SC issues, ending with the [SC-12 release gate](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/3). CON-01 to CON-03 stay planned in the [acceptance view](docs/architecture/ACCEPTANCE.md).
+
+### Historical candidate evidence
+
+The earlier candidate package **0.8.3** contained 47 individually indexed wire names across 56 supported schema versions, generated Node ESM validators and deep readonly TypeScript bindings, pure context helpers, compatibility fixtures and offline consumer tooling. The narrow [#32 capability/print-spec proposal](docs/capability-contracts.md) adds `FulfillmentCapabilitySnapshot@1.0.0` and `PrintSpec@1.0.0` from concrete synthetic fulfillment inputs, pending independent and owner/consumer review. The nine finance families retain their 2.0.0 proposals and 1.0.0 encodings; named owners, proposed receipt/verifier names and actual producer/consumer acceptance remain pending. The GitHub repository was inspected as public on October 10, 2026; npm package `private: true` prevents registry publication. These are separate settings. No project license has been selected.
 
 The usage-cost candidate from [PR #42](https://github.com/Jevelopers-neatHack-2026/shared-contracts/pull/42) is included. The [reporting/query/export proposal](proposals/reporting-v1/README.md) remains isolated from canonical FinancialSummary contracts. [Receipt metadata validation](docs/receipt-checker.md) checks structure and records; a complete receipt does not verify its claims or grant release authority.
 
@@ -45,11 +52,55 @@ The [contract catalog](docs/contract-catalog.md) describes the implemented candi
 | [Compatibility evidence](docs/consumer-acceptance-receipt.md) | Candidate-specific evidence stages; a receipt does not grant acceptance |
 | [Operations and errors](docs/operations-contracts.md) | Typed errors, partial failures, jobs and operational helper boundaries |
 
+## Quickstart
+
+Use Git and Node.js. The [maintained receipt runtime contract](docs/receipt-checker.md#rules-checked) recognizes Node 22.23.3 or later within 22, or 24.21.0 or later within 24; use one of those lines when preparing consumer evidence. These standalone receipt and graph tests need no npm installation. For the SDK candidate, use the root installation and build commands under [Development](#development).
+
+```sh
+git clone https://github.com/Jevelopers-neatHack-2026/shared-contracts.git
+cd shared-contracts
+node --test tests/consumer-receipt.test.mjs tests/graph-workflow.test.mjs
+```
+
+These tests exercise the local receipt checker and graph-workflow policy. They make no product/provider request and do not accept a canonical package or an integration.
+
+## Configuration
+
+| Setting or input | Used by | Meaning |
+|---|---|---|
+| `SC_AJV_ROOT` | Reporting proposal validator and tests | Absolute path to an externally provisioned `node_modules` directory containing exactly `ajv@8.17.1`; the validator does not install dependencies or fetch schemas |
+| Receipt JSON file | `scripts/check-consumer-receipt.mjs` | A locally prepared receipt matching the [receipt template](docs/consumer-acceptance-receipt.md); input is metadata, not an executable command list |
+
+No service credentials or `.env` file are needed for these offline tools. Keep secrets out of receipt fields and fixtures. The graph workflow's CLI/plugin setup is defined separately in [its workflow source](.github/workflows/entire-graph.yml).
+
+## Testing and validation
+
+| Check | Command or instructions | What it establishes |
+|---|---|---|
+| Receipt and workflow policy tests | Quickstart command above | Local metadata validation and static workflow-policy behavior |
+| Reporting proposal fixtures | `node proposals/reporting-v1/validate.mjs` after setting `SC_AJV_ROOT` | Synthetic fixtures match proposed structural schemas |
+| Reporting runner regressions | `node --test tests/reporting-proposal.test.mjs` with the same dependency setup | Local runner and fixture failure controls |
+| Prepared receipt | `node scripts/check-consumer-receipt.mjs receipt.json` after creating that input file | `METADATA_COMPLETE`, `INCOMPLETE` or `INVALID`; no verification of real artifacts, commands or people |
+
+The [reporting proposal README](proposals/reporting-v1/README.md#offline-validation) describes dependency provisioning, exit codes and schema limitations. The SDK candidate adds root build and test scripts and the [foundation workflow](.github/workflows/foundation.yml). The existing [Entire graph workflow](.github/workflows/entire-graph.yml) runs on `main` pushes and uploads graph artifacts; it does not run these contract/receipt suites or establish a product release gate.
+
+## Repository structure
+
+| Path | Contents |
+|---|---|
+| [`docs/contract-catalog.md`](docs/contract-catalog.md) | Maintained domain-interface design and state ownership |
+| [`docs/consumer-acceptance-receipt.md`](docs/consumer-acceptance-receipt.md) | Consumer handoff template and evidence boundaries |
+| [`docs/mvp-readiness.md`](docs/mvp-readiness.md) | Dated candidate, owner and consumer-readiness snapshot; follow its receipts for later decisions |
+| [`proposals/reporting-v1/`](proposals/reporting-v1/) | Unadopted reporting schemas, synthetic fixtures and isolated validator |
+| [`scripts/`](scripts/) | Offline receipt metadata checker, generation and contract checks |
+| [`tests/`](tests/) | Contract, receipt, reporting and workflow-policy tests |
+| [`.github/workflows/`](.github/workflows/) | Foundation, receipt, reporting and graph workflows; acceptance remains a separate gate |
 ## Development
 
 Use **Node 22.23.3** for canonical generation, npm and the exact [lockfile](package-lock.json). Installed Node ESM, TypeScript and all-version fixtures were also verified on **Node 24.21.0** for consumer compatibility. The engine range retains Node 22 and permits Node 24 at that tested minimum; renderer/npm platform acceptance remains downstream. Prewarm the locked dependency cache before the isolated run. Validation uses no provider credentials and no provider calls:
 
 ```sh
+export SC_AJV_ROOT="$PWD/node_modules"
 export npm_config_offline=true npm_config_audit=false npm_config_fund=false
 export SC_AJV_ROOT="$PWD/node_modules"
 npm ci
@@ -172,13 +223,17 @@ The runner uses the exact checked-in [nine-row handoff manifest](compatibility/c
 Related producers, consumers and coordination repositories:
 
 - [fulfillment-connectors](https://github.com/Jevelopers-neatHack-2026/fulfillment-connectors): validates through injected ports and records the shared-contracts issues it waits on.
-- [cost-intelligence](https://github.com/Jevelopers-neatHack-2026/cost-intelligence): records the earlier proposal archive described above; accepted adoption remains pending.
+- [cost-intelligence](https://github.com/Jevelopers-neatHack-2026/cost-intelligence): owns Finance semantics and its exact candidate pin; [team-dashboard](https://github.com/Jevelopers-neatHack-2026/team-dashboard) consumes authorized Finance projections.
 - [integration-evals](https://github.com/Jevelopers-neatHack-2026/integration-evals): hosts the master checklist that tracks CON-01 contract compatibility.
 - [getticketstub.com](https://github.com/Jevelopers-neatHack-2026/getticketstub.com): architecture kit and producer/consumer map.
 
 ## Contributing
 
 Follow the [organization contribution guidance](https://github.com/Jevelopers-neatHack-2026/.github/blob/main/CONTRIBUTING.md). Schema changes need review by at least one affected producer and consumer ([consumer handoff](docs/consumer-handoff.md)). Run the development checks above and retain schema, fixture and package provenance for review. No license file is present in this repository.
+
+## License
+
+No repository license file is present. Source integration and validation do not supply licensing terms.
 
 ### Production contract development candidate
 
@@ -216,6 +271,23 @@ Package 0.9.0 adds proposed production interfaces and pure checks. [Protocol and
 | CsvMapping/1.0.0 | [schema](schemas/CsvMapping/1.0.0.json) | [readonly types](generated/CsvMapping_1_0_0.d.ts) | [pure checks](tooling/production-operations.mjs) | [synthetic fixtures](fixtures/CsvMapping.json) | [owner leaf](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36) |
 | CsvCheckpoint/1.0.0 | [schema](schemas/CsvCheckpoint/1.0.0.json) | [readonly types](generated/CsvCheckpoint_1_0_0.d.ts) | [pure checks](tooling/production-operations.mjs) | [synthetic fixtures](fixtures/CsvCheckpoint.json) | [owner leaf](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36) |
 | ProductionExecutionPins/1.0.0 | [schema](schemas/ProductionExecutionPins/1.0.0.json) | [readonly types](generated/ProductionExecutionPins_1_0_0.d.ts) | [pure checks](tooling/production-operations.mjs) | [synthetic fixtures](fixtures/ProductionExecutionPins.json) | [owner leaf](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/34) |
+
+### Production field boundaries proposal
+
+Package 0.11.1 carries a separate, opt-in candidate for the remaining SC-PROD-ROWS field boundaries. It has no owner acceptance or current consumer assignments; [the proposal guide](docs/production-field-boundaries.md) documents its host-owned limits.
+
+This package also includes the current-main [consumer acceptance receipt](docs/consumer-acceptance-receipt.md), [MVP readiness snapshot](docs/mvp-readiness.md), and [receipt checker guide](docs/receipt-checker.md) without changing their historical or proposal-only status. Reporting proposals remain isolated from the canonical contract catalog and have no Finance, query-service, persistence, metrics, browser, adoption, or GAP-001 acceptance.
+
+| Candidate | Schema | Types | Checks | Fixtures | Ownership |
+| --- | --- | --- | --- | --- | --- |
+| ProductionCsvInputPolicy/1.0.0 | [schema](schemas/ProductionCsvInputPolicy/1.0.0.json) | [types](generated/ProductionCsvInputPolicy_1_0_0.d.ts) | [pure checks](tooling/production-field-boundaries.mjs) | [synthetic fixture](fixtures/ProductionCsvInputPolicy.json) | [SC-PROD-ROWS proposal](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36) |
+| ProductionCsvInputReference/1.0.0 | [schema](schemas/ProductionCsvInputReference/1.0.0.json) | [types](generated/ProductionCsvInputReference_1_0_0.d.ts) | [pure checks](tooling/production-field-boundaries.mjs) | [synthetic fixture](fixtures/ProductionCsvInputReference.json) | [SC-PROD-ROWS proposal](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36) |
+| ProductionCsvCheckpoint/1.0.0 | [schema](schemas/ProductionCsvCheckpoint/1.0.0.json) | [types](generated/ProductionCsvCheckpoint_1_0_0.d.ts) | [pure checks](tooling/production-field-boundaries.mjs) | [synthetic fixture](fixtures/ProductionCsvCheckpoint.json) | [SC-PROD-ROWS proposal](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36) |
+| ProductionCsvBatchRequest/1.0.0 | [schema](schemas/ProductionCsvBatchRequest/1.0.0.json) | [types](generated/ProductionCsvBatchRequest_1_0_0.d.ts) | [pure checks](tooling/production-field-boundaries.mjs) | [synthetic fixture](fixtures/ProductionCsvBatchRequest.json) | [SC-PROD-ROWS proposal](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36) |
+| ProductionFieldReadBinding/1.0.0 | [schema](schemas/ProductionFieldReadBinding/1.0.0.json) | [types](generated/ProductionFieldReadBinding_1_0_0.d.ts) | [pure checks](tooling/production-field-boundaries.mjs) | [synthetic fixture](fixtures/ProductionFieldReadBinding.json) | [SC-PROD-ROWS proposal](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36) |
+| ProductionDraftRowResult/1.0.0 | [schema](schemas/ProductionDraftRowResult/1.0.0.json) | [types](generated/ProductionDraftRowResult_1_0_0.d.ts) | [pure checks](tooling/production-field-boundaries.mjs) | [synthetic fixture](fixtures/ProductionDraftRowResult.json) | [SC-PROD-ROWS proposal](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36) |
+| ProductionDraftBatchResult/1.0.0 | [schema](schemas/ProductionDraftBatchResult/1.0.0.json) | [types](generated/ProductionDraftBatchResult_1_0_0.d.ts) | [pure checks](tooling/production-field-boundaries.mjs) | [synthetic fixture](fixtures/ProductionDraftBatchResult.json) | [SC-PROD-ROWS proposal](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36) |
+| ProductionDerivationBinding/1.0.0 | [schema](schemas/ProductionDerivationBinding/1.0.0.json) | [types](generated/ProductionDerivationBinding_1_0_0.d.ts) | [pure checks](tooling/production-field-boundaries.mjs) | [synthetic fixture](fixtures/ProductionDerivationBinding.json) | [SC-PROD-ROWS proposal](https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36) |
 
 ## Receipt and reporting tools
 

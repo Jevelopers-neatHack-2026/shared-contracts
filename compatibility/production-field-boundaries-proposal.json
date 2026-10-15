@@ -1,0 +1,116 @@
+{
+  "proposal_id": "SC-PROD-ROWS-FIELD-BOUNDARIES",
+  "status": "candidate_unaccepted",
+  "related_issue": 36,
+  "contracts": [
+    "ProductionCsvInputPolicy/1.0.0",
+    "ProductionCsvInputReference/1.0.0",
+    "ProductionCsvCheckpoint/1.0.0",
+    "ProductionCsvBatchRequest/1.0.0",
+    "ProductionFieldReadBinding/1.0.0",
+    "ProductionDraftRowResult/1.0.0",
+    "ProductionDraftBatchResult/1.0.0",
+    "ProductionDerivationBinding/1.0.0"
+  ],
+  "owner_acceptance": null,
+  "consumer_adoption": null,
+  "source_input": {
+    "status": "sanitized_producer_examples_independently_hash_checked",
+    "verified_payloads": 49,
+    "mismatches": 0,
+    "actual_revision_and_private_record_hashes": "retained_only_in_private production-field-worker/result.json",
+    "real_attendee_cells_and_absolute_source_paths": "not copied"
+  },
+  "intended_roles": {
+    "status": "intended_role_only",
+    "producer": ["print-production"],
+    "consumers": ["getticketstub.com", "fulfillment-connectors", "agent-harness", "integration-evals"],
+    "producer_scope": "host-owned CSV input, restricted draft read, and repair lineage observations",
+    "consumer_scope": "opt-in consumption after owner agreement",
+    "version_assignments": {
+      "ProductionCsvInputPolicy/1.0.0": { "producers": [], "consumers": [] },
+      "ProductionCsvInputReference/1.0.0": { "producers": [], "consumers": [] },
+      "ProductionCsvCheckpoint/1.0.0": { "producers": [], "consumers": [] },
+      "ProductionCsvBatchRequest/1.0.0": { "producers": [], "consumers": [] },
+      "ProductionFieldReadBinding/1.0.0": { "producers": [], "consumers": [] },
+      "ProductionDraftRowResult/1.0.0": { "producers": [], "consumers": [] },
+      "ProductionDraftBatchResult/1.0.0": { "producers": [], "consumers": [] },
+      "ProductionDerivationBinding/1.0.0": { "producers": [], "consumers": [] }
+    },
+    "owner": null,
+    "named_reviewer": null,
+    "owner_acknowledgement": null,
+    "consumer_acknowledgement": null
+  },
+  "criteria": [
+    {
+      "id": "PFB-001",
+      "statement": "CSV input policy, reference, checkpoint, and batch request are separately versioned opt-in contracts; existing request/result bytes, ArtifactFile/2.0.0 output semantics, and old operation callback types remain unchanged.",
+      "source_cases": ["CSV-REF-EXACT", "CSV-REF-MISMATCH", "CSV-REQUEST-EXACT", "CSV-REQUEST-READ-MISSING", "CSV-OLD-DISABLED"],
+      "installed_cases": ["INST-CSV-EXACT", "INST-CSV-TAMPER", "INST-CSV-READ", "INST-LEGACY-NARROW"]
+    },
+    {
+      "id": "PFB-002",
+      "statement": "CSV input is byte-bound to the host policy, strict UTF-8 without BOM, exact dialect and mapping, and a complete expected checkpoint; helpers do not parse, fetch, launch, or include the input in a bundle.",
+      "source_cases": ["CSV-BYTES-STRICT", "CSV-BYTES-TAMPER", "CSV-BOM", "CSV-INVALID-UTF8", "CSV-RESOURCE", "CSV-MAPPING", "CSV-CHECKPOINT", "CSV-OUTPUT-ISOLATION"],
+      "installed_cases": ["INST-CSV-EXACT", "INST-CSV-TAMPER", "INST-CSV-RESOURCE"]
+    },
+    {
+      "id": "PFB-003",
+      "statement": "CSV input, draft, and derived reads bind authenticated host scope, actor, audience, opaque permission key, exact input/row/resource commitments, current observation time, and explicit expiry; unavailable, revoked, stale, or mismatched observations refuse.",
+      "source_cases": ["READ-CURRENT", "READ-SCOPE", "READ-EXPIRED", "READ-REVOKED", "READ-UNAVAILABLE", "CSV-REQUEST-READ-EXPIRED", "CSV-REQUEST-READ-MISMATCH"],
+      "installed_cases": ["INST-READ-CURRENT", "INST-READ-SCOPE", "INST-READ-EXPIRED", "INST-CSV-READ-EXPIRED", "INST-CSV-READ-MISMATCH"]
+    },
+    {
+      "id": "PFB-004",
+      "statement": "Restricted draft rows preserve RowResult/1.0.0 validation while recording execution, render, stored-byte integrity, handoff eligibility, and publication independently; this helper issues no authority.",
+      "source_cases": ["DRAFT-ROW-POSITIVE", "DRAFT-ROW-INELIGIBLE", "DRAFT-STORED-BYTES"],
+      "installed_cases": ["INST-DRAFT-ROW", "INST-STORAGE-BYTES"]
+    },
+    {
+      "id": "PFB-005",
+      "statement": "Draft batches preserve every expected row in ordinal order and retain unknown counts as unknown; failed or incomplete atomic jobs cannot expose committed outputs, while partial mode retains every row and diagnostic.",
+      "source_cases": ["DRAFT-BATCH-ATOMIC", "DRAFT-BATCH-ATOMIC-LEAK", "DRAFT-BATCH-UNKNOWN", "DRAFT-BATCH-EMPTY-UNKNOWN", "DRAFT-BATCH-PARTIAL", "DRAFT-BATCH-OMIT", "DRAFT-BATCH-ORDER"],
+      "installed_cases": ["INST-DRAFT-ATOMIC", "INST-DRAFT-UNKNOWN"]
+    },
+    {
+      "id": "PFB-006",
+      "statement": "Derivation binds immutable parent and derived Composition references, explicit standalone or job/row association, input and plan hashes, policy/report/resource/runtime commitments, and current exact access; material or unknown changes require external review.",
+      "source_cases": ["DERIVATION-EXACT", "DERIVATION-MISSING", "DERIVATION-EXPIRED", "DERIVATION-MATERIAL", "DERIVATION-WRONG-LINEAGE", "DERIVATION-NULL-PAIR", "DERIVATION-ROW-BOUND", "DERIVATION-SAME-HASH-WRONG-JOB"],
+      "installed_cases": ["INST-DERIVATION-EXACT", "INST-DERIVATION-LINEAGE", "INST-DERIVATION-REVIEW"]
+    },
+    {
+      "id": "PFB-007",
+      "statement": "Replay is pairwise equivalent only for the exact immutable derivation tuple and a fresh exact read observation; it classifies NO_OP and requests no new render/export or approval carryforward.",
+      "source_cases": ["REPLAY-NOOP", "REPLAY-TUPLE-CHANGED", "REPLAY-EXPIRED"],
+      "installed_cases": ["INST-REPLAY-NOOP", "INST-REPLAY-CHANGED"]
+    },
+    {
+      "id": "PFB-008",
+      "statement": "New JSON references and expectations reject accessors, hidden and symbol properties, cycles, non-JSON values, oversized resources, and propagate unrelated programming errors after canonical preflight.",
+      "source_cases": ["PREFLIGHT-CSV-GETTER", "PREFLIGHT-CSV-ERROR", "PREFLIGHT-GETTER", "PREFLIGHT-HIDDEN", "PREFLIGHT-SYMBOL", "PREFLIGHT-CYCLE", "PREFLIGHT-ERROR-PROPAGATES", "CSV-BYTES-SYMBOL", "DRAFT-STORAGE-HIDDEN", "RESOURCE-JSON", "RESOURCE-COLLECTION"],
+      "installed_cases": ["INST-PREFLIGHT", "INST-CSV-RESOURCE"]
+    },
+    {
+      "id": "PFB-009",
+      "statement": "Public calibration vectors use synthetic IDs and fictional rows, identify fixture limits as examples only, and claim no genuine grant, canonical private revision, issuer identity, acceptance, or consumer adoption.",
+      "source_cases": ["PROVENANCE-SYNTHETIC-CALIBRATION"],
+      "installed_cases": ["INST-SYNTHETIC-FIXTURE"]
+    }
+  ],
+  "explicit_non_goals": [
+    "CSV file retrieval or parsing service",
+    "input, draft, or derived-artifact storage",
+    "authorization or approval issuer",
+    "renderer, export service, or user interface",
+    "durable idempotency or repair execution service",
+    "public CSV launch, release, or consumer pin migration",
+    "revising existing SC-PROD-ROWS or original acceptance criteria"
+  ],
+  "limitations": [
+    "Producer examples use synthetic permission callbacks and do not establish an accepted permission issuer, grant expiry policy, retention rule, or canonical parent/derived UUID mapping.",
+    "The pure read-binding check compares a host-supplied current observation and does not authenticate that host or issue authority.",
+    "A checkpoint is compared with the independently supplied expected checkpoint; the module does not determine CSV record boundaries itself.",
+    "All new per-version producer and consumer assignment arrays remain empty pending owner agreement."
+  ]
+}

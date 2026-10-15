@@ -1,5 +1,17 @@
 # Candidate changes
 
+## Production field review continuation (unreleased)
+
+Repairs the eight local guard omissions reproduced at PR46 head 9d4dae8: full derivation/read scope and tuple joins, atomic output visibility, published RowResult/draft/read reference equality, intrinsic TypedArray byte bounds, descriptor policy ceilings, checkpoint scope and unique original-row identity. Reuses PR53 byte normalization without claiming that backing ArrayBuffer getters never execute. Existing schemas, fixtures, contract versions and consumer SDK pins are unchanged. New source/archive bytes require their own independent review; no proposal, domain or release acceptance is established.
+
+## 0.11.1 (unreleased private candidate)
+
+Repackages the opt-in production-field proposal as package version 0.11.1 and includes the three unchanged current-main readiness and receipt documents in the package content manifest. The added ReportingQuery/ReportingExportManifest work remains isolated proposal material and does not add canonical exports, Finance semantics, query services, persistence, metrics, browser validation, adoption, or GAP-001 acceptance. The proposal remains unaccepted; no owner authority, consumer pin, historical acceptance, or prior archive approval transfers to these bytes.
+
+## 0.11.0 (unreleased private candidate)
+
+Adds an opt-in, unaccepted production-field proposal for CSV input policy/reference/checkpoint/request, restricted draft row/batch results and read bindings, and explicit derivation/replay bindings. Existing request/result schemas, legacy reference unions, callback pins, consumer assignments, and acceptance records remain unchanged. All new per-version role assignments are empty pending owner agreement.
+
 ## 0.10.3 (unreleased private candidate)
 
 Repairs SC-PFB-PARENT-LEGACY009: canonical production JSON, outer file commitments and stored ZIP verification read branded typed-array view slots instead of caller-owned byteLength/buffer/byteOffset properties. Shadowed data properties and returning/throwing getters cannot change bounds or select different bytes. Nonzero-offset views retain their exact extent; malformed and detached views fail with typed results. Existing schema/fixture versions and consumer pins are unchanged. This new artifact requires independent review and affected producer/consumer ACKs; old archive receipts do not transfer.

@@ -2,7 +2,7 @@
 
 **Repository status:** Public GitHub repository, checked 2026-10-12 against [main at `91736a026c02a3206cb7666ebfbe6134692e5a24`](https://github.com/Jevelopers-neatHack-2026/shared-contracts/commit/91736a026c02a3206cb7666ebfbe6134692e5a24). This visibility check documents repository metadata; it does not change visibility or imply publication.
 **Proposed owner:** Agent and research (repository role; named contract owners and reviewers remain unassigned).
-**Delivery state:** Private candidate package 0.10.2 supplies 77 wire names across 88 schema versions, generated consumer bindings, standalone validators and offline fixtures alongside the receipt metadata checker and isolated reporting proposal. Named owner/reviewer acknowledgements, accepted consumer pins and release obligations remain separate. See [MVP readiness](../mvp-readiness.md); individual issue and PR records remain authoritative.
+**Delivery state:** This checkout integrates the private, unreleased shared-contracts 0.11.1 SDK candidate with current-main receipt and reporting tooling. Generated bindings and local fixtures are contribution evidence; named owners, accepted producer/consumer pins and release acceptance remain pending. Public repository visibility is distinct from the npm package's private setting. Historical main status and consumer receipts are recorded in [MVP readiness](../mvp-readiness.md); individual issue and PR records remain authoritative.
 
 ## Responsibility
 
@@ -19,7 +19,7 @@ The shared package should remain dependency-light. It may distribute generated t
 - `fixtures/`: Valid, invalid, and compatibility examples.
 - `compatibility/`: Version policy and consumer impact records.
 
-The JSON Schemas and synthetic fixtures under [`proposals/reporting-v1/`](../../proposals/reporting-v1/README.md) remain an isolated Finance-review proposal. They are not promoted into the canonical contract set. The receipt checker is governance tooling for recording and shape-checking evidence.
+The JSON Schemas and synthetic fixtures under [`proposals/reporting-v1/`](../../proposals/reporting-v1/README.md) remain an isolated Finance-review proposal. They are not promoted into the canonical contract set. The receipt checker records and shape-checks evidence; it does not verify artifact claims or grant acceptance.
 
 ## Dependencies and handoff
 

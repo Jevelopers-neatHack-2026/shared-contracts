@@ -1,0 +1,61 @@
+{
+  "contract": "ProductionCsvBatchRequest",
+  "schema_version": "1.0.0",
+  "policy_version": "1.0.0",
+  "evidence_mode": "synthetic_candidate_values_only",
+  "accepted": false,
+  "live_integration": false,
+  "valid": {
+    "contract": "ProductionCsvBatchRequest",
+    "schema_version": "1.0.0",
+    "policy_version": "1.0.0",
+    "tenant_id": "123e4567-e89b-42d3-a456-000000000001",
+    "project_id": "123e4567-e89b-42d3-a456-000000000002",
+    "request_id": "123e4567-e89b-42d3-a456-000000000206",
+    "correlation_id": "123e4567-e89b-42d3-a456-000000000207",
+    "binding": {
+      "design_ref": { "contract": "DesignVersion", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000090", "revision": 1, "content_hash": "sha256:d34ae97f0f737987247fdd21192e877ffd251b10287046e125164394048eddb9" },
+      "handoff_ref": { "contract": "ArtifactHandoffManifest", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000110", "revision": 1, "content_hash": "sha256:c4ce4ba2b17f5699f64c1f078dd4e04dc69fa14805442cc955eb5d98ea76a584" },
+      "facts_ref": { "contract": "EventIntelligencePackage", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000001", "revision": 1, "content_hash": "sha256:bd00e3ae87ea3d39ff666ccef7fa56fbc8259782a183466b6e8db4d7368bbf8f" },
+      "asset_refs": [
+        { "asset_ref": { "contract": "ArtifactFile", "schema_version": "2.0.0", "id": "123e4567-e89b-42d3-a456-00000000003c", "revision": 1, "content_hash": "sha256:d9b07d0b2856782f02f328c852998f0bb0f9f7d104424bcd72d86f31edf08f57" }, "permission_ref": { "contract": "ApprovalReceipt", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000100", "revision": 1, "content_hash": "sha256:eaceab5a58dddd945072b608eec4f7e7c14632932fa4b7a9c7a55dbcae85f2d1" }, "purpose": "artwork", "normalization_policy_ref": null },
+        { "asset_ref": { "contract": "ArtifactFile", "schema_version": "2.0.0", "id": "123e4567-e89b-42d3-a456-00000000003e", "revision": 1, "content_hash": "sha256:c743719b4eb5405f9c2f6d76e23786a95cccca047497182444061988f9028dd1" }, "permission_ref": { "contract": "ApprovalReceipt", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000100", "revision": 1, "content_hash": "sha256:eaceab5a58dddd945072b608eec4f7e7c14632932fa4b7a9c7a55dbcae85f2d1" }, "purpose": "overlay", "normalization_policy_ref": null }
+      ],
+      "approval_ref": { "contract": "ApprovalReceipt", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000100", "revision": 1, "content_hash": "sha256:eaceab5a58dddd945072b608eec4f7e7c14632932fa4b7a9c7a55dbcae85f2d1" },
+      "template_ref": { "contract": "TemplateSpec", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000033", "revision": 1, "content_hash": "sha256:930e79ba3901a4b5eaf5074696f4c160fd9205b270fa66a4226f53fb2c752f61" },
+      "spec_ref": { "contract": "PrintSpec", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000028", "revision": 1, "content_hash": "sha256:70fb24408b4d536ea6130d77f181af8bdc254f53cf36be44b009c20d1750542f" },
+      "capability_ref": { "contract": "FulfillmentCapabilitySnapshot", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000029", "revision": 1, "content_hash": "sha256:bfcc7571199aa593ae36419bf2998eafc0e0b8b9c46ebd20e3161c925d6104d9" },
+      "composition_ref": { "contract": "Composition", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-00000000003d", "revision": 1, "content_hash": "sha256:a54b6b0544ce53580f4c3d4f5ade920c2ba65a3e288bec103af6f5fd9e2e4811" },
+      "formatting_policy_ref": { "contract": "ProductionPolicy", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000015", "revision": 1, "content_hash": "sha256:b2dca40bca0afeab7c81fc43b9764a6ed13a93c1c743bafe576435f224d20523" },
+      "repair_policy_ref": null,
+      "values": { "name": { "kind": "display", "value": "Synthetic Person" }, "detail": { "kind": "display", "value": "0008" } }
+    },
+    "input": {
+      "kind": "csv",
+      "input_ref": {
+        "contract": "ProductionCsvInputReference", "schema_version": "1.0.0", "policy_version": "1.0.0", "tenant_id": "123e4567-e89b-42d3-a456-000000000001", "project_id": "123e4567-e89b-42d3-a456-000000000002", "id": "123e4567-e89b-42d3-a456-000000000201", "revision": 1, "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000", "byte_hash": "sha256:1111111111111111111111111111111111111111111111111111111111111111", "byte_size": 69, "media_type": "text/csv"
+      },
+      "dialect_ref": { "contract": "CsvDialect", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000204", "revision": 1, "content_hash": "sha256:2222222222222222222222222222222222222222222222222222222222222222" },
+      "mapping_ref": { "contract": "CsvMapping", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000205", "revision": 1, "content_hash": "sha256:3333333333333333333333333333333333333333333333333333333333333333" },
+      "row_schema_ref": { "contract": "PersonalizationSchema", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000032", "revision": 1, "content_hash": "sha256:b23095c9ecb2429345e8cb2e0fa94bd6c106fa5a9f939132d8b8a85ba3239e5e" },
+      "input_policy_ref": { "contract": "ProductionCsvInputPolicy", "schema_version": "1.0.0", "id": "123e4567-e89b-42d3-a456-000000000202", "revision": 1, "content_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000" },
+      "input_policy_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "checkpoint": null
+    },
+    "acceptance_policy": "atomic",
+    "idempotency_key": "synthetic-csv-batch-001"
+  },
+  "cases": [
+    { "id": "minimal", "category": "minimal", "policy_version": "1.0.0", "expected": { "ok": true } },
+    { "id": "full", "category": "full", "policy_version": "1.0.0", "expected": { "ok": true } },
+    { "id": "missing", "category": "missing", "policy_version": "1.0.0", "remove": ["contract"], "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "/contract" } },
+    { "id": "type", "category": "type", "policy_version": "1.0.0", "set": { "contract": 0 }, "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "/contract" } },
+    { "id": "enum", "category": "enum", "policy_version": "1.0.0", "set": { "contract": "OtherContract" }, "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "/contract" } },
+    { "id": "malformed", "category": "malformed_json", "policy_version": "1.0.0", "mode": "parse", "json": "{", "expected": { "ok": false, "code": "MALFORMED_JSON", "path": "" } },
+    { "id": "version", "category": "unsupported_version", "policy_version": "1.0.0", "set": { "schema_version": "9.0.0" }, "expected": { "ok": false, "code": "UNSUPPORTED_VERSION", "path": "/schema_version" } },
+    { "id": "unknown_field", "category": "unknown_field", "policy_version": "1.0.0", "set": { "unexpected": true }, "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "" } },
+    { "id": "unknown_critical", "category": "unknown_critical", "policy_version": "1.0.0", "set": { "unexpected": true }, "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "" } },
+    { "id": "additive_field", "category": "additive_field", "policy_version": "1.0.0", "set": { "unexpected": true }, "expected": { "ok": false, "code": "INVALID_PAYLOAD", "path": "" } },
+    { "id": "retained_encoding", "category": "retained_encoding", "policy_version": "1.0.0", "expected": { "ok": true } }
+  ]
+}

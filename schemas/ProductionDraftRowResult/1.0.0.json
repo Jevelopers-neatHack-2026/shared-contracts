@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.jevelopers.org/ProductionDraftRowResult/1.0.0",
+  "title": "ProductionDraftRowResult",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "contract": { "const": "ProductionDraftRowResult", "x-classification": "public" },
+    "schema_version": { "const": "1.0.0", "x-classification": "public" },
+    "policy_version": { "const": "1.0.0", "x-classification": "public" },
+    "row_result": { "$ref": "https://schemas.jevelopers.org/RowResult/1.0.0", "x-classification": "restricted" },
+    "draft_output": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "visibility": { "const": "restricted_draft", "x-classification": "public" },
+        "composition_ref": {
+          "anyOf": [
+            { "$ref": "https://schemas.jevelopers.org/ProductionFieldReadBinding/1.0.0#/$defs/CompositionReference", "x-classification": "restricted" },
+            { "type": "null" }
+          ],
+          "x-classification": "restricted"
+        },
+        "artifact_ref": { "anyOf": [{ "$ref": "https://schemas.jevelopers.org/ArtifactRef/1.0.0", "x-classification": "restricted" }, { "type": "null" }], "x-classification": "restricted" },
+        "bundle_ref": { "anyOf": [{ "$ref": "https://schemas.jevelopers.org/ProductionBundleRef/1.0.0", "x-classification": "restricted" }, { "type": "null" }], "x-classification": "restricted" },
+        "file_commitments": { "type": "array", "items": { "$ref": "https://schemas.jevelopers.org/ArtifactFile/2.0.0", "x-classification": "restricted" }, "minItems": 0, "maxItems": 100, "x-classification": "restricted" },
+        "render_state": { "type": "string", "enum": ["succeeded", "failed", "unknown"], "x-classification": "restricted" },
+        "render_hash": { "anyOf": [{ "$ref": "https://schemas.jevelopers.org/CommonEnvelope/1.0.0#/$defs/Sha256", "x-classification": "restricted", "type": "string", "minLength": 71, "maxLength": 71 }, { "type": "null" }], "x-classification": "restricted" },
+        "storage_state": { "type": "string", "enum": ["stored", "not_stored", "unknown"], "x-classification": "restricted" },
+        "integrity_state": { "type": "string", "enum": ["verified", "failed", "unknown"], "x-classification": "restricted" },
+        "handoff_eligibility": { "type": "string", "enum": ["eligible", "blocked", "unknown"], "x-classification": "restricted" },
+        "publication_state": { "type": "string", "enum": ["published", "unpublished", "unknown"], "x-classification": "restricted" }
+      },
+      "required": ["visibility", "composition_ref", "artifact_ref", "bundle_ref", "file_commitments", "render_state", "render_hash", "storage_state", "integrity_state", "handoff_eligibility", "publication_state"],
+      "x-classification": "restricted"
+    }
+  },
+  "required": ["contract", "schema_version", "policy_version", "row_result", "draft_output"],
+  "x-classification": "restricted"
+}
