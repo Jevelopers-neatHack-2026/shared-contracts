@@ -9,8 +9,10 @@ function checkedDerivation(value) {
   return parsed;
 }
 
-function currentDerivedRead(binding, expected, now) {
-  if (!binding || !expected) return fieldIssue('NEEDS_EXTERNAL_REVIEW');
+function currentDerivedRead(binding, expected, now, derivation, scope) {
+  if (!binding || !expected || ['parent_ref', 'derived_ref', 'association', 'derivation_hash'].some(key => !Object.hasOwn(expected, key)) || !scopeMatches(expected.scope, scope) ||
+      !sameCanonical(expected.parent_ref, derivation.parent_ref) || !sameCanonical(expected.derived_ref, derivation.derived_ref) ||
+      !sameCanonical(expected.association, derivation.association) || expected.derivation_hash !== derivation.binding_hash) return fieldIssue('NEEDS_EXTERNAL_REVIEW');
   const checked = checkProductionFieldReadBinding(binding, { ...expected, now });
   if (!checked.ok) return checked.errors.some(error => error.code === 'PERMISSION_REVOKED') ? checked : fieldIssue('NEEDS_EXTERNAL_REVIEW', checked.errors[0]?.path ?? '');
   if (expected.purpose !== 'derived_output_read' || !sameCanonical(expected.parent_ref, binding.parent_ref) ||
@@ -31,7 +33,7 @@ export function checkProductionDerivationBinding(value, context) {
   if (!binding.ok || !expected.ok) return fieldIssue('INVALID_INPUT');
   if (!scopeMatches(binding.value, trusted.scope) || !sameCanonical(binding.value, expected.value)) return fieldIssue('DERIVATION_MISMATCH');
   if (binding.value.change_classification !== 'mechanical_only') return fieldIssue('NEEDS_EXTERNAL_REVIEW');
-  const permission = currentDerivedRead(trusted.current_read_binding, trusted.expected_read_binding, trusted.now);
+  const permission = currentDerivedRead(trusted.current_read_binding, trusted.expected_read_binding, trusted.now, binding.value, trusted.scope);
   if (!permission.ok) return permission;
   if (trusted.expected_read_binding.derivation_hash !== binding.value.binding_hash) return fieldIssue('NEEDS_EXTERNAL_REVIEW');
   return fieldOk({ binding_hash: binding.value.binding_hash, relationship: 'exact_candidate_binding', renderer_authorized: false, export_authorized: false, approval_carried_forward: false, authority_issued: false });
@@ -53,7 +55,7 @@ export function compareProductionDerivationReplay(priorValue, requestedValue, co
   if (!prior.ok || !requested.ok || !expected.ok) return fieldIssue('INVALID_INPUT');
   if (!sameCanonical(prior.value, requested.value)) return fieldIssue('REPLAY_CONFLICT');
   if (!scopeMatches(requested.value, trusted.scope) || !sameCanonical(requested.value, expected.value)) return fieldIssue('DERIVATION_MISMATCH');
-  const permission = currentDerivedRead(trusted.current_read_binding, trusted.expected_read_binding, trusted.now);
+  const permission = currentDerivedRead(trusted.current_read_binding, trusted.expected_read_binding, trusted.now, requested.value, trusted.scope);
   if (!permission.ok || trusted.expected_read_binding.derivation_hash !== requested.value.binding_hash) return fieldIssue('NEEDS_EXTERNAL_REVIEW');
   return fieldOk({ relationship: 'same_derivation', disposition: 'NO_OP', new_render_required: false, new_export_required: false, approval_carried_forward: false, current_access_rechecked: true, authority_issued: false });
 }

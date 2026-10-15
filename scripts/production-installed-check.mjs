@@ -2,8 +2,10 @@ import { cp, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { root } from './generate.mjs';
+import { productionReviewInstalledChecks } from './production-review-installed-check.mjs';
 
 export async function productionInstalledChecks(directory, run) {
+  await productionReviewInstalledChecks(directory, run);
   await cp(root+'examples/production-consumer.mjs',join(directory,'production-consumer.mjs'));
   console.log(run(process.execPath,['production-consumer.mjs'],directory).trim());
   await cp(root+'tests/production-operations-types.ts',join(directory,'production-types.mts'));
