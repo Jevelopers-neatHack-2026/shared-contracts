@@ -5,12 +5,28 @@ import { productionIssue, productionOk } from './production-errors.mjs';
 export const productionArchiveLimits = Object.freeze({ payloads: 97, zip_entries: 98, outer_descriptors: 100, entry_bytes: 8388608, payload_bytes: 33554432, archive_bytes: 41943040, manifest_bytes: 4194304, detached_bytes: 1048576 });
 export const safeProductionFilename = name => typeof name === 'string' && name.length <= 128 && /^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(name) && !name.includes('..') && !/[. ]$/.test(name);
 
+// Read the branded view slots rather than caller-owned properties. Buffer and
+// Uint8Array instances may shadow byteLength/buffer/byteOffset with accessors.
+const typedArrayPrototype = Object.getPrototypeOf(Uint8Array.prototype);
+const viewGetters = Object.fromEntries(['buffer', 'byteOffset', 'byteLength'].map(key =>
+  [key, Object.getOwnPropertyDescriptor(typedArrayPrototype, key).get]));
+export function productionByteView(input) {
+  if (!(input instanceof Uint8Array)) return null;
+  try {
+    const length = Reflect.apply(viewGetters.byteLength, input, []);
+    if (!Number.isSafeInteger(length)) return null;
+    return Buffer.from(Reflect.apply(viewGetters.buffer, input, []),
+      Reflect.apply(viewGetters.byteOffset, input, []), length);
+  } catch { return null; }
+}
+
 /** Stored-only, flat regular-file ZIP verification; no inflation or extraction. */
 export function verifyProductionZip(input, expected) {
   const limits = productionArchiveLimits;
-  if (!(input instanceof Uint8Array) || input.byteLength > limits.archive_bytes || !Array.isArray(expected) || expected.length > limits.zip_entries || expected.length < 1) return productionIssue('RESOURCE_LIMIT');
-  if (input.byteLength < 22) return productionIssue('INTEGRITY_FAILURE');
-  const b = Buffer.from(input.buffer, input.byteOffset, input.byteLength), end = b.length - 22;
+  const b = productionByteView(input);
+  if (b === null || b.length > limits.archive_bytes || !Array.isArray(expected) || expected.length > limits.zip_entries || expected.length < 1) return productionIssue('RESOURCE_LIMIT');
+  if (b.length < 22) return productionIssue('INTEGRITY_FAILURE');
+  const end = b.length - 22;
   if (b.readUInt32LE(end) !== 0x06054b50 || b.readUInt16LE(end + 4) !== 0 || b.readUInt16LE(end + 6) !== 0 || b.readUInt16LE(end + 20) !== 0) return productionIssue('INTEGRITY_FAILURE');
   const count = b.readUInt16LE(end + 10), centralStart = b.readUInt32LE(end + 16), centralSize = b.readUInt32LE(end + 12);
   if (count > limits.zip_entries) return productionIssue('RESOURCE_LIMIT');

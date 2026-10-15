@@ -1,0 +1,2144 @@
+{
+  "repository": "Jevelopers-neatHack-2026/shared-contracts",
+  "cutoff_inclusive": "2026-10-13T05:38:56Z",
+  "base_sha": "0e0304cbaabaed0bbfaf522f1e6102765d789d60",
+  "implementation_branch": "fix/eligible-contract-gaps-20261015",
+  "candidate_version": "0.10.3",
+  "runtime": {
+    "agent": "Codex GPT-6 as declared by session; exact provider model ID, effort, priority and billable usage not exposed",
+    "node22": "22.23.3",
+    "node24": "24.21.0",
+    "finance_path_verified": "/private/tmp/node22-tool/node_modules/node/bin/node"
+  },
+  "finance_coordination_input": {
+    "source": "user/orchestrator message in current session",
+    "adoption": "UsageEvent v1, proposal-only shared0.3.0; shared0.10.2 diagnostic is not an accepted upgrade",
+    "reporting_proposal": "ci-finance-reporting-reported-unsettled-1.0.0",
+    "design_sha256": "d055a048e93b80825754963c576bd5f63b3b4008de1dfb412638c69a783483a6",
+    "artifact_independently_verified": false,
+    "new_election_or_ack_obtained": false
+  },
+  "closure_candidates": [],
+  "master_acceptance": "unchanged; integration-evals owns product acceptance",
+  "issues": [
+    {
+      "issue": 1,
+      "created_at": "2026-10-10T06:52:16Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "All 32 required leaves and release gate #3; master acceptance remains integration-evals owned.",
+      "contracts": [],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/1",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/5",
+        "https://github.com/Jevelopers-neatHack-2026/cost-intelligence/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/3",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/4",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/5",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/6",
+        "https://github.com/Jevelopers-neatHack-2026/event-intelligence/issues/3",
+        "https://github.com/Jevelopers-neatHack-2026/event-intelligence/issues/4",
+        "https://github.com/Jevelopers-neatHack-2026/fulfillment-connectors/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/integration-evals/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/print-production/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/team-dashboard/issues/1"
+      ]
+    },
+    {
+      "issue": 3,
+      "created_at": "2026-10-10T19:19:56Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "All leaf evidence, named owner/reviewer ACKs, all nine current exact-artifact consumer receipts, and genuine authority/provider evidence.",
+      "contracts": [],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/3",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/3#issuecomment-6130757659",
+      "cross_repository_issue_references": []
+    },
+    {
+      "issue": 4,
+      "created_at": "2026-10-10T19:21:17Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "Maintainer must name canonical owners/reviewers and obtain actual acknowledgements for all 77 catalog names; every current named_owner/reviewer/owner_acknowledgement is null.",
+      "contracts": [],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/4",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/4#issuecomment-6116351864",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/5",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/3",
+        "https://github.com/Jevelopers-neatHack-2026/event-intelligence/issues/3"
+      ]
+    },
+    {
+      "issue": 5,
+      "created_at": "2026-10-10T19:21:35Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "Canonical foundation is merged; accountable producer/consumer review and accepted exact-artifact handoff remain pending.",
+      "contracts": [],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/5",
+      "latest_comment": null,
+      "cross_repository_issue_references": []
+    },
+    {
+      "issue": 6,
+      "created_at": "2026-10-10T19:21:38Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "Affected producers/consumers must acknowledge compatibility and exact tested migration pins; no automatic version upgrade.",
+      "contracts": [],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/6",
+      "latest_comment": null,
+      "cross_repository_issue_references": []
+    },
+    {
+      "issue": 7,
+      "created_at": "2026-10-10T19:21:46Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "Downstream adapters must demonstrate authenticated scope and identity trace at exact pins; schema checks do not authenticate.",
+      "contracts": [
+        {
+          "name": "CommonEnvelope",
+          "schema": "schemas/CommonEnvelope/1.0.0.json",
+          "helper": "tooling/runtime.mjs",
+          "fixtures": "fixtures/CommonEnvelope.json",
+          "producers": [
+            "shared-contracts"
+          ],
+          "consumers": [
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine",
+            "print-production",
+            "fulfillment-connectors",
+            "cost-intelligence",
+            "team-dashboard",
+            "integration-evals",
+            "getticketstub.com"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/7",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/5",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/5"
+      ]
+    },
+    {
+      "issue": 8,
+      "created_at": "2026-10-10T19:21:49Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "Named field stewards/consumers must accept classification and projection policy; runtime access control remains downstream.",
+      "contracts": [
+        {
+          "name": "EvidenceProjection",
+          "schema": "schemas/EvidenceProjection/1.0.0.json",
+          "helper": "tooling/runtime.mjs",
+          "fixtures": "fixtures/EvidenceProjection.json",
+          "producers": [
+            "shared-contracts"
+          ],
+          "consumers": [
+            "integration-evals",
+            "team-dashboard",
+            "getticketstub.com"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/8",
+      "latest_comment": null,
+      "cross_repository_issue_references": []
+    },
+    {
+      "issue": 9,
+      "created_at": "2026-10-10T19:21:56Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "Affected domains must accept typed errors/partial outcomes and retry/side-effect boundaries at tested pins.",
+      "contracts": [
+        {
+          "name": "ErrorEnvelope",
+          "schema": "schemas/ErrorEnvelope/1.0.0.json",
+          "helper": "tooling/operations.mjs",
+          "fixtures": "fixtures/ErrorEnvelope.json",
+          "producers": [
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine",
+            "print-production",
+            "fulfillment-connectors",
+            "cost-intelligence"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "agent-harness",
+            "team-dashboard",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "PartialFailure",
+          "schema": "schemas/PartialFailure/1.0.0.json",
+          "helper": "tooling/operations.mjs",
+          "fixtures": "fixtures/PartialFailure.json",
+          "producers": [
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine",
+            "print-production",
+            "fulfillment-connectors",
+            "cost-intelligence"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "agent-harness",
+            "team-dashboard",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/9",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/1"
+      ]
+    },
+    {
+      "issue": 10,
+      "created_at": "2026-10-10T19:23:32Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "agent-harness and affected consumers must acknowledge job/cancel/resume mapping and supply actual adapter/recovery evidence.",
+      "contracts": [
+        {
+          "name": "JobStatus",
+          "schema": "schemas/JobStatus/1.0.0.json",
+          "helper": "tooling/operations.mjs",
+          "fixtures": "fixtures/JobStatus.json",
+          "producers": [
+            "agent-harness"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "event-intelligence",
+            "creative-engine",
+            "team-dashboard",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "JobProgress",
+          "schema": "schemas/JobProgress/1.0.0.json",
+          "helper": "tooling/operations.mjs",
+          "fixtures": "fixtures/JobProgress.json",
+          "producers": [
+            "agent-harness"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "event-intelligence",
+            "creative-engine",
+            "team-dashboard",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "Cancellation",
+          "schema": "schemas/Cancellation/1.0.0.json",
+          "helper": "tooling/operations.mjs",
+          "fixtures": "fixtures/Cancellation.json",
+          "producers": [
+            "agent-harness"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "event-intelligence",
+            "creative-engine",
+            "team-dashboard",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "JobCommandAcknowledgement",
+          "schema": "schemas/JobCommandAcknowledgement/1.0.0.json",
+          "helper": "tooling/operations.mjs",
+          "fixtures": "fixtures/JobCommandAcknowledgement.json",
+          "producers": [
+            "agent-harness"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "event-intelligence",
+            "creative-engine",
+            "team-dashboard",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/10",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/13",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/15",
+        "https://github.com/Jevelopers-neatHack-2026/team-dashboard/issues/1"
+      ]
+    },
+    {
+      "issue": 11,
+      "created_at": "2026-10-10T19:23:43Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "cost-intelligence and print-production must elect local-execution pre-ingestion event, delivery and ingestion-receipt mappings, unresolved scope/mode/build handling and dedup/correction semantics. UsageEvent v2 reported-cost lane is not that local mapping.",
+      "contracts": [
+        {
+          "name": "UsageEvent",
+          "schema": "schemas/UsageEvent/1.0.0.json",
+          "helper": "tooling/operations.mjs",
+          "fixtures": "fixtures/UsageEvent.json",
+          "producers": [
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine",
+            "print-production",
+            "fulfillment-connectors"
+          ],
+          "consumers": [
+            "cost-intelligence",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/11",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/11#issuecomment-6116350871",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/14",
+        "https://github.com/Jevelopers-neatHack-2026/cost-intelligence/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/5",
+        "https://github.com/Jevelopers-neatHack-2026/event-intelligence/issues/4"
+      ]
+    },
+    {
+      "issue": 12,
+      "created_at": "2026-10-10T19:23:49Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "cost-intelligence must elect and test genuine resolver/Finance mapping, durable revision/fork/cycle/dedup controls and settlement linkage. Compatibility receipts do not change its proposal-only shared0.3.0 pin.",
+      "contracts": [
+        {
+          "name": "ProviderReportedCostEvidence",
+          "schema": "schemas/ProviderReportedCostEvidence/1.0.0.json",
+          "helper": "tooling/usage-reported-unsettled.mjs",
+          "fixtures": "fixtures/ProviderReportedCostEvidence.json",
+          "producers": [
+            "cost-intelligence"
+          ],
+          "consumers": [
+            "cost-intelligence",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "BudgetReservation",
+          "schema": "schemas/BudgetReservation/2.0.0.json",
+          "helper": "tooling/finance-v2.mjs",
+          "fixtures": "fixtures/BudgetReservation.2_0_0.json",
+          "producers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ReserveRequest",
+          "schema": "schemas/ReserveRequest/2.0.0.json",
+          "helper": "tooling/finance-v2.mjs",
+          "fixtures": "fixtures/ReserveRequest.2_0_0.json",
+          "producers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ReserveResult",
+          "schema": "schemas/ReserveResult/2.0.0.json",
+          "helper": "tooling/finance-v2.mjs",
+          "fixtures": "fixtures/ReserveResult.2_0_0.json",
+          "producers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "SettleRequest",
+          "schema": "schemas/SettleRequest/2.0.0.json",
+          "helper": "tooling/finance-v2.mjs",
+          "fixtures": "fixtures/SettleRequest.2_0_0.json",
+          "producers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "SettleResult",
+          "schema": "schemas/SettleResult/2.0.0.json",
+          "helper": "tooling/finance-v2.mjs",
+          "fixtures": "fixtures/SettleResult.2_0_0.json",
+          "producers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ReleaseRequest",
+          "schema": "schemas/ReleaseRequest/2.0.0.json",
+          "helper": "tooling/finance-v2.mjs",
+          "fixtures": "fixtures/ReleaseRequest.2_0_0.json",
+          "producers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ReleaseResult",
+          "schema": "schemas/ReleaseResult/2.0.0.json",
+          "helper": "tooling/finance-v2.mjs",
+          "fixtures": "fixtures/ReleaseResult.2_0_0.json",
+          "producers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "QueryRequest",
+          "schema": "schemas/QueryRequest/2.0.0.json",
+          "helper": "tooling/finance-v2.mjs",
+          "fixtures": "fixtures/QueryRequest.2_0_0.json",
+          "producers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "QueryResult",
+          "schema": "schemas/QueryResult/2.0.0.json",
+          "helper": "tooling/finance-v2.mjs",
+          "fixtures": "fixtures/QueryResult.2_0_0.json",
+          "producers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "cost-intelligence",
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/12",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/12#issuecomment-6120640527",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/cost-intelligence/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/5",
+        "https://github.com/Jevelopers-neatHack-2026/event-intelligence/issues/4"
+      ]
+    },
+    {
+      "issue": 13,
+      "created_at": "2026-10-10T19:23:52Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "cost-intelligence and team-dashboard must elect canonical query/detail/page/snapshot/timezone/FX/metrics/serialization fields and independent monetary/lifecycle axes. Reporting proposal is not canonical promotion.",
+      "contracts": [
+        {
+          "name": "FinancialSummary",
+          "schema": "schemas/FinancialSummary/1.0.0.json",
+          "helper": "tooling/operations.mjs",
+          "fixtures": "fixtures/FinancialSummary.json",
+          "producers": [
+            "cost-intelligence"
+          ],
+          "consumers": [
+            "team-dashboard",
+            "getticketstub.com",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/13",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/13#issuecomment-6131326038",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/cost-intelligence/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/team-dashboard/issues/1"
+      ]
+    },
+    {
+      "issue": 14,
+      "created_at": "2026-10-10T19:23:57Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "agent-harness, event-intelligence and creative-engine must accept ei-string-v1 versus structured-index-v1 Score mapping and lossless/rejection adapters.",
+      "contracts": [
+        {
+          "name": "DecisionPortRequest",
+          "schema": "schemas/DecisionPortRequest/1.0.0.json",
+          "helper": "tooling/operations.mjs",
+          "fixtures": "fixtures/DecisionPortRequest.json",
+          "producers": [
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "DecisionPortResult",
+          "schema": "schemas/DecisionPortResult/1.0.0.json",
+          "helper": "tooling/operations.mjs",
+          "fixtures": "fixtures/DecisionPortResult.json",
+          "producers": [
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "DecisionReceipt",
+          "schema": "schemas/DecisionReceipt/1.0.0.json",
+          "helper": "tooling/operations.mjs",
+          "fixtures": "fixtures/DecisionReceipt.json",
+          "producers": [
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine"
+          ],
+          "consumers": [
+            "agent-harness",
+            "event-intelligence",
+            "creative-engine",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/14",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/14#issuecomment-6103548374",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/15",
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/5",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/4",
+        "https://github.com/Jevelopers-neatHack-2026/event-intelligence/issues/3"
+      ]
+    },
+    {
+      "issue": 15,
+      "created_at": "2026-10-10T19:24:00Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "getticketstub.com and agent-harness must accept trusted ProjectRequest ingress and migrate local request types at tested immutable pins.",
+      "contracts": [
+        {
+          "name": "ProjectRequest",
+          "schema": "schemas/ProjectRequest/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/ProjectRequest.json",
+          "producers": [
+            "getticketstub.com"
+          ],
+          "consumers": [
+            "agent-harness"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/15",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/13",
+        "https://github.com/Jevelopers-neatHack-2026/getticketstub.com/issues/1"
+      ]
+    },
+    {
+      "issue": 16,
+      "created_at": "2026-10-10T19:24:04Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "event-intelligence and agent-harness must accept ResearchRequest handoff and trusted callback/context mapping at tested pins.",
+      "contracts": [
+        {
+          "name": "ResearchRequest",
+          "schema": "schemas/ResearchRequest/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/ResearchRequest.json",
+          "producers": [
+            "agent-harness"
+          ],
+          "consumers": [
+            "event-intelligence"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/16",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/5",
+        "https://github.com/Jevelopers-neatHack-2026/event-intelligence/issues/3"
+      ]
+    },
+    {
+      "issue": 17,
+      "created_at": "2026-10-10T19:24:13Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "event-intelligence, creative-engine and agent-harness must accept ResearchPackage/EventIntelligencePackage alias/version and three receipt field mappings plus asset permission bindings.",
+      "contracts": [
+        {
+          "name": "EventIntelligencePackage",
+          "schema": "schemas/EventIntelligencePackage/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/EventIntelligencePackage.json",
+          "producers": [
+            "event-intelligence"
+          ],
+          "consumers": [
+            "creative-engine",
+            "agent-harness",
+            "getticketstub.com",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ResearchRequestReceipt",
+          "schema": "schemas/ResearchRequestReceipt/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/ResearchRequestReceipt.json",
+          "producers": [
+            "event-intelligence"
+          ],
+          "consumers": [
+            "agent-harness",
+            "creative-engine",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ResearchAnswerReceipt",
+          "schema": "schemas/ResearchAnswerReceipt/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/ResearchAnswerReceipt.json",
+          "producers": [
+            "event-intelligence"
+          ],
+          "consumers": [
+            "agent-harness",
+            "creative-engine",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ResearchBatchReceipt",
+          "schema": "schemas/ResearchBatchReceipt/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/ResearchBatchReceipt.json",
+          "producers": [
+            "event-intelligence"
+          ],
+          "consumers": [
+            "agent-harness",
+            "creative-engine",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/17",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/17#issuecomment-6103780925",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/3",
+        "https://github.com/Jevelopers-neatHack-2026/event-intelligence/issues/3"
+      ]
+    },
+    {
+      "issue": 18,
+      "created_at": "2026-10-10T19:24:22Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "event-intelligence, creative-engine and application must acknowledge correction/invalidation mapping and supply actual trusted issuer/CAS/delivery evidence.",
+      "contracts": [
+        {
+          "name": "ResearchCorrectionRequest",
+          "schema": "schemas/ResearchCorrectionRequest/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/ResearchCorrectionRequest.json",
+          "producers": [
+            "getticketstub.com",
+            "event-intelligence"
+          ],
+          "consumers": [
+            "event-intelligence",
+            "creative-engine",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ResearchCorrectionReceipt",
+          "schema": "schemas/ResearchCorrectionReceipt/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/ResearchCorrectionReceipt.json",
+          "producers": [
+            "getticketstub.com",
+            "event-intelligence"
+          ],
+          "consumers": [
+            "event-intelligence",
+            "creative-engine",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ResearchInvalidation",
+          "schema": "schemas/ResearchInvalidation/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/ResearchInvalidation.json",
+          "producers": [
+            "getticketstub.com",
+            "event-intelligence"
+          ],
+          "consumers": [
+            "event-intelligence",
+            "creative-engine",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/18",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/3",
+        "https://github.com/Jevelopers-neatHack-2026/event-intelligence/issues/19",
+        "https://github.com/Jevelopers-neatHack-2026/event-intelligence/issues/20"
+      ]
+    },
+    {
+      "issue": 19,
+      "created_at": "2026-10-10T19:24:29Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "creative-engine and event-intelligence must accept exact brief/package/fact/asset mapping with actual rights and uncertainty handling.",
+      "contracts": [
+        {
+          "name": "CreativeBrief",
+          "schema": "schemas/CreativeBrief/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/CreativeBrief.json",
+          "producers": [
+            "creative-engine"
+          ],
+          "consumers": [
+            "agent-harness",
+            "creative-engine"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/19",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/10",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/3"
+      ]
+    },
+    {
+      "issue": 20,
+      "created_at": "2026-10-10T19:24:35Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "creative-engine and application consumers must acknowledge control migration and safe allowlist policy at tested pins.",
+      "contracts": [
+        {
+          "name": "DesignControlSchema",
+          "schema": "schemas/DesignControlSchema/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/DesignControlSchema.json",
+          "producers": [
+            "creative-engine"
+          ],
+          "consumers": [
+            "getticketstub.com"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/20",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/4",
+        "https://github.com/Jevelopers-neatHack-2026/getticketstub.com/issues/1"
+      ]
+    },
+    {
+      "issue": 21,
+      "created_at": "2026-10-10T19:24:41Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "creative-engine and application consumers must acknowledge immutable design/artwork/preview lineage and actual persistence/byte evidence.",
+      "contracts": [
+        {
+          "name": "DesignVersion",
+          "schema": "schemas/DesignVersion/1.0.0.json",
+          "helper": "tooling/research-creative.mjs",
+          "fixtures": "fixtures/DesignVersion.json",
+          "producers": [
+            "creative-engine"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "print-production",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/21",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/15",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/6",
+        "https://github.com/Jevelopers-neatHack-2026/print-production/issues/1"
+      ]
+    },
+    {
+      "issue": 22,
+      "created_at": "2026-10-10T19:25:26Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "getticketstub.com, creative-engine and print-production must elect new ApprovalReceipt version or verified Preview/1-to-ArtifactFile/2 binding record, supply actual issuer/preview bytes, scope/audience/use and expiry/revocation/replay semantics.",
+      "contracts": [
+        {
+          "name": "ApprovalReference",
+          "schema": "schemas/ApprovalReference/1.0.0.json",
+          "helper": "tooling/commerce-evidence.mjs",
+          "fixtures": "fixtures/ApprovalReference.json",
+          "producers": [
+            "getticketstub.com"
+          ],
+          "consumers": [
+            "creative-engine",
+            "print-production",
+            "event-intelligence",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ApprovalReceipt",
+          "schema": "schemas/ApprovalReceipt/1.0.0.json",
+          "helper": "tooling/commerce-evidence.mjs",
+          "fixtures": "fixtures/ApprovalReceipt.json",
+          "producers": [
+            "getticketstub.com"
+          ],
+          "consumers": [
+            "creative-engine",
+            "print-production",
+            "event-intelligence",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ApprovalVerificationRequest",
+          "schema": "schemas/ApprovalVerificationRequest/1.0.0.json",
+          "helper": "tooling/commerce-evidence.mjs",
+          "fixtures": "fixtures/ApprovalVerificationRequest.json",
+          "producers": [
+            "getticketstub.com"
+          ],
+          "consumers": [
+            "creative-engine",
+            "print-production",
+            "event-intelligence",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ApprovalVerificationOutcome",
+          "schema": "schemas/ApprovalVerificationOutcome/1.0.0.json",
+          "helper": "tooling/commerce-evidence.mjs",
+          "fixtures": "fixtures/ApprovalVerificationOutcome.json",
+          "producers": [
+            "getticketstub.com"
+          ],
+          "consumers": [
+            "creative-engine",
+            "print-production",
+            "event-intelligence",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/22",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/22#issuecomment-6116351160",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/19",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/6",
+        "https://github.com/Jevelopers-neatHack-2026/getticketstub.com/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/print-production/issues/1"
+      ]
+    },
+    {
+      "issue": 23,
+      "created_at": "2026-10-10T19:25:33Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "creative-engine, print-production and application must accept manifest/consumption mapping and genuine current approval/locator authority; depends on #22.",
+      "contracts": [
+        {
+          "name": "ArtifactHandoffManifest",
+          "schema": "schemas/ArtifactHandoffManifest/1.0.0.json",
+          "helper": "tooling/commerce-evidence.mjs",
+          "fixtures": "fixtures/ArtifactHandoffManifest.json",
+          "producers": [
+            "creative-engine"
+          ],
+          "consumers": [
+            "print-production",
+            "getticketstub.com",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ArtifactConsumptionReceipt",
+          "schema": "schemas/ArtifactConsumptionReceipt/1.0.0.json",
+          "helper": "tooling/commerce-evidence.mjs",
+          "fixtures": "fixtures/ArtifactConsumptionReceipt.json",
+          "producers": [
+            "creative-engine"
+          ],
+          "consumers": [
+            "print-production",
+            "getticketstub.com",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/23",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/19",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/6",
+        "https://github.com/Jevelopers-neatHack-2026/print-production/issues/1"
+      ]
+    },
+    {
+      "issue": 24,
+      "created_at": "2026-10-10T19:25:36Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "print-production and fulfillment-connectors need independent ProductionBundleRef publication authority, compatible preview mapping (#22), PrintSpec/capability/preflight trusted refs, access/expiry/rights/destination/shipping mappings and #37 byte-boundary repair.",
+      "contracts": [
+        {
+          "name": "ProductionBundle",
+          "schema": "schemas/ProductionBundle/1.0.0.json",
+          "helper": "tooling/commerce-evidence.mjs",
+          "fixtures": "fixtures/ProductionBundle.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/24",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/24#issuecomment-6120473529",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/fulfillment-connectors/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/print-production/issues/1"
+      ]
+    },
+    {
+      "issue": 25,
+      "created_at": "2026-10-10T19:25:39Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "fulfillment-connectors and application must elect versioned included-tax/incomplete-line/option/material/lead-time/expiry provenance and quote/spec/destination/bundle identity mappings; reject unsupported quantity/precision rather than truncate.",
+      "contracts": [
+        {
+          "name": "FulfillmentQuote",
+          "schema": "schemas/FulfillmentQuote/1.0.0.json",
+          "helper": "tooling/commerce-evidence.mjs",
+          "fixtures": "fixtures/FulfillmentQuote.json",
+          "producers": [
+            "fulfillment-connectors"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "agent-harness"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/25",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/25#issuecomment-6105393594",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/fulfillment-connectors/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/getticketstub.com/issues/1"
+      ]
+    },
+    {
+      "issue": 26,
+      "created_at": "2026-10-10T19:25:41Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "getticketstub.com and fulfillment-connectors must supply genuine order issuer/current purchase verification, accepted changed-terms mapping and exact consumer pins.",
+      "contracts": [
+        {
+          "name": "OrderAuthorization",
+          "schema": "schemas/OrderAuthorization/1.0.0.json",
+          "helper": "tooling/commerce-evidence.mjs",
+          "fixtures": "fixtures/OrderAuthorization.json",
+          "producers": [
+            "getticketstub.com"
+          ],
+          "consumers": [
+            "agent-harness",
+            "fulfillment-connectors"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/26",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/13",
+        "https://github.com/Jevelopers-neatHack-2026/fulfillment-connectors/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/getticketstub.com/issues/1"
+      ]
+    },
+    {
+      "issue": 27,
+      "created_at": "2026-10-10T19:25:44Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "fulfillment-connectors and application must elect versioned shipment/item/cumulative-versus-delta/partial quantities, safe tracking, source collision/effect identity and authenticated terminal-correction mapping.",
+      "contracts": [
+        {
+          "name": "FulfillmentStatus",
+          "schema": "schemas/FulfillmentStatus/1.0.0.json",
+          "helper": "tooling/commerce-evidence.mjs",
+          "fixtures": "fixtures/FulfillmentStatus.json",
+          "producers": [
+            "fulfillment-connectors"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "agent-harness",
+            "team-dashboard",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/27",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/27#issuecomment-6104990327",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/13",
+        "https://github.com/Jevelopers-neatHack-2026/fulfillment-connectors/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/team-dashboard/issues/1"
+      ]
+    },
+    {
+      "issue": 28,
+      "created_at": "2026-10-10T19:25:46Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "integration-evals must accept actual pinned sanitized evidence; local fixtures cannot change master acceptance.",
+      "contracts": [
+        {
+          "name": "EvaluationEvidence",
+          "schema": "schemas/EvaluationEvidence/1.0.0.json",
+          "helper": "tooling/commerce-evidence.mjs",
+          "fixtures": "fixtures/EvaluationEvidence.json",
+          "producers": [
+            "integration-evals"
+          ],
+          "consumers": [
+            "team-dashboard",
+            "getticketstub.com"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/28",
+      "latest_comment": null,
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/5",
+        "https://github.com/Jevelopers-neatHack-2026/integration-evals/issues/1",
+        "https://github.com/Jevelopers-neatHack-2026/team-dashboard/issues/1"
+      ]
+    },
+    {
+      "issue": 29,
+      "created_at": "2026-10-10T19:26:10Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "All-nine consumer checkouts, accepted exact artifact pins, commands and accountable ACKs are absent from the checked-in runner manifest; production prerequisites #32/#34-#37 and independent review remain.",
+      "contracts": [],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/29",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/29#issuecomment-6131315360",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/agent-harness/issues/5",
+        "https://github.com/Jevelopers-neatHack-2026/creative-engine/issues/3",
+        "https://github.com/Jevelopers-neatHack-2026/event-intelligence/issues/3",
+        "https://github.com/Jevelopers-neatHack-2026/integration-evals/issues/1"
+      ]
+    },
+    {
+      "issue": 30,
+      "created_at": "2026-10-10T19:26:12Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "All-nine current consumer handoff/ACK records plus repaired candidate exact artifact review; historical archive receipts do not transfer.",
+      "contracts": [],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/30",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/30#issuecomment-6132664865",
+      "cross_repository_issue_references": [
+        "https://github.com/Jevelopers-neatHack-2026/integration-evals/issues/1"
+      ]
+    },
+    {
+      "issue": 32,
+      "created_at": "2026-10-11T03:00:53Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "fulfillment-connectors producer and print-production #6/application consumers must accept raw capture projection, exact units/geometry/format and legacy mapping, with tested pins; no real supplier/SKU/region/shipping acceptance.",
+      "contracts": [
+        {
+          "name": "FulfillmentCapabilitySnapshot",
+          "schema": "schemas/FulfillmentCapabilitySnapshot/1.0.0.json",
+          "helper": "tooling/capability.mjs",
+          "fixtures": "fixtures/FulfillmentCapabilitySnapshot.json",
+          "producers": [
+            "fulfillment-connectors"
+          ],
+          "consumers": [
+            "print-production",
+            "getticketstub.com",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "PrintSpec",
+          "schema": "schemas/PrintSpec/1.0.0.json",
+          "helper": "tooling/capability.mjs",
+          "fixtures": "fixtures/PrintSpec.json",
+          "producers": [
+            "fulfillment-connectors"
+          ],
+          "consumers": [
+            "print-production",
+            "getticketstub.com",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/32",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/32#issuecomment-6106481064",
+      "cross_repository_issue_references": []
+    },
+    {
+      "issue": 34,
+      "created_at": "2026-10-11T08:53:57Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "print-production and application/fulfillment/evaluation consumers must supply actual D3 registry/facts and D9 host service policy, trusted identities and accepted six-operation bindings.",
+      "contracts": [
+        {
+          "name": "ProductionReference",
+          "schema": "schemas/ProductionReference/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ProductionReference.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ProductionPolicy",
+          "schema": "schemas/ProductionPolicy/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ProductionPolicy.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ProductionRuntime",
+          "schema": "schemas/ProductionRuntime/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ProductionRuntime.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ProductionResource",
+          "schema": "schemas/ProductionResource/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ProductionResource.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ArtifactRef",
+          "schema": "schemas/ArtifactRef/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ArtifactRef.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "JobRef",
+          "schema": "schemas/JobRef/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/JobRef.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ComposeArtifactRequest",
+          "schema": "schemas/ComposeArtifactRequest/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ComposeArtifactRequest.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "PersonalizeBatchRequest",
+          "schema": "schemas/PersonalizeBatchRequest/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/PersonalizeBatchRequest.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "InspectArtifactRequest",
+          "schema": "schemas/InspectArtifactRequest/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/InspectArtifactRequest.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ExportBundleRequest",
+          "schema": "schemas/ExportBundleRequest/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ExportBundleRequest.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "CompareTemplateRequest",
+          "schema": "schemas/CompareTemplateRequest/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/CompareTemplateRequest.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ArtifactStatusRequest",
+          "schema": "schemas/ArtifactStatusRequest/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ArtifactStatusRequest.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ProductionError",
+          "schema": "schemas/ProductionError/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ProductionError.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ProductionDiagnostic",
+          "schema": "schemas/ProductionDiagnostic/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ProductionDiagnostic.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "CompatibilityReport",
+          "schema": "schemas/CompatibilityReport/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/CompatibilityReport.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "PreflightReport",
+          "schema": "schemas/PreflightReport/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/PreflightReport.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ProductionBundleRef",
+          "schema": "schemas/ProductionBundleRef/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ProductionBundleRef.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ArtifactManifestStatus",
+          "schema": "schemas/ArtifactManifestStatus/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ArtifactManifestStatus.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ProductionExecutionPins",
+          "schema": "schemas/ProductionExecutionPins/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ProductionExecutionPins.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/34",
+      "latest_comment": null,
+      "cross_repository_issue_references": []
+    },
+    {
+      "issue": 35,
+      "created_at": "2026-10-11T08:53:58Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "print-production, creative-engine and application must accept actual template/font/runtime/facts/composition/geometry/approval bindings; genuine renderer evidence remains downstream.",
+      "contracts": [
+        {
+          "name": "TemplateSpec",
+          "schema": "schemas/TemplateSpec/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/TemplateSpec.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "Composition",
+          "schema": "schemas/Composition/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/Composition.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/35",
+      "latest_comment": null,
+      "cross_repository_issue_references": []
+    },
+    {
+      "issue": 36,
+      "created_at": "2026-10-11T08:54:00Z",
+      "live_state": "open",
+      "disposition": "existing_implementation_external_acceptance_or_owner_decision_pending",
+      "remaining_requirement": "Existing open PR #46 owns added CSV/draft/repair proposal; eight recorded field review findings require current exact-head disposition. print-production/application must elect CSV roster, draft access/retention, repair approval and lifecycle policy.",
+      "contracts": [
+        {
+          "name": "PersonalizationSchema",
+          "schema": "schemas/PersonalizationSchema/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/PersonalizationSchema.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "RowResult",
+          "schema": "schemas/RowResult/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/RowResult.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "BatchResult",
+          "schema": "schemas/BatchResult/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/BatchResult.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "CsvDialect",
+          "schema": "schemas/CsvDialect/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/CsvDialect.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "CsvMapping",
+          "schema": "schemas/CsvMapping/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/CsvMapping.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "CsvCheckpoint",
+          "schema": "schemas/CsvCheckpoint/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/CsvCheckpoint.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/36#issuecomment-6118250597",
+      "cross_repository_issue_references": []
+    },
+    {
+      "issue": 37,
+      "created_at": "2026-10-11T08:54:01Z",
+      "live_state": "open",
+      "disposition": "local_repair_pending_review_and_external_acceptance",
+      "remaining_requirement": "Local LEGACY009 repair implemented in this branch. Independent exact-base/head review, affected print-production/fulfillment/application ACKs, trusted publication/authority/geometry and post-merge evidence still required. PR #46 field findings remain separate.",
+      "contracts": [
+        {
+          "name": "ArtifactFile",
+          "schema": "schemas/ArtifactFile/2.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ArtifactFile.2_0_0.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        },
+        {
+          "name": "ProductionBundleDetached",
+          "schema": "schemas/ProductionBundleDetached/1.0.0.json",
+          "helper": "tooling/production-operations.mjs",
+          "fixtures": "fixtures/ProductionBundleDetached.json",
+          "producers": [
+            "print-production"
+          ],
+          "consumers": [
+            "getticketstub.com",
+            "fulfillment-connectors",
+            "agent-harness",
+            "integration-evals"
+          ],
+          "named_owner": null,
+          "reviewer": null,
+          "owner_acknowledgement": null
+        }
+      ],
+      "issue_url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/37",
+      "latest_comment": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/issues/37#issuecomment-6132660118",
+      "cross_repository_issue_references": []
+    }
+  ],
+  "implementation_commit": "b49ccd0a83b2bb02887269c85f98ec65dd309e0c",
+  "validation": {
+    "mode": "offline npm configuration and synthetic package-owned inputs; no OS network trace; npm update notifier was observed in earlier installed runs; no provider operation was executed",
+    "schema_and_fixture_changes": "No schema or fixture bytes changed relative to base; generated schema manifest changes only package version.",
+    "checks": [
+      {
+        "command": "npm run typecheck",
+        "exit": 0,
+        "log": "/tmp/sc-older-issues/check-0.log",
+        "log_sha256": "f102767909a94b0704eb466d9a76b6485fa99da571827633e2dfcd025e80cab3"
+      },
+      {
+        "command": "npm run contracts:check",
+        "exit": 0,
+        "log": "/tmp/sc-older-issues/check-1.log",
+        "log_sha256": "7bf7968be2d4eeafe9848eace37f181cc92489f849dc8264013a404dd81368d3"
+      },
+      {
+        "command": "npm run contracts:fixtures",
+        "exit": 0,
+        "log": "/tmp/sc-older-issues/check-2.log",
+        "log_sha256": "5cfd9ef291880cc0d31d51230417378a8b2d62045dde252dbeab3dcbc5f3b79f"
+      },
+      {
+        "command": "npm run contracts:compat",
+        "exit": 0,
+        "log": "/tmp/sc-older-issues/check-3.log",
+        "log_sha256": "1c39f09e64d2890e8b801b4093122be688e1dfdde279a1dc4fb6256b6897ae6a"
+      },
+      {
+        "command": "npm run docs:check",
+        "exit": 0,
+        "log": "/tmp/sc-older-issues/check-4.log",
+        "log_sha256": "e96006c9cf051e78677d479c9eb7d9c66d86b7789499f77a5f0ee6ca66d9fae4"
+      },
+      {
+        "command": "npm run generate -- --check",
+        "exit": 0,
+        "log": "/tmp/sc-older-issues/check-5.log",
+        "log_sha256": "74ba4a72372e5c00c952df7ed59d855923a3e575729872bd27589a5f62bce66f"
+      },
+      {
+        "command": "npm run contracts:inventory -- --require-owner --require-consumer --require-leaf --require-version-policy --require-field-classification --require-fixtures --require-docs --require-consumer-pins",
+        "exit": 1,
+        "log": "/tmp/sc-older-issues/check-6.log",
+        "log_sha256": "984d909188685f6e227134642baf88e7edb3c3e2b1e0f8ec1da9f5c2a680e516"
+      },
+      {
+        "command": "npm run contracts:consumers",
+        "exit": 1,
+        "log": "/tmp/sc-older-issues/check-7.log",
+        "log_sha256": "ba0704c7792654d7de1789d0fd409d4b3ca841433d37c44666ad138e0182094e"
+      },
+      {
+        "command": "npm run contracts:coverage -- --human",
+        "exit": 0,
+        "log": "/tmp/sc-older-issues/check-8.log",
+        "log_sha256": "d8e63a601d8c1b12443a4266cff21f013a6233dac2299455e9d32cdb2804742e"
+      },
+      {
+        "command": "npm pack --dry-run",
+        "exit": 255,
+        "log": "/tmp/sc-older-issues/check-9.log",
+        "log_sha256": "4c06d97d2241c8fc93ea43ac3a89bd310717677d800a308a123d5341ef279df6",
+        "rerun_exit": 0,
+        "rerun_log": "/tmp/sc-older-issues/pack-final.log",
+        "rerun_log_sha256": "be587a3e471b1d5764d9ef3c2b7c51d0eec755fbf22a548836195bd7b267f77f"
+      }
+    ],
+    "node24_targeted": {
+      "tests": 48,
+      "pass": 48,
+      "fail": 0,
+      "skipped": 0
+    },
+    "new_regressions": {
+      "source_node22": {
+        "pass": 7,
+        "fail": 0
+      },
+      "installed_node22": {
+        "pass": 7,
+        "fail": 0
+      },
+      "installed_node24": {
+        "pass": 7,
+        "fail": 0
+      },
+      "isolated_original_verifier_files": {
+        "pass": 0,
+        "fail": 7,
+        "exit": 1,
+        "interpretation": "expected regression detection; original verifier files from base, current unchanged runtime/generated fixtures"
+      }
+    },
+    "installed_archives": {
+      "node22": "passed",
+      "node24": "passed",
+      "schema_versions": 88,
+      "fixture_cases": 1673,
+      "negative_assertions": 1191,
+      "archive_sha256": "0880ee85124ae1a5eb4223c2d57bfb82d68af8fc0800b39368cd509d4287cf53",
+      "archive_integrity": "sha512-PnfdNrn1bdSp6IxqJMlfQvIOBRaJV9TtqJsvwr1Pcx4OHKdnyzfnzXNgSNikgQQKPF/TBwLFRB33wSxqLZ5EHA==",
+      "reproducible_across_runtimes": true,
+      "consumer_adoption": "not established"
+    },
+    "setup_failures": [
+      "Initial default Node24.15.0 test run lacked ajv dependencies; not supported runtime evidence.",
+      "First supported-runtime suite: 5310 pass, 85 fail; hook failures from read-only default npm cache. Rerun uses writable /tmp cache.",
+      "Initial installed and pack commands encountered default npm cache EPERM; reruns with writable temporary caches passed."
+    ],
+    "full_suite_node22": {
+      "command": "npm test",
+      "node": "22.23.3",
+      "exit": 0,
+      "tests": 5395,
+      "pass": 5395,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "duration_ms": 208161.669458,
+      "log_sha256": "6a9ea25c45b27774332fd9f52029e0bd300fb135a17a49ce9d3038e45b440d7f",
+      "environment": {
+        "npm_config_cache": "/tmp/sc-older-issues/npm-cache-tests",
+        "npm_config_offline": "true",
+        "npm_config_audit": "false",
+        "npm_config_fund": "false",
+        "npm_config_update_notifier": "false",
+        "SC_AJV_ROOT": "workspace node_modules"
+      }
+    },
+    "logs": {
+      "byte-tests": "6fe430f002b45ad561d791d7a890f7b06f506acec461df27e473d316dbcb7a81",
+      "tests24": "9ef386295dcd00a804685cbcd4f4f89609c3b7e2a8f33d90b3e2542d0c023e7e",
+      "installed22": "dcfe0e3831f3d7328a4079a36202250fbbf8837ef8079af91ca117fd01183c69",
+      "installed24": "87806a65f39332146c3b421719380112c0ecdd4773449066f1522ad60f91a43f",
+      "regression-baseline": "18876618a5116b2d7d001f0416d502abc479db1745e7c800256de0ce236155e1",
+      "generate": "e32ad41b816b08c35a7e21924b7e10132907e65ade7f3ebe96a0819750e4aa89",
+      "pack-final": "be587a3e471b1d5764d9ef3c2b7c51d0eec755fbf22a548836195bd7b267f77f"
+    }
+  },
+  "artifact_digests": {
+    "generated/schema-manifest.json": "f4866258b4571fea2ccb01b325f7b393bf9d1838200eaf3fce73d5f7245587c1",
+    "generated/fixture-manifest.json": "caa4c6b4b5ea01346a5d1a7603acc472caecc2a51263f70ece3cf6a0caddb5bb",
+    "generated/package-content-manifest.json": "4032db950bdb85e2c8e557422146d7f36324849c7b339ef0f8ed3a84904cec45",
+    "tests/production-byte-view.test.mjs": "7f8d8b785c95385d2168daa8f1af6c117850b20408775761f8ed7e24a973e542"
+  },
+  "existing_pr46": {
+    "url": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/pull/46",
+    "head": "9d4dae867c55b09d0227c835272a326fc47529a9",
+    "base": "cd961246234f8666303f306ac349c69b8b3236cd",
+    "state": "OPEN",
+    "disposition": "separate existing proposal; no edits or transfer of review approval"
+  },
+  "draft_pr": "https://github.com/Jevelopers-neatHack-2026/shared-contracts/pull/53",
+  "handoff": "All frozen entries remain open. No owner election/ACK was invented. Supervisor supplies independent review of final exact base/head, routes external decisions and owns closure after merge/post-merge evidence. Reported local checks are contribution evidence only.",
+  "review_followup": {
+    "id": "SC-REVIEW-001",
+    "reviewed_head": "cfe24f708949aeee658b74a564f1268e30df2f6c",
+    "blocking_findings": [],
+    "disposition": "Claim narrowed to TypedArray byteLength/buffer/byteOffset properties. Buffer.from may invoke an own byteLength getter on the backing ArrayBuffer; short and throwing values fail closed with typed rejection. This does not guarantee exclusion of every caller getter.",
+    "requirement": "SC-PROD-BUNDLE.5 requires finite byte limits and bounded parsing, not general getter non-execution.",
+    "runtime_changed": false,
+    "package_bytes_changed": false,
+    "validation": {
+      "source_node22": {
+        "tests": 50,
+        "pass": 50,
+        "fail": 0,
+        "skipped": 0
+      },
+      "source_node24": {
+        "tests": 50,
+        "pass": 50,
+        "fail": 0,
+        "skipped": 0
+      },
+      "installed_node22": "passed, includes 9 byte-view tests",
+      "installed_node24": "passed, includes 9 byte-view tests",
+      "archive_sha256": "0880ee85124ae1a5eb4223c2d57bfb82d68af8fc0800b39368cd509d4287cf53",
+      "full_suite": "Prior 5395/5395 result belongs to implementation b49ccd0; follow-up changes only tests and evidence; affected and installed checks rerun.",
+      "log_sha256": {
+        "review001-source22": "9635a3877dc5fb2bebd3854b70a9fdc9042402482edd9d58ea671774fc14432c",
+        "review001-source24": "4a785d508e2fe85bf3b31c140cfd0cbb572de6a5b03c1de9bf7034c0a0ef352f",
+        "review001-installed22": "c68df602d4ba584433e247190e5447cc75cba521b69ccf434c58b961cbbf2af7",
+        "review001-installed24": "08dbd0b2a9977961ce3091a24b4faa5bf28f3482f1c4d54c06550e02f73f18e6"
+      },
+      "generation": {
+        "generated_files": 109,
+        "drift": "none",
+        "exit": 0,
+        "log_sha256": "74ba4a72372e5c00c952df7ed59d855923a3e575729872bd27589a5f62bce66f"
+      }
+    }
+  }
+}
