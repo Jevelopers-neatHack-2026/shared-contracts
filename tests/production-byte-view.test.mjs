@@ -46,3 +46,31 @@ test('forged and detached byte views fail with typed results', () => {
     assert.equal(verifyProductionZip(bytes, [{}]).ok, false);
   }
 });
+
+// Buffer.from may consult the backing ArrayBuffer's own byteLength property.
+// The no-getter claim applies only to the TypedArray properties above.
+for (const kind of ['short', 'throwing']) {
+  test(`backing ArrayBuffer ${kind} byteLength getter executes but fails closed`, () => {
+    let calls = 0;
+    const backed = source => {
+      const buffer = new ArrayBuffer(source.length);
+      const bytes = new Uint8Array(buffer);
+      bytes.set(source);
+      Object.defineProperty(buffer, 'byteLength', { get() {
+        calls++;
+        if (kind === 'throwing') throw new Error('backing-buffer getter');
+        return 1;
+      } });
+      return bytes;
+    };
+    const files = observedFiles();
+    const manifest = files.find(file => file.filename === 'manifest.json');
+    assert.equal(parseProductionCanonicalBytes('ProductionBundle', '2.0.0', backed(manifest.bytes), productionArchiveLimits.manifest_bytes).errors[0].code, 'RESOURCE_LIMIT');
+    const expected = calibration.trusted_commitment.file_set.filter(file => !['archive', 'detached'].includes(file.role));
+    const archive = files.find(file => file.filename === 'archive.zip');
+    assert.equal(verifyProductionZip(backed(archive.bytes), expected).errors[0].code, 'RESOURCE_LIMIT');
+    const observed = files.map(file => ({filename: file.filename, bytes: backed(file.bytes)}));
+    assert.equal(verifyProductionBundleFiles(observed, byteContext()).errors[0].code, 'INTEGRITY_FAILURE');
+    assert.ok(calls >= 3, 'backing-buffer getters are observed, not excluded');
+  });
+}
