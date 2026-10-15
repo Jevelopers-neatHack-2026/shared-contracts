@@ -1,3 +1,4 @@
+import { productionByteView } from './production-zip.mjs';
 import { productionContentHash } from './production-values.mjs';
 import { checkProductionFieldReadBinding } from './production-field-boundaries-results.mjs';
 import { hashBytes, validateContract } from './runtime.mjs';
@@ -49,19 +50,20 @@ export function checkProductionCsvInputBytes(inputRef, bytes, expected) {
   if (!policy.ok) return policy;
   if (!scopeMatches(reference.value, trusted.scope)) return fieldIssue('NOT_FOUND');
   if (reference.value.byte_size > policy.value.maximum_bytes) return fieldIssue('RESOURCE_LIMIT', '/byte_size');
-  if (!(bytes instanceof Uint8Array) || bytes.byteLength > productionFieldLimits.maximum_csv_bytes || bytes.byteLength > policy.value.maximum_bytes) return fieldIssue('RESOURCE_LIMIT');
+  const view = productionByteView(bytes);
+  if (view === null || view.length > productionFieldLimits.maximum_csv_bytes || view.length > policy.value.maximum_bytes) return fieldIssue('RESOURCE_LIMIT');
   if (Object.getOwnPropertySymbols(bytes).length) return fieldIssue('INVALID_INPUT');
-  if (bytes.byteLength !== reference.value.byte_size) return fieldIssue('INPUT_CHANGED', '/byte_size');
-  const byteHash = hashBytes(bytes);
+  if (view.length !== reference.value.byte_size) return fieldIssue('INPUT_CHANGED', '/byte_size');
+  const byteHash = hashBytes(view);
   if (byteHash !== reference.value.byte_hash) return fieldIssue('INPUT_CHANGED', '/byte_hash');
-  if (bytes.byteLength >= 3 && bytes[0] === 0xef && bytes[1] === 0xbb && bytes[2] === 0xbf) return fieldIssue('BOM_FORBIDDEN');
+  if (view.length >= 3 && view[0] === 0xef && view[1] === 0xbb && view[2] === 0xbf) return fieldIssue('BOM_FORBIDDEN');
   try {
-    new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(bytes);
+    new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(view);
   } catch (error) {
     if (error instanceof TypeError) return fieldIssue('INVALID_ENCODING');
     throw error;
   }
-  return fieldOk({ byte_hash: byteHash, byte_size: bytes.byteLength, decoded_text_returned: false, parser_invoked: false });
+  return fieldOk({ byte_hash: byteHash, byte_size: view.length, decoded_text_returned: false, parser_invoked: false });
 }
 
 function exactCsvReference(reference, object) {
@@ -100,6 +102,7 @@ export function checkProductionCsvBatchRequest(value, context) {
   if (!policy.ok) return policy;
   const reference = checkedFieldRecord('ProductionCsvInputReference', input_ref);
   if (!reference.ok) return reference;
+  if (reference.value.byte_size > policy.value.maximum_bytes) return fieldIssue('RESOURCE_LIMIT', '/byte_size');
   const dialectResult = validateContract('CsvDialect', dialect);
   const mappingResult = validateContract('CsvMapping', mapping);
   const rowPolicyResult = validateContract('PersonalizationSchema', row_policy);
@@ -124,7 +127,7 @@ export function checkProductionCsvBatchRequest(value, context) {
     const expectedCheckpoint = checkedFieldRecord('ProductionCsvCheckpoint', expected_checkpoint);
     if (!checkedCheckpoint.ok || !expectedCheckpoint.ok || !sameCanonical(checkedCheckpoint.value, expectedCheckpoint.value)) return fieldIssue('CHECKPOINT_INVALID');
     const c = checkedCheckpoint.value;
-    if (!sameCanonical(c.input_ref, reference.value) || !exactCsvReference(c.dialect_ref, dialectResult.value) ||
+    if (!scopeMatches(c, scope) || !sameCanonical(c.input_ref, reference.value) || !exactCsvReference(c.dialect_ref, dialectResult.value) ||
         !exactCsvReference(c.mapping_ref, mappingResult.value) || !exactCsvReference(c.input_policy_ref, policy.value) ||
         c.input_policy_hash !== policy.value.content_hash || c.byte_offset > reference.value.byte_size || c.complete_record !== true) return fieldIssue('CHECKPOINT_INVALID');
   }

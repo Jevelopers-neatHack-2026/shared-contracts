@@ -1,3 +1,4 @@
+import { productionByteView } from './production-zip.mjs';
 import { validateContract } from './runtime.mjs';
 import { checkRowResult } from './production-rows.mjs';
 import { productionArchiveLimits, verifyProductionBundleFiles } from './production-bundle.mjs';
@@ -80,7 +81,7 @@ export function checkProductionDraftRowResult(value, context) {
       !['queued', 'running', 'succeeded', 'failed', 'cancelled', 'partially_succeeded', 'unknown'].includes(trusted.expected_batch_state.status) ||
       !['published', 'unpublished', 'unknown'].includes(trusted.expected_batch_state.publication_state)) return fieldIssue('INVALID_TRUST_CONTEXT');
   if (!sameCanonical(trusted.expected_batch_state.job, rowResult.job)) return fieldIssue('BINDING_MISMATCH');
-  if (trusted.expected_batch_state.acceptance_policy === 'atomic' && trusted.expected_batch_state.status !== 'succeeded' && draftOutput.publication_state === 'published') return fieldIssue('ATOMIC_NOT_COMMITTED');
+  if (trusted.expected_batch_state.acceptance_policy === 'atomic' && trusted.expected_batch_state.status !== 'succeeded' && (draftOutput.publication_state === 'published' || rowResult.artifact_ref !== null || rowResult.bundle_ref !== null || (draftOutput.handoff_eligibility === 'eligible' && (draftOutput.artifact_ref !== null || draftOutput.bundle_ref !== null)))) return fieldIssue('ATOMIC_NOT_COMMITTED');
   if (!sameCanonical(draftOutput, trusted.expected_draft_output)) return fieldIssue('BINDING_MISMATCH', '/draft_output');
   if (!scopeMatches(rowResult, trusted.scope) || !sameCanonical(rowResult.job, trusted.job)) return fieldIssue('NOT_FOUND');
   const resultCheck = checkRowResult(rowResult, { scope: trusted.scope, job: trusted.job, original_rows: trusted.original_rows, verified_rows: trusted.verified_rows ?? {} });
@@ -89,6 +90,8 @@ export function checkProductionDraftRowResult(value, context) {
   if (!storageCheck.ok) return storageCheck;
   if (draftOutput.handoff_eligibility === 'eligible' && (rowResult.eligibility.state !== 'eligible' || draftOutput.integrity_state !== 'verified')) return fieldIssue('INVALID_PUBLICATION', '/draft_output/handoff_eligibility');
   if (draftOutput.publication_state === 'published' && (draftOutput.handoff_eligibility !== 'eligible' || rowResult.status !== 'succeeded' || rowResult.artifact_ref === null || rowResult.bundle_ref === null)) return fieldIssue('INVALID_PUBLICATION', '/draft_output/publication_state');
+  if (draftOutput.publication_state === 'published' && (!sameCanonical(rowResult.artifact_ref, draftOutput.artifact_ref) || !sameCanonical(rowResult.bundle_ref, draftOutput.bundle_ref))) return fieldIssue('BINDING_MISMATCH', '/draft_output');
+  if (!scopeMatches(trusted.expected_read_binding?.scope, trusted.scope)) return fieldIssue('BINDING_MISMATCH', '/read_binding/scope');
   const access = checkProductionFieldReadBinding(trusted.read_binding, { ...trusted.expected_read_binding, now: trusted.now });
   if (!access.ok) return access;
   if (trusted.expected_read_binding.purpose !== 'draft_row_read' || !sameCanonical(trusted.expected_read_binding.association, { kind: 'row', job_ref: rowResult.job, row_id: rowResult.row_id, ordinal: rowResult.ordinal, input_hash: rowResult.input_hash }) ||
@@ -115,6 +118,8 @@ export function checkProductionDraftBatchResult(value, context) {
   if (trusted.expected_batch_state === undefined || trusted.expected_batch_state === null) return fieldIssue('NEEDS_EXTERNAL_REVIEW');
   if (!Array.isArray(originals) || !Array.isArray(readBindings) || !Array.isArray(expectedReads) || !Array.isArray(expectedOutputs) || !isRecord(trusted.expected_batch_state)) return fieldIssue('INVALID_TRUST_CONTEXT');
   if (originals.length > productionFieldLimits.maximum_rows) return fieldIssue('RESOURCE_LIMIT');
+  if (originals.some(row => !isRecord(row) || typeof row.row_id !== 'string')) return fieldIssue('INVALID_TRUST_CONTEXT');
+  if (new Set(originals.map(row => row.row_id)).size !== originals.length) return fieldIssue('ROW_DUPLICATE');
   if (originals.length !== batch.rows.length ||
       readBindings.length !== originals.length || expectedReads.length !== originals.length || expectedOutputs.length !== originals.length) return fieldIssue('ROW_ORDER_MISMATCH');
   if (!scopeMatches(batch, trusted.scope) || !sameCanonical(batch.job, trusted.job)) return fieldIssue('NOT_FOUND');
@@ -174,9 +179,11 @@ function observedFileArray(files) {
     const bytes = itemDescriptors.bytes.value;
     if (typeof filename !== 'string' || !(bytes instanceof Uint8Array)) return fieldIssue('INVALID_INPUT', '/' + index);
     if (Object.getOwnPropertySymbols(bytes).length) return fieldIssue('INVALID_INPUT', '/' + index);
-    totalBytes += bytes.byteLength;
-    if (bytes.byteLength > productionArchiveLimits.entry_bytes || totalBytes > productionArchiveLimits.payload_bytes) return fieldIssue('RESOURCE_LIMIT', '/' + index);
-    observed.push({ filename, bytes });
+    const view = productionByteView(bytes);
+    if (view === null) return fieldIssue('INVALID_INPUT', '/' + index);
+    totalBytes += view.length;
+    if (view.length > productionArchiveLimits.entry_bytes || totalBytes > productionArchiveLimits.payload_bytes) return fieldIssue('RESOURCE_LIMIT', '/' + index);
+    observed.push({ filename, bytes: view });
   }
   return fieldOk(observed);
 }

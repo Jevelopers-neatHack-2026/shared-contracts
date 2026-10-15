@@ -121,6 +121,7 @@ pass('INST-STORAGE-BYTES', verifyProductionDraftStoredFiles(observedFiles, calib
 const derivation = clone((await read('ProductionDerivationBinding')).valid);
 sealRecord(derivation, 'binding_hash');
 const derivedRead = clone(readBinding);
+derivedRead.association = clone(derivation.association);
 derivedRead.purpose = 'derived_output_read'; derivedRead.parent_ref = clone(derivation.parent_ref); derivedRead.derived_ref = clone(derivation.derived_ref); derivedRead.composition_ref = clone(derivation.derived_ref); derivedRead.derivation_hash = derivation.binding_hash;
 sealRecord(derivedRead, 'binding_hash');
 const derivedReadExpected = readExpectation(derivedRead, now);

@@ -1,5 +1,9 @@
 # Candidate changes
 
+## Production field review continuation (unreleased)
+
+Repairs the eight local guard omissions reproduced at PR46 head 9d4dae8: full derivation/read scope and tuple joins, atomic output visibility, published RowResult/draft/read reference equality, intrinsic TypedArray byte bounds, descriptor policy ceilings, checkpoint scope and unique original-row identity. Reuses PR53 byte normalization without claiming that backing ArrayBuffer getters never execute. Existing schemas, fixtures, contract versions and consumer SDK pins are unchanged. New source/archive bytes require their own independent review; no proposal, domain or release acceptance is established.
+
 ## 0.11.1 (unreleased private candidate)
 
 Repackages the opt-in production-field proposal as package version 0.11.1 and includes the three unchanged current-main readiness and receipt documents in the package content manifest. The added ReportingQuery/ReportingExportManifest work remains isolated proposal material and does not add canonical exports, Finance semantics, query services, persistence, metrics, browser validation, adoption, or GAP-001 acceptance. The proposal remains unaccepted; no owner authority, consumer pin, historical acceptance, or prior archive approval transfers to these bytes.

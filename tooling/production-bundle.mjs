@@ -1,6 +1,6 @@
 import { validateContract, validateContractVersion, parseContractVersion, canonicalJson, hashManifest, hashBytes, checkTrustedContext } from './runtime.mjs';
 import { productionIssue, productionOk } from './production-errors.mjs';
-import { productionArchiveLimits, safeProductionFilename, verifyProductionZip } from './production-zip.mjs';
+import { productionArchiveLimits, safeProductionFilename, verifyProductionZip, productionByteView } from './production-zip.mjs';
 export { productionArchiveLimits, safeProductionFilename, verifyProductionZip } from './production-zip.mjs';
 
 const same = (a, b) => canonicalJson(a) === canonicalJson(b);
@@ -57,9 +57,11 @@ function inventory(files, maximum) {
 export function parseProductionCanonicalBytes(contract, version, bytes, maximum) {
   const ceiling = contract === 'ProductionBundle' && version === '2.0.0' ? productionArchiveLimits.manifest_bytes : contract === 'ProductionBundleDetached' && version === '1.0.0' ? productionArchiveLimits.detached_bytes : null;
   if (ceiling === null) return productionIssue('UNSUPPORTED_VERSION');
-  if (!(bytes instanceof Uint8Array) || !Number.isSafeInteger(maximum) || maximum < 1 || maximum > ceiling || bytes.byteLength > maximum) return productionIssue('RESOURCE_LIMIT');
+  if (!Number.isSafeInteger(maximum) || maximum < 1 || maximum > ceiling) return productionIssue('RESOURCE_LIMIT');
+  const view = productionByteView(bytes);
+  if (view === null || view.length > maximum) return productionIssue('RESOURCE_LIMIT');
   let json;
-  try { json = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(bytes); } catch (error) { if (error instanceof TypeError) return productionIssue('INTEGRITY_FAILURE'); throw error; }
+  try { json = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(view); } catch (error) { if (error instanceof TypeError) return productionIssue('INTEGRITY_FAILURE'); throw error; }
   const budget = jsonBudget(json);
   if (!budget.ok) return budget;
   const parsed = parseContractVersion(contract, version, json);
@@ -100,9 +102,11 @@ export function verifyProductionBundleFiles(input, context) {
     const descriptor = outer.value.find(file => file.filename === observed.filename);
     if (!descriptor || !(observed.bytes instanceof Uint8Array)) return productionIssue('INTEGRITY_FAILURE');
     const bound = descriptor.role === 'archive' ? limits.archive_bytes : descriptor.role === 'manifest' ? limits.manifest_bytes : descriptor.role === 'detached' ? limits.detached_bytes : limits.entry_bytes;
-    if (observed.bytes.byteLength > bound) return productionIssue('RESOURCE_LIMIT');
-    if (observed.bytes.byteLength !== descriptor.byte_size || hashBytes(observed.bytes) !== descriptor.byte_hash) return productionIssue('INTEGRITY_FAILURE');
-    actual.set(observed.filename, observed.bytes);
+    const bytes = productionByteView(observed.bytes);
+    if (bytes === null) return productionIssue('INTEGRITY_FAILURE');
+    if (bytes.length > bound) return productionIssue('RESOURCE_LIMIT');
+    if (bytes.length !== descriptor.byte_size || hashBytes(bytes) !== descriptor.byte_hash) return productionIssue('INTEGRITY_FAILURE');
+    actual.set(observed.filename, bytes);
   }
   const manifest = parseProductionCanonicalBytes('ProductionBundle', '2.0.0', actual.get('manifest.json'), limits.manifest_bytes);
   if (!manifest.ok) return manifest;
