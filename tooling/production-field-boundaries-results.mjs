@@ -177,10 +177,10 @@ function observedFileArray(files) {
     if (Object.keys(itemDescriptors).sort().join('|') !== 'bytes|filename' || ['bytes', 'filename'].some(key => !itemDescriptors[key].enumerable || !Object.hasOwn(itemDescriptors[key], 'value'))) return fieldIssue('INVALID_INPUT', '/' + index);
     const filename = itemDescriptors.filename.value;
     const bytes = itemDescriptors.bytes.value;
-    if (typeof filename !== 'string' || !(bytes instanceof Uint8Array)) return fieldIssue('INVALID_INPUT', '/' + index);
-    if (Object.getOwnPropertySymbols(bytes).length) return fieldIssue('INVALID_INPUT', '/' + index);
+    if (typeof filename !== 'string') return fieldIssue('INVALID_INPUT', '/' + index);
     const view = productionByteView(bytes);
     if (view === null) return fieldIssue('INVALID_INPUT', '/' + index);
+    if (Object.getOwnPropertySymbols(bytes).length) return fieldIssue('INVALID_INPUT', '/' + index);
     totalBytes += view.length;
     if (view.length > productionArchiveLimits.entry_bytes || totalBytes > productionArchiveLimits.payload_bytes) return fieldIssue('RESOURCE_LIMIT', '/' + index);
     observed.push({ filename, bytes: view });

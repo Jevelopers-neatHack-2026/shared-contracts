@@ -8,11 +8,14 @@ export const safeProductionFilename = name => typeof name === 'string' && name.l
 // Read the branded view slots rather than caller-owned properties. Buffer and
 // Uint8Array instances may shadow byteLength/buffer/byteOffset with accessors.
 const typedArrayPrototype = Object.getPrototypeOf(Uint8Array.prototype);
+const typedArrayTag = Object.getOwnPropertyDescriptor(typedArrayPrototype, Symbol.toStringTag).get;
 const viewGetters = Object.fromEntries(['buffer', 'byteOffset', 'byteLength'].map(key =>
   [key, Object.getOwnPropertyDescriptor(typedArrayPrototype, key).get]));
 export function productionByteView(input) {
-  if (!(input instanceof Uint8Array)) return null;
   try {
+    // Read the intrinsic brand without traversing caller-controlled prototypes.
+    // This rejects proxies, including revoked proxies, without invoking traps.
+    if (Reflect.apply(typedArrayTag, input, []) !== 'Uint8Array') return null;
     const length = Reflect.apply(viewGetters.byteLength, input, []);
     if (!Number.isSafeInteger(length)) return null;
     return Buffer.from(Reflect.apply(viewGetters.buffer, input, []),
