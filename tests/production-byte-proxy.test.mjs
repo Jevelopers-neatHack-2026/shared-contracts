@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { runInNewContext } from 'node:vm';
 import { productionByteView } from '../tooling/production-zip.mjs';
 import { parseProductionCanonicalBytes, verifyProductionBundleFiles, verifyProductionZip, productionArchiveLimits } from '../tooling/production-operations.mjs';
 import { observedFiles, byteContext, calibration } from './production-seeds.mjs';
@@ -61,16 +62,26 @@ for (const route of Object.keys(routes)) {
     ['DataView', () => new DataView(new ArrayBuffer(1))],
     ['Uint16Array', () => new Uint16Array(1)],
     ['Uint8ClampedArray', () => new Uint8ClampedArray(1)],
-    ['ArrayBuffer', () => new ArrayBuffer(1)]
+    ['ArrayBuffer', () => new ArrayBuffer(1)],
+    ['forged Uint8Array tag', () => ({ [Symbol.toStringTag]: 'Uint8Array', buffer: new ArrayBuffer(1), byteOffset: 0, byteLength: 1 })]
   ]) test(`${route} rejects ${kind} as non-byte input`, () => rejectsBytes(route, value()));
 }
 
-for (const kind of ['Buffer', 'Uint8Array']) {
+for (const kind of ['Buffer', 'Uint8Array', 'cross-realm Uint8Array', 'hostile-prototype Uint8Array']) {
+  let calls = 0;
   const asBytes = source => {
     if (kind === 'Buffer') return Buffer.from(source);
+    if (kind === 'cross-realm Uint8Array') {
+      return runInNewContext('Uint8Array.from([0, 0, ...source, 0, 0]).subarray(2, source.length + 2)', { source: Array.from(source) });
+    }
     const padded = new Uint8Array(source.length + 4);
     padded.set(source, 2);
-    return padded.subarray(2, source.length + 2);
+    const bytes = padded.subarray(2, source.length + 2);
+    if (kind === 'hostile-prototype Uint8Array') {
+      const trap = () => { calls++; throw new Error('caller-controlled byte-array prototype'); };
+      Object.setPrototypeOf(bytes, new Proxy(Uint8Array.prototype, { getPrototypeOf: trap, get: trap, ownKeys: trap }));
+    }
+    return bytes;
   };
   test(`${kind} byte views preserve their exact content and offset`, () => {
     const source = manifest(), bytes = asBytes(source), view = productionByteView(bytes);
@@ -91,5 +102,6 @@ for (const kind of ['Buffer', 'Uint8Array']) {
     assert.equal(input.ok, true);
     assert.equal(input.value.parser_invoked, false);
     assert.equal(input.value.decoded_text_returned, false);
+    assert.equal(calls, 0);
   });
 }
