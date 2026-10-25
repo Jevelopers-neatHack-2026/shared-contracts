@@ -94,13 +94,13 @@ export function verifyProductionBundleFiles(input, context) {
   const outer = inventory(trusted.value.file_set, limits.outer_descriptors);
   if (!outer.ok) return outer;
   for (const file of input) {
-    if (file === null || typeof file !== 'object' || Array.isArray(file) || !safeProductionFilename(file.filename) || !(file.bytes instanceof Uint8Array)) return productionIssue('INTEGRITY_FAILURE');
+    if (file === null || typeof file !== 'object' || Array.isArray(file) || !safeProductionFilename(file.filename)) return productionIssue('INTEGRITY_FAILURE');
   }
   if (new Set(input.map(file => file.filename?.toLowerCase())).size !== input.length || input.length !== outer.value.length) return productionIssue('INTEGRITY_FAILURE');
   const actual = new Map();
   for (const observed of input) {
     const descriptor = outer.value.find(file => file.filename === observed.filename);
-    if (!descriptor || !(observed.bytes instanceof Uint8Array)) return productionIssue('INTEGRITY_FAILURE');
+    if (!descriptor) return productionIssue('INTEGRITY_FAILURE');
     const bound = descriptor.role === 'archive' ? limits.archive_bytes : descriptor.role === 'manifest' ? limits.manifest_bytes : descriptor.role === 'detached' ? limits.detached_bytes : limits.entry_bytes;
     const bytes = productionByteView(observed.bytes);
     if (bytes === null) return productionIssue('INTEGRITY_FAILURE');

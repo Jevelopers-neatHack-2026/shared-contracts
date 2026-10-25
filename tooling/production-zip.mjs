@@ -11,7 +11,9 @@ const typedArrayPrototype = Object.getPrototypeOf(Uint8Array.prototype);
 const viewGetters = Object.fromEntries(['buffer', 'byteOffset', 'byteLength'].map(key =>
   [key, Object.getOwnPropertyDescriptor(typedArrayPrototype, key).get]));
 export function productionByteView(input) {
-  if (!(input instanceof Uint8Array)) return null;
+  // The intrinsic brand check rejects proxies without consulting their traps.
+  // In particular, instanceof alone throws for revoked byte-view proxies.
+  if (!ArrayBuffer.isView(input) || !(input instanceof Uint8Array)) return null;
   try {
     const length = Reflect.apply(viewGetters.byteLength, input, []);
     if (!Number.isSafeInteger(length)) return null;
