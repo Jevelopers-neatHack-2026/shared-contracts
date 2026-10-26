@@ -56,7 +56,7 @@
     "docs/provider-reported-cost-evidence.md": "sha256:8ce2f4a5bad72c909e4f29d9987e92716f5e82f7681804d526afbd4209dbe97f",
     "docs/qa/sc-29-error-location-validation.json": "sha256:9086a0760876ef01c4d8c139acc1b69691ce001097de7ff60bd135abe3e9b80b",
     "docs/qa/sc-30-duplicate-key-validation.json": "sha256:e95239647e02126f54336ec87b4b714b3e923d0f7c4ba1b74434fc55c3243a50",
-    "docs/receipt-checker.md": "sha256:27ef3c01608095a0e9e948802cdedb86f97d971d1a4af22e4f09cab35d2d281e",
+    "docs/receipt-checker.md": "sha256:dc0bdd2b40e4ce75a5d2a13b58c724437939dd5c44ac2031888aaa2c36fb48b8",
     "docs/release-guide.md": "sha256:d8f6a71bc3c940cd50100019c5bf787ac05c68e22ecd47ad293af59df4f851c0",
     "docs/requirements.json": "sha256:ee6d1eaa0417eaf27084c9efa0f4da7929fe073345075fa0ab25c4a9e734c9e2",
     "docs/research-creative-contracts.md": "sha256:50458be984e6e6414cc5f0b81d6e1f1d5d3f4be2d693dca27a4a983759e684c8",
@@ -414,5 +414,5 @@
     "tooling/runtime.mjs": "sha256:33f32454e7ce8a8200dfa7ed7f2afc2c2a9c4c3d3c2d49d2179c8f650b04d892",
     "tooling/usage-reported-unsettled.mjs": "sha256:51278762dfbe24cd901a036e7c8075f8c005418b542dabe62fa149114d538ad0"
   },
-  "digest": "sha256:a6db7b941a69d20c8e4757becbe953fd3918651679fa1bd416591c7a7523fa15"
+  "digest": "sha256:2bb67cabcb056d73b830c0d198e24c8930640f52fe2368ce776aa4fb1305433c"
 }

@@ -51,6 +51,87 @@ const complete = () => ({
 const codes = (r) => r.errors.map((e) => `${e.code}@${e.path}`);
 const mutate = (fn) => { const r = complete(); fn(r); return checkReceipt(r); };
 
+const listFields = [
+  ['consumer_run.contracts_exercised', (r, v) => { r.consumer_run.contracts_exercised = v; }, (i) => `ProjectRequest${i}/1.0.0`, 500],
+  ['consumer_run.scenarios', (r, v) => { r.consumer_run.scenarios = v; }, (i) => ({ name: `scenario-${i}`, command: 'npm test', exit_code: 0 }), 500],
+  ['consumer_run.limitations', (r, v) => { r.consumer_run.limitations = v; }, () => 'Synthetic only.', 50],
+  ['consumer_run.evidence_links', (r, v) => { r.consumer_run.evidence_links = v; }, () => `${REPO}/actions/runs/123456`, 50],
+  ['consumer_run.failures.identifiers', (r, v) => { r.consumer_run.failures = { count: v.length, identifiers: v }; }, (i) => `failure-${i}`, 1000],
+  ['consumer_run.skips.identifiers', (r, v) => { r.consumer_run.skips = { count: v.length, identifiers: v }; }, (i) => `skip-${i}`, 1000],
+  ['stages.domain_owner_acceptance.contracts_and_versions', (r, v) => { r.stages.domain_owner_acceptance.contracts_and_versions = v; }, (i) => `ProjectRequest${i}/1.0.0`, 500],
+];
+
+for (const [path, setList, item, maximum] of listFields) {
+  test(`already-parsed ${path} rejects sparse and inherited-only items`, () => {
+    for (const missing of [0, 1, 2]) {
+      const sparse = Array.from({ length: 3 }, (_, i) => item(i));
+      delete sparse[missing];
+      const result = mutate((r) => setList(r, sparse));
+      assert.equal(result.status, 'INVALID', `missing index ${missing}`);
+      assert.ok(codes(result).includes(`BAD_FORMAT@${path}`));
+      assert.equal(Object.hasOwn(sparse, missing), false, 'input must not be repaired');
+
+      const inherited = Array.from({ length: 3 }, (_, i) => item(i));
+      delete inherited[missing];
+      Object.setPrototypeOf(inherited, Object.assign(Object.create(Array.prototype), { [missing]: item(missing) }));
+      const inheritedResult = mutate((r) => setList(r, inherited));
+      assert.equal(inheritedResult.status, 'INVALID', `inherited index ${missing}`);
+      assert.ok(codes(inheritedResult).includes(`BAD_FORMAT@${path}`));
+    }
+    const singleHole = mutate((r) => setList(r, new Array(1)));
+    assert.equal(singleHole.status, 'INVALID');
+    assert.ok(codes(singleHole).includes(`BAD_FORMAT@${path}`));
+  });
+
+  test(`already-parsed ${path} retains dense-list bounds and results`, () => {
+    const dense = Object.freeze(Array.from({ length: maximum }, (_, i) => item(i)));
+    const result = mutate((r) => setList(r, dense));
+    const tally = path.includes('.failures.') || path.includes('.skips.');
+    assert.equal(result.status, tally ? 'INCOMPLETE' : 'METADATA_COMPLETE');
+    assert.ok(!codes(result).includes(`BAD_FORMAT@${path}`));
+    const oversized = mutate((r) => setList(r, Array.from({ length: maximum + 1 }, (_, i) => item(i))));
+    assert.equal(oversized.status, 'INVALID');
+    assert.ok(codes(oversized).includes(`BAD_FORMAT@${path}`));
+  });
+}
+
+test('scenario validation does not call a caller-owned forEach method', () => {
+  let called = false;
+  const scenarios = [{}];
+  scenarios.forEach = () => { called = true; };
+  const result = mutate((r) => { r.consumer_run.scenarios = scenarios; });
+  assert.equal(result.status, 'INCOMPLETE');
+  assert.ok(codes(result).includes('MISSING_FIELD@consumer_run.scenarios[0].command'));
+  assert.ok(codes(result).includes('MISSING_FIELD@consumer_run.scenarios[0].exit_code'));
+  assert.equal(called, false);
+});
+
+test('contract uniqueness does not call a caller-owned iterator', () => {
+  let called = false;
+  const contracts = ['ProjectRequest/1.0.0', 'ProjectRequest/1.0.0'];
+  contracts[Symbol.iterator] = function* () {
+    called = true;
+    yield 'ProjectRequest/1.0.0';
+    yield 'UsageEvent/1.0.0';
+  };
+  const result = mutate((r) => { r.consumer_run.contracts_exercised = contracts; });
+  assert.equal(result.status, 'INVALID');
+  assert.ok(codes(result).includes('BAD_FORMAT@consumer_run.contracts_exercised'));
+  assert.equal(called, false);
+});
+
+test('list predicates do not call caller-owned every methods', () => {
+  for (const [path, setList] of listFields) {
+    let called = false;
+    const list = [null];
+    list.every = () => { called = true; return true; };
+    const result = mutate((r) => setList(r, list));
+    assert.equal(result.status, 'INVALID');
+    assert.ok(codes(result).includes(`BAD_FORMAT@${path}`));
+    assert.equal(called, false);
+  }
+});
+
 test('complete synthetic receipt is METADATA_COMPLETE with null stages', () => {
   const r = checkReceipt(complete());
   assert.equal(r.status, 'METADATA_COMPLETE');
