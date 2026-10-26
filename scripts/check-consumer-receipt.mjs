@@ -41,6 +41,15 @@ const isSha256Hex = hex(64);
 const isPrefixed256 = (v) => typeof v === 'string' && /^sha256:[0-9a-f]{64}$/.test(v);
 const isCount = (v) => Number.isSafeInteger(v) && v >= 0;
 const isPositive = (v) => Number.isSafeInteger(v) && v > 0;
+// Library callers can supply arrays with holes or inherited numeric entries.
+// Neither represents a supplied JSON list item; every() alone skips holes.
+function isList(value, maximum, check) {
+  if (!Array.isArray(value) || value.length > maximum) return false;
+  for (let i = 0; i < value.length; i++) {
+    if (!Object.hasOwn(value, i) || !check(value[i])) return false;
+  }
+  return true;
+}
 // SemVer 2.0.0: numeric prerelease identifiers have no leading zeros; build
 // metadata (+...) is dot-separated non-empty alphanumeric/hyphen identifiers.
 const SEMVER = '(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)' +
@@ -208,22 +217,25 @@ export function checkReceipt(receipt) {
       read(env, 'os', 'consumer_run.environment', (v) => isStr(v, 64));
     }
     read(run, 'caller', 'consumer_run', isToken);
-    const ex = read(run, 'contracts_exercised', 'consumer_run', (v) => Array.isArray(v) && v.length <= 500 && v.every(isContract));
+    const ex = read(run, 'contracts_exercised', 'consumer_run', (v) => isList(v, 500, isContract));
     if (ex !== ABSENT) {
       need(ex.length > 0, 'EMPTY_LIST', 'consumer_run.contracts_exercised');
-      need(new Set(ex).size === ex.length, 'BAD_FORMAT', 'consumer_run.contracts_exercised');
+      const unique = new Set();
+      for (let i = 0; i < ex.length; i++) unique.add(ex[i]);
+      need(unique.size === ex.length, 'BAD_FORMAT', 'consumer_run.contracts_exercised');
     }
     const tc = section(run, 'type_check', 'consumer_run', ['command', 'exit_code']);
     if (tc !== ABSENT) checkCommand(tc, 'consumer_run.type_check', false);
 
-    const sc = read(run, 'scenarios', 'consumer_run', (v) => Array.isArray(v) && v.length <= 500 && v.every(isObj));
+    const sc = read(run, 'scenarios', 'consumer_run', (v) => isList(v, 500, isObj));
     if (sc !== ABSENT) {
       need(sc.length > 0, 'EMPTY_LIST', 'consumer_run.scenarios');
-      sc.forEach((item, i) => {
+      for (let i = 0; i < sc.length; i++) {
+        const item = sc[i];
         const path = `consumer_run.scenarios[${i}]`;
         exact(item, ['name', 'command', 'exit_code'], path);
         checkCommand(item, path, true);
-      });
+      }
     }
 
     const counts = section(run, 'counts', 'consumer_run', ['tests', 'fixture_cases', 'negative_assertions']);
@@ -236,12 +248,12 @@ export function checkReceipt(receipt) {
     checkTally(run, 'failures', 'NONZERO_FAILURES');
     checkTally(run, 'skips', 'NONZERO_SKIPS');
 
-    const lim = read(run, 'limitations', 'consumer_run', (v) => Array.isArray(v) && v.length <= 50 && v.every((x) => isStr(x, 1000)));
+    const lim = read(run, 'limitations', 'consumer_run', (v) => isList(v, 50, (x) => isStr(x, 1000)));
     if (lim !== ABSENT) need(lim.length > 0, 'EMPTY_LIST', 'consumer_run.limitations');
 
     read(run, 'authority', 'consumer_run', (v) => v === 'synthetic' || (isObj(v) &&
       Object.keys(v).length === 2 && isToken(v.reference_id) && isPrefixed256(v.digest)));
-    const links = read(run, 'evidence_links', 'consumer_run', (v) => Array.isArray(v) && v.length <= 50 && v.every(isPinnedUrl));
+    const links = read(run, 'evidence_links', 'consumer_run', (v) => isList(v, 50, isPinnedUrl));
     if (links !== ABSENT) need(links.length > 0, 'EMPTY_LIST', 'consumer_run.evidence_links');
   }
 
@@ -260,7 +272,7 @@ export function checkReceipt(receipt) {
     const t = section(run, key, 'consumer_run', ['count', 'identifiers']);
     if (t === ABSENT) return;
     const count = read(t, 'count', path, isCount);
-    const ids = read(t, 'identifiers', path, (v) => Array.isArray(v) && v.length <= 1000 && v.every(isToken));
+    const ids = read(t, 'identifiers', path, (v) => isList(v, 1000, isToken));
     if (count === ABSENT || ids === ABSENT) return;
     if (count !== ids.length) add('MISMATCH', `${path}.identifiers`);
     else if (count > 0) add(nonzeroCode, `${path}.count`);
@@ -276,7 +288,7 @@ export function checkReceipt(receipt) {
     if (key === 'domain_owner_acceptance') {
       exact(obj, ['contracts_and_versions', 'accountable_owner', 'reviewer',
         'acknowledgement_ref', 'acknowledgement_digest', 'scope_and_limitations'], path);
-      optional(obj, 'contracts_and_versions', (v) => Array.isArray(v) && v.length <= 500 && v.every(isContract));
+      optional(obj, 'contracts_and_versions', (v) => isList(v, 500, isContract));
       optional(obj, 'accountable_owner', isName);
       optional(obj, 'reviewer', isName);
       optional(obj, 'acknowledgement_ref', isPinnedUrl);

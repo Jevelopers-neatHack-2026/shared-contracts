@@ -9,6 +9,14 @@ node --test tests/consumer-receipt.test.mjs tests/consumer-receipt-duplicates.te
 
 Library use: `import { checkReceipt } from './scripts/check-consumer-receipt.mjs'` returns `{ status, errors, notice }` for an already-parsed value.
 
+Already-parsed list fields must be dense arrays with an own item at every index.
+Sparse slots and inherited-only items are `INVALID`; the checker does not fill
+or mutate them. Validation reads indexed items rather than caller-provided
+`every`, `forEach`, or iterator methods, including when checking contract
+uniqueness. Ordinary dense JSON lists retain their existing bounds and results.
+This is not a sandbox for arbitrary executable JavaScript objects such as
+proxies or getters; prefer the file/CLI boundary for untrusted serialized input.
+
 ## What the result means
 
 | Status | Exit | Meaning |
